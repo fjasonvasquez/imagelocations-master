@@ -1,0 +1,29 @@
+<% title @project.name %>
+
+
+<% cache(@project) do %>
+<div class="row-fluid row-header">
+	<div class="span8">
+		<h2 class="page-title"><%= @project.name %></h2>
+	</div>
+	
+	<div class="span2">
+		
+	</div>
+	
+	<div class="span2">
+		<%= render "layouts/moodboard" %>	
+	</div>
+</div>
+<div class="row-header-pad">
+	
+</div>
+
+<% end %>
+<% unless @project.current_asset_by_key(:cover).nil? %>
+	<div class="project-logo">
+		<%= image_tag(@project.current_asset_by_key(:cover).source_url(:gallery_thumb)) %>
+	</div>
+<% end %>
+
+<%= render :partial => "shared/locations/view", :locals => {:locations => @locations, :pagination_scope => @project_related_entities, :view => view_as} %>

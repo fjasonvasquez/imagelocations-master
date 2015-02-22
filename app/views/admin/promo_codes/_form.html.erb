@@ -1,0 +1,21 @@
+<div class="box">
+	<%= simple_form_for([:admin, @promo_code]) do |f| %>
+	
+	<%= f.input :code %>
+	
+	
+	<%= f.input :discount, :as => :decimal %>
+	
+	<%= f.input :status, as: :select, 
+				:collection => PromoCode::PROMO_CODE_STATUSES.collect {|p| [ I18n.t(p.to_sym), p ] }, 
+				:selected => f.object.status, :input_html => {:class => 'input-block-level'}
+		%>
+
+	<%= f.association :plan, :collection => Plan.site(current_site.id), :input_html => { :class => "select2" } %>
+	
+	<div class="form-actions">
+		<%= f.submit @promo_code.new_record? ? "Add Promo Code" : "Update Promo Code", 
+		   				@promo_code.new_record? ? { :class => 'btn btn-primary' } : { :class => 'btn btn-success' } %>
+	</div>
+	<% end %>
+</div>

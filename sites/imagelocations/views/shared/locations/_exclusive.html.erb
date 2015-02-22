@@ -1,0 +1,11 @@
+<% cache(cache_key_for_location(location,"featured")) do %>
+	<%= content_tag :li, :class => "span3" do %>
+	
+		<%= link_to location_path(location) do %>
+			<div class="category-thumb">
+				<%= image_tag(location.current_asset_by_key(:cover).source_url(:grid), :lazy => true) unless location.current_asset_by_key(:cover).nil?%>
+			</div>
+			<span class="location-name"><%= formatted_location_name(location,"-") %></span>
+		<% end %>
+	<% end %>
+<% end %>

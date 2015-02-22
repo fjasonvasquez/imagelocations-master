@@ -1,0 +1,16 @@
+<%= simple_form_for @asset, :url => admin_assets_path({ :type => 'Image'}) do |f| %>
+	
+	<%= f.input :source, as: :file do %>
+	   			<div class="fileupload fileupload-new" data-provides="fileupload">
+				   	<div class="fileupload-new thumbnail" style="width: 50px; height: 50px;"><img src="" /></div>
+				   	<div class="fileupload-preview fileupload-exists thumbnail" style="width: 50px; height: 50px;"></div>
+				   	<span class="btn btn-file"><span class="fileupload-new">Select image</span><span class="fileupload-exists">Change</span><%= f.file_field :source %></span>
+				   	<a href="#" class="btn fileupload-exists" data-dismiss="fileupload">Remove</a>
+				   
+	   			</div>
+	   			
+	   		<% end %>
+
+  	<%= f.button :submit, :class => 'btn-primary' %>
+  	
+ <% end %>

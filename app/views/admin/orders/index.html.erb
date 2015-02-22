@@ -1,0 +1,72 @@
+<% title "Orders" %>
+
+<% content_for :search do %>
+	
+<% end %>
+
+<% content_for :top_nav do %>
+	<% if can? :create, Order %>
+		<!--<li><%= link_to content_tag(:i,"",:class => "icon-archive") + "New Order", new_admin_order_path, :class => "" %></li>-->
+	<% end %>
+<% end %>
+
+<h1 class="page-title"><i class="icon-archive"></i>&nbsp;Orders</h1>
+<div class="box">
+	
+	
+	<table class="table table-striped table-bordered">
+	<thead>
+	  <tr>
+	  	<th>Order Date</th>
+	  	<th>User</th>
+	  	<th>Transaction ID</th>
+	  	<th class="td-count">Amount</th>
+	    <th>Actions</th>
+	  </tr>
+	</thead>
+	<tfoot>
+	  	<tr>
+	    	<th colspan="4" class="filter-row">
+	    		<div class="per-page pull-left">
+	    			<%= per_page_select %>
+	    		</div>
+	    	</th>
+	    </tr>
+	  </tfoot>
+	 <tbody>
+	
+	<% @orders.each do |order| %>
+	  <tr>
+	  	<td><%= format_order_date order.order_date %></td>
+	  	<td>
+		  	<% unless order.user.nil? %>
+		  		<% if can?(:read, order.user)%>
+		  			<%= link_to order.user.full_name, admin_user_path(order.user) %>
+		  		<% else %>
+		  			<%= order.user.full_name %>
+		  		<% end %>
+		  	<% else %>
+		  	
+		  		<span class="text-muted">User no longer exists</span>
+		  	<% end %>
+	  	</td>
+	  	<td>
+	  	<% order.payments.each do |payment| %>
+			<%= payment.token %>
+		<% end %>
+
+	  	</td>
+	  	<td class="td-count"><%= format_price order.total %></td>
+	  	<td class="td-actions">
+	      <div class="btn-group">
+	        <%= link_to raw('<i class="icon-eye-open"></i>'), admin_order_path(order), :class => 'btn btn-small' if can? :read, order %>
+	        <%= link_to raw('<i class="icon-edit"></i>'), edit_admin_order_path(order), :class => 'btn btn-small btn-warning' if can? :edit, order %>
+	        <%= link_to raw('<i class="icon-trash icon-white"></i>'), admin_order_path(order), method: :delete, data: { confirm: 'Are you sure?' }, :class => 'btn btn-small btn-danger' if can? :delete, order %>
+	      </div>
+	    </td>
+	  </tr>
+	<% end %>
+	</table>
+	
+	<%= paginate @orders %>
+</div>

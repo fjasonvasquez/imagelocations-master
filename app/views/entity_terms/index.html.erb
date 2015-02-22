@@ -1,0 +1,21 @@
+<h1>Listing entity_terms</h1>
+
+<table>
+  <tr>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @entity_terms.each do |entity_term| %>
+  <tr>
+    <td><%= link_to 'Show', entity_term %></td>
+    <td><%= link_to 'Edit', edit_entity_term_path(entity_term) %></td>
+    <td><%= link_to 'Destroy', entity_term, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Entity term', new_entity_term_path %>

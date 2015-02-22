@@ -1,0 +1,85 @@
+<% title @location.name %>
+
+<% content_for :top_nav do %>
+	<% if can? :update, @location %>
+		<li><%= link_to content_tag(:i,"",:class => "icon-file") + "Edit Location", edit_admin_location_path(@location), :class => "" %></li>
+	<% end %>
+	
+	<% if can?(:sort_tears, @location) && @location.tears.any? %>
+		<li><%= link_to content_tag(:i,"",:class => "icon-reorder") + "Sort Tears", sort_tears_admin_location_path(@location), :class => "" %></li>
+	
+	<% end %>
+<% end %>
+
+<div class="row-fluid">
+	<div class="span10">
+		<h1 class="page-title"><i class="icon-map-marker"></i>&nbsp;<%= admin_formatted_location_name @location %> <small>id:<%= @location.id %></small></h1>
+	</div>
+	<div class="span2">
+		<div class="site-entity-status">
+			<h3 class="pull-right"><%= status_tag @site_entity.status %></h3>
+		</div>
+	</div>
+</div>
+
+<div class="row-fluid">
+	<div class="span3">
+		<div class="box image-box">
+		<% @location.current_assets_by_key(:cover).each do |ae| %>
+			<%= image_tag ae.asset.source.medium %>
+		<% end %>
+		</div>
+		
+		
+		<div class="box">
+	   	 <% if @location.geocoded? && can?(:geocode, @location) %>
+			   <%= render :partial => 'location_map', :locals => {:location => @location} %>
+			   
+			   <% content_for :nearby_locations do %>
+			   	<%= render :partial => 'nearby_locations', :locals => {:location => @location} %>
+			   
+			   <% end %>
+		
+		 	   
+		 <% end %>
+		 <%= render :partial => 'address', :locals => {:location => @location} %>
+		</div>
+		<% if @site_entity.related_site_entities.any? %>
+		<div class="box">
+			<h4>Similar Locations</h4>
+			<ul>
+			<% @site_entity.related_site_entities.each do |re|%>
+				<li><%= link_to(re.related_entity.site_entitable.name, admin_location_path(re.related_entity.site_entitable)) %></li>
+			<% end %>
+			</ul>
+		</div>
+		<% end %>
+	</div>
+	<div class="span9">
+		<div class="box">
+		
+		<h4>Series</h4>
+		
+		<%= link_to(@location.series.name, admin_series_path(@location.series)) %>
+		
+		<h4>Categories</h4>
+		<%= raw @location.categories.collect {|cat| can?(:read, cat) ? link_to(cat.name, admin_category_path(cat)) : cat.name }.join(", ") %>
+		
+		<%= render :layout => 'admin/shared/site_entity_view', :locals => {:site_entity => @site_entity} do %>
+			
+		<% end %>
+		<h4>Tags</h4>
+		<% @site_entity.entity_taxonomies.each do |taxonomy| %>
+			<% next unless taxonomy.has_terms? %>
+	
+			<h5><%= taxonomy.name %></h5>
+			<% if @location.taxonomy_terms.where(:taxonomy_id => taxonomy.id).any? %>
+				<%= raw @location.taxonomy_terms.where(:taxonomy_id => taxonomy.id).collect { |taxonomy_term| link_to taxonomy_term.name, admin_taxonomy_term_path(taxonomy_term) }.join(", ") %>
+			<% else %>
+				<span class="muted">None</span>
+			<% end %>
+		<% end %>
+		</div>
+	</div>
+
+</div>

@@ -1,0 +1,19 @@
+<% title @permit.name %>
+
+<div class="row-fluid">
+	<div class="span8">
+		<h2 class="page-title">
+			<% if @permit.logo.url.present? %>
+				<%= image_tag @permit.logo_url %>
+			<% end %><%= @permit.name %></h2>
+	</div>
+	
+	<div class="span2">
+		<%= render "shared/locations/filter" %>	
+	</div>
+	
+	<div class="span2">
+		<%= render "layouts/moodboard" %>	
+	</div>
+</div>
+<%= render :partial => "shared/locations/view", :locals => {:locations => @locations, :view => view_as} %>

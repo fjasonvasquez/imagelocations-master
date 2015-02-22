@@ -1,0 +1,216 @@
+.has-scroll-container {
+	#header-menu {
+		-webkit-transform: translateZ(0);
+		@extend .navbar-fixed-top;
+		.navbar-inner {
+			@include box-shadow(none);
+			border-width: 0px;
+		}
+	}
+	
+	#main {
+		padding-top: 30px;
+		padding-bottom: 150px;
+		
+	}
+	
+	#content {
+		background-color: $bodyBackground;
+		//height: 4000px;
+		
+		.scroll-top {
+			display: inline-block;
+			background-color: $grayDark;
+			color: $white;
+			padding: 10px;
+			font-size: 1.1em;
+		}
+	}
+	#wrapper {
+		min-height: none;
+	}
+	.main-container {
+		//min-height: 0 !important;
+		position: relative;
+	}
+	
+	#footer {
+		//margin-top: 0px;
+		//margin-bottom: 120px;
+		//bottom: 120px;
+	}
+}
+
+.scroll-closed {
+	#header-menu {
+	
+		@extend .navbar-fixed-top;
+		.navbar-inner {
+			@include box-shadow(none);
+			border-width: 0px;
+		}
+	}
+}
+
+.scroll-container {
+	top: 100%;
+	width: 100%;
+	//padding: 0px 0px 80px 0px;
+	clear: both;
+	//position: absolute;
+	
+	//margin-top: 120px;
+	//margin-bottom: -120px;
+	//height: 100%;
+	
+	//overflow: hidden !important;
+	min-width: 1090px;
+	
+	z-index: 11;
+	background-color: #e3e3e3;
+	-webkit-box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+	-moz-box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+	box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+	
+}
+
+.scroll-element {
+	//overflow:auto;
+	padding-bottom: 120px;
+	//margin-bottom: -120px;
+	//float: left;
+	//height: 100%;
+	min-height: 100%;
+	
+	
+	
+}
+
+
+/*
+.scroll-container {
+	top: 100%;
+	width: 100%;
+	padding: 0px 0px 80px 0px;
+	background-color: $bg-grey;
+	overflow: hidden;
+	@include box-shadow(0px 0px 10px rgba(0,0,0,.3));
+	z-index: 11;
+	.scroll-element {
+		top:auto;
+		width: $container-width;
+		padding: 30px;
+		margin: 0 auto;
+		background-color: $white;
+		@include box-shadow(0px 0px 10px rgba(0,0,0,.3));
+		
+		#main {
+			padding-top: 0px;
+			margin-bottom: 30px;
+		}
+	}
+	//position: absolute;
+	//top: 100px;
+	//position: inherit !important;
+	
+	#copy {
+		position: absolute;
+		bottom: -100px;
+		width: 100%;
+	}
+}
+
+*/
+
+.scroll-animating {
+	.scroll-down-button {
+			z-index: -1;
+		}
+}
+
+.scroll-animating, .scroll-closed {
+	header {
+		position: fixed;
+	}
+	.scroll-down-button {
+			display: block;
+		}
+	.scroll-container {
+		//margin-top: -$nav-height;
+		//height: 100%;
+		
+		//position: relative;
+		//z-index: 1;
+		//top: $nav-height;
+		
+		//left: $container-padding;
+		//right: $container-padding;;
+		//bottom: 0px;
+		//padding-top: $nav-height;
+		
+		
+		
+		
+		.scroll-element {
+			//padding-top: 100%;
+			//padding-top: $nav-height;
+			//position: absolute;
+			//top: 100%;
+			z-index: 1;
+			//width: $container-width;
+		}
+	}
+	
+	footer {
+		//display: none;
+	}
+}
+
+.scroll-closed {
+	.scroll-container {
+		//overflow: hidden;
+		.scroll-element {
+			//display: none;
+		}
+	}
+	//overflow: hidden;
+}
+
+$scroll-button-height: 98px;
+$scroll-button-width: 150px;
+
+.scroll-down-button {
+	display: none;
+	-webkit-transform: translateZ(0);
+	background-repeat: no-repeat;
+	background-position: center bottom;
+	position: fixed;
+	bottom: 0px;
+	//top: -140px;
+	//height: 65px + 75px;
+	height: $scroll-button-height;
+	width: $scroll-button-width;
+	z-index: 10;
+	color: $white;
+	text-align: center;
+	
+	cursor: pointer;
+	left: 50%;
+	margin-left: - floor($scroll-button-width/2);
+	
+	.scroll-button-wrap {
+		position: absolute;
+		height: $scroll-button-height;
+		width: $scroll-button-width;
+		//padding-top: 75px;
+		bottom: 0px;
+		//font-style: italic;
+		background-position: center top;
+		@include background-image(image-url('weddingestates/scroll-arrow.png'));
+		
+		&:hover {
+			background-position: center bottom;
+		}
+		
+	}
+}

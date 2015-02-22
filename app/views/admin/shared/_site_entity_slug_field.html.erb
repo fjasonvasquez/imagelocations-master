@@ -1,0 +1,1 @@
+<%= builder.input :slug, :input_html => {:class => "slug-field span6", :data => { :site => current_site.id, :type => builder.object.site_entitable_type, :id => builder.object.id.nil? ? 0 : builder.object.id}}, :hint => "A valid url string, illegal characters will automatically be removed" %>

@@ -1,0 +1,10 @@
+
+.box {
+	padding: 20px;
+	@include background-image(linear-gradient(top, rgba(255,255,255,.9), rgba(255,255,255,.4)));
+	.inner {
+		border-top: 3px double $grey;
+		border-bottom: 3px double $grey;
+		padding: 40px 0px 40px 0px;
+	}
+}

@@ -1,0 +1,94 @@
+<% title "Location Library" %>
+
+
+<div class="row-fluid row-main">
+	<div class="span3 list">
+		  <div class="region-dropdown">
+                        <%= filter_select_field("region", "All", {}.tap { |o| current_site.regions.find_each {|region| o.merge!({region.id.to_s => region.name}) } }, {:show_all => false, :prepend_text => "Region:&nbsp;", :classes => "btn-small btn-primary", :icon => "icon-angle-down"}) %>
+                </div>
+        <% if @exclusive_location_banners.any? %>
+		<h2><a class="active" href="#exclusive-locations-thumbs" data-scroll-to="true" data-target="#exclusive-locations-thumbs">Exclusives</a></h2>
+		<% end %>
+		
+		<h2><a href="#featured-categories-thumbs" data-scroll-to="true" data-target="#featured-categories-thumbs">Featured Categories</a></h2>
+		
+		<div id="category-name-list-wrap">
+			<div id="category-name-list">
+				<h2><a href="#category-thumbs" data-scroll-to="true" data-target="#category-thumbs">All Categories</a></h2>
+				<div id="filter">
+					<%= alphabet_filter(@categories, {:remote => true, :data => { :type => :script, :scroll_to => "true", :target => "#category-thumbs" }} ) %>
+				</div>
+				<div class="name-list-inner">
+					<%- #cache(cache_key_for_categories(@categories_list,"list")) -%>
+					<ul class="link-list">
+						<% @categories_list.all.each do |category| %>
+							<li><%= link_to category.name, category_path(category) %></li>
+							
+							
+							<% end %>
+					</ul>
+					<%- #end -%>
+				</div>
+			</div>
+		</div>
+		
+	</div>
+	<div class="span9 meat">
+		<% if @exclusive_location_banners.any? %>
+		<div id="exclusive-locations-thumbs" class="featured-locations row-fluid row-mosaic">
+			<h2>Exclusives</h2>
+			<div id="exclusive-location-list-back">
+				<%= render(:partial => "previous_page") %>
+			</div>
+			<%= render(:partial => "previous_page") %>
+			
+			<ul id="exclusive-locations-list" class="" data-page="<%= @exclusive_location_banners.current_page %>">
+				
+				<%= render(:partial => "shared/locations/exclusive", :collection => @exclusive_locations, :as => :location) %>
+				<%= render(:partial => "next_page") %>
+			</ul>
+		</div>
+		<% end %>
+		
+		<div id="featured-categories-thumbs" class="featured-categories row-fluid row-mosaic">
+			<h2>Featured Categories</h2>
+            <ul id="featured-category-list">
+            	<%= render(:partial => "category", :collection => @featured_categories) %>
+            </ul>
+            
+            <div id="featured-paginator">
+            
+            </div>
+        </div>
+        
+        <div id="category-thumbs" class="row-fluid row-mosaic">
+        	<h2>All Categories</h2>
+        	
+			<ul id="category-list" class="" data-page="<%= @categories.current_page %>">
+				<%= render(:partial => "category", :collection => @categories) %>
+			</ul>
+			
+			<div id="paginator">
+				<%= paginate @categories, :remote => true %>
+  			</div>
+  			<div id="category-list-loader" class="hide">
+  				<i class="icon-spinner icon-spin"></i>&nbsp;<span class="muted">Loading</span>
+  			</div>
+		</div>
+		
+	</div>
+	
+	
+</div>
+
+
+<!--<div id="all-categories-content" class="all-categories row-fluid">
+	<div class="span3 list">
+		
+	</div>
+	
+	
+	<div class="span9 meat">
+		
+	</div>
+</div>-->

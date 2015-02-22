@@ -1,0 +1,9 @@
+<% site_entity.entity_fields.each do |field| %>
+	<h4><%= field.label %></h4>
+	<div>
+	<%= field.render %>
+	</div>
+<% end %>
+
+
+<%= yield %>

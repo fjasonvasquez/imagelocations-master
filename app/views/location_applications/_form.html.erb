@@ -1,0 +1,29 @@
+<%= simple_form_for location_application, :url => location_application_path, :method => :post, :remote => false, :html => {:id => :location_application_form, :multipart => true} do |f| %>
+    	
+    	<h3 class="fancy"><span><span>Personal Information</span></span></h3>
+    	
+    	<div class="row-fluid">
+    	<%= f.input :name, :wrapper_html => { :class => "span12 inline-input"}, :input_html => { :class => "span11"}, :label => "Name (First/Last)" %>
+    	</div>
+    	<div class="row-fluid">
+    	<%= f.input :email, :wrapper_html => { :class => "span12 inline-input"}, :input_html => { :class => "span11"} %>
+    	</div>
+    	<div class="row-fluid">
+    	<%= f.input :phone, :wrapper_html => { :class => "span12 inline-input"}, :input_html => { :class => "span11"}, :label => "Phone Number" %>
+    	</div>
+    	
+    	<h3 class="fancy"><span><span>Estate Information</span></span></h3>
+    	
+    	<div class="row-fluid">
+    	
+			<%= f.input :city, :wrapper_html => { :class => "span6 inline-input"}, :input_html => { :class => ""} %>
+			<%= f.input :state, :as => :select, :collection => us_states, :wrapper_html => { :class => "span6 "}, :input_html => { :class => ""}, :prompt => "Select a State", :label => false %>
+    	</div>
+    	
+		<%= f.input :images, :as => :file, :input_html => { :multiple => true } , :label => "Please include a few images" %>
+		
+		<p class="text-center extra-margin">
+		<%= f.button :button, 'Submit!'.html_safe, :class => "fancy", :data => { :loading_text => "Submitting..."} %>
+		</p>
+		<p class="text-center"><span class="uppercase green">Please Note:</span> <em>Not all submissions will be accepted</em></p>
+<% end %>

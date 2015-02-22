@@ -1,0 +1,13 @@
+<div class="box">
+	<%= simple_form_for([:admin, @order]) do |f| %>
+	
+
+	
+
+	
+	<div class="form-actions">
+		<%= f.submit @order.new_record? ? "Add Order" : "Update Order", 
+		   				@order.new_record? ? { :class => 'btn btn-primary' } : { :class => 'btn btn-success' } %>
+	</div>
+	<% end %>
+</div>

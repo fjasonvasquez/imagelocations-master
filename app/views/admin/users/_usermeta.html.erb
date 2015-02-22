@@ -1,0 +1,6 @@
+<dl>
+  <dt>Member Since</dt>
+  <dd><%= time_ago_in_words user.created_at unless user.created_at.nil? %></dd>
+  <dt>Last Login</dt>
+  <dd><%= time_ago_in_words user.last_sign_in_at unless user.last_sign_in_at.nil? %></dd>
+</dl>

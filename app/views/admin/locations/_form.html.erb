@@ -1,0 +1,133 @@
+<%= render :partial => 'admin/shared/site_entity_navbar', :locals => {:site_entities => @site_entities, :site_entity => @site_entity} %>
+
+
+
+
+<%= simple_form_for([:admin, @location], :html => {
+												:multipart => true,
+												:class => "site_content_form", 
+												"data-site" => @current_site.id,
+												"data-entity-id" => @location.id,
+												"data-element-prefix" => site_entity_prefix(@location)}
+												) do |f| %>
+
+
+<% content_for :site_entity_fields do %>
+	<%= render :layout => 'admin/shared/site_entity_form', :locals => {:f => f} do %>
+ 		 <%-# TAXONOMIES -%>
+			 <%= content_tag :h4, "Tags"%>
+			 
+			 <%= render :partial => 'admin/shared/taxonomy_fields/entity_taxonomies', :locals => {:builder => site_entity_builder} %>
+			  
+			 
+			<%-# ASSETS -%>
+			<%= content_tag :h4, "Assets"%>
+			
+			<%= content_tag :h5, "Cover"%>
+			<%= render :partial => 'admin/shared/site_entity_multi_asset_field/field', 
+						:locals => {:association => :asset_entities, :builder => site_entity_builder, :key => :cover} %>
+			
+			<%= content_tag :h5, "Extended"%>
+			<%= render :partial => 'admin/shared/site_entity_multi_asset_field/field', 
+						:locals => {:association => :asset_entities, :builder => site_entity_builder, :key => :extended} %>
+			
+			<%= content_tag :h5, "Gallery"%>
+			<%= render :partial => 'admin/shared/site_entity_multi_asset_field/field', 
+						:locals => {:association => :asset_entities, :builder => site_entity_builder, :key => :gallery} %>
+			
+			
+			
+			<%-# SIMILAR LOCATIONS -%>
+			<%= render :partial => 'admin/shared/related_entity_field', 
+					:locals => {:builder => site_entity_builder, 
+								:title => "Similar Locations", 
+								:association => :related_site_entities,
+								:limit => 0,
+								:type => "Location", :id => site_entity_builder.object.id}%>
+ 	
+ 	<% end %>
+
+ 	
+ 	<% content_for :site_entity_title do %>
+ 		<% unless site_entity_builder.object.site.default? %>
+ 		<a class="btn btn-mini pull-right" data-toggle="collapse" data-target="#entity-title-container">Override</a>
+ 		
+ 		<%= site_entity_builder.input :entity_title,
+ 			:label => false,
+ 			:input_html => {
+ 				:class => "input-block-level",
+	 			:placeholder => "Override name for #{site_entity_builder.object.site.host}"
+ 			},
+ 			:wrapper_html => { :id => "entity-title-container", :class => site_entity_builder.object.entity_title.blank? ? "collapse" : ""} %>
+ 		<% end %>
+ 	<% end %>
+<% end %>
+
+<div class="row-fluid">
+  <div class="span9">
+  	<div class="box">
+  <div class="location-name-container">
+   <%= f.input :series_number, :label => false, :input_html => { 
+  											:placeholder => 'Series Number', 
+  											:class => 'input-big location-series-number', 
+  											:min => 0,
+  											:data => {"invalid-numbers" => f.object.invalid_series_numbers}
+  											} %>
+
+
+  <%= f.fields_for :series, include_id: false do |b|%>
+  		
+  <% end %>
+  
+  <%= f.input :series_name, :label => false, :input_html => { :placeholder => 'Location Name', :class => 'input-block-level input-big location-series-name' } %>
+  </div>
+  
+  <%= content_for :site_entity_title %>
+  
+  <!--<%= f.hidden_field :series_id, :class => 'location-series-id' %>-->
+ 
+  	<%= render :partial => 'geo_fields', :locals => {:f => f} %>
+ <div class="row-fluid">
+ 	 <%= f.input :categories, :wrapper_html => {:class => "span9"} do %>
+  		<%= f.select :category_ids, Category.all.map {|p| [ p.name, p.id, {} ] }, {},{:class => 'input-block-level category-select', :multiple => true, :data => {:placeholder => "Select Categories"}} %>
+  	<% end %>
+  	
+  <%= f.input :permit_id, :wrapper_html => {:class => "span3"} do
+  		f.select :permit_id, Permit.all.map {|p| [ p.name, p.id, {"data-logo" => p.logo_url} ] }, {},{:class => 'permit-select'}
+  	end %>
+ </div>
+ 	<%= content_for :site_entity_fields %>
+	 
+  	</div>
+  </div>
+   <div class="span3">
+   	 <% if @location.geocoded? && can?(:geocode, @location)%>
+		   <%= render :partial => 'location_map', :locals => {:location => @location} %>
+		   
+		   <% content_for :nearby_locations do %>
+		   	<%= render :partial => 'nearby_locations', :locals => {:location => @location} %>
+		   
+		   <% end %>
+		   
+	   <% end %>
+	   
+	   <div class="box">
+		   <%= content_for :site_entity_actions %>
+		   
+		   <%= f.submit @location.new_record? ? "Add Location" : "Update Location", 
+		   				@location.new_record? ? { :class => 'btn btn-primary' } : { :class => 'btn btn-success' } %>
+	   </div>
+	  
+	   <%= content_for :nearby_locations %>
+	  
+	   <% unless @location.new_record? %>
+		   <div class="well well-small">
+		   	<h4>Activity</h4>
+		   	<% @location.activities.limit(5).each do |a| %>  				
+			   	<%= render_activity(a, :layout => 'layouts/activity_wrapper') %>
+			<% end %>
+		   </div>
+	   <% end %>
+   </div>
+</div>
+<% end %>

@@ -1,0 +1,28 @@
+<% unless current_region.nil? %>
+	<div class="region-info">
+		<div class="btn-group btn-group-region">
+			<button class="btn btn-white btn-small dropdown-toggle" data-toggle="dropdown">v</button>
+			<ul class="dropdown-menu">
+				<% current_site.regions.find_each do |r| %>
+				 	<li><%= link_to r.name, root_path({:region => r.id}) %></li>
+				 <% end %>
+			</ul>
+		</div>
+			<%= current_region.name %>, <span class="clock" data-utc-offset="<%= current_region.timezone.utc_offset unless current_region.timezone.nil?%>"></span> &nbsp;&nbsp;|&nbsp;&nbsp;
+			<% unless current_region.weather_city.nil? %>
+				<span class="weather-bar" data-source="<%= weather_path(:region => current_region) %>" data-region="<%= current_region.id %>">
+					<!--<a href="#weather-modal" data-toggle="modal">
+						<strong>5 Day forecast</strong>
+					</a>-->
+					<%= link_to(raw("<strong>5 Day forecast</strong>"),weather_path(:region => current_region) , {:class => "weather-forecast", :remote => true, :data => { :type => :script } }) %>
+					&nbsp;&nbsp;|&nbsp;&nbsp;
+					<span class="current-region-weather">
+						
+					</span>
+			<% end %>				
+	</div>
+							
+
+	<%- #render(:partial => "layouts/weathermodal") -%>
+<% end %>
+

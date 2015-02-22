@@ -1,0 +1,30 @@
+<h1 class="page-title"><i class="icon-group"></i>&nbsp;Roles</h1>
+
+<div class="box">
+	<table id="roles-list" class="table table-condensed table-striped table-bordered">
+	  <thead>
+	    <tr>
+	      <th><%= sort_column(:label, "Role") %></th>
+	      <th><%= sort_column(:level, "Level") %></th>
+	      <th></th>
+	    </tr>
+	  </thead>
+	  <tbody>
+	  <%
+	  @roles.each do |role| %>
+	    <tr>
+	      
+	      <td><%= role.label %></td>
+	      <td class="count"><%= role.level %></td>
+	      <td class="td-actions center">
+	      	<div class="btn-group pull-right">
+	      <%= link_to(content_tag(:i, '',:class => 'icon-edit icon-white'), edit_admin_role_path(role), :class => 'btn btn-info btn-mini') unless cannot? :edit, role %>
+	      <%= destroy_link_to(content_tag(:i, '',:class => 'icon-trash icon-white'), admin_role_path(role), :item => "the #{role.label} Role") unless cannot?(:destroy, role) || role.memberships.count > 0 %>
+	      	</div>
+	      </td>
+	    </tr>
+	  <% end %>
+	  </tbody>
+	</table>
+		<%= paginate @roles %>
+</div>

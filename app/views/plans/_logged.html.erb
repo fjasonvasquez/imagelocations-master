@@ -1,0 +1,21 @@
+<% if subscription.new_record? %>
+
+	<% if can?(:order, subscription.plan) %>
+		<%= link_to order_plan_path(subscription.plan), :class => "btn btn-primary" do %>
+			Order
+		<% end %>
+	<% end %>
+
+<% elsif subscription.active? %>
+	<button class="btn btn-primary" disabled="disabled">Active</button>
+
+
+<% else %>
+			
+	<% if can?(:renew, subscription.plan) %>
+		<%= link_to order_plan_path(subscription.plan), :class => "btn btn-primary" do %>
+			Renew
+		<% end %>
+	<% end %>
+
+<% end %>

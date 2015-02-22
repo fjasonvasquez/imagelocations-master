@@ -1,0 +1,20 @@
+<% title "Term" %>
+
+<% content_for :search do %>
+	<%= search_form TaxonomyTerm, "Tags" %>
+<% end %>
+
+<% content_for :top_nav do %>
+	<% if can? :update, @taxonomy_term %>
+		<li><%= link_to content_tag(:i,"",:class => "icon-tags") + "Edit Tag", edit_admin_taxonomy_term_path(@taxonomy_term), :class => "" %></li>
+	<% end %>
+<% end %>
+
+
+
+<h1 class="page-title"><i class="icon-tags"></i>&nbsp;<%= @taxonomy_term.name %> id:<%= @taxonomy_term.taxonomy_id %></h1>
+
+<div class="box">
+	<h4>Locations</h4>
+	<%= render :partial => "admin/locations/table", :locals => {:locations => @locations} %>
+</div>

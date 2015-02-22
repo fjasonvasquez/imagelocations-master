@@ -1,0 +1,21 @@
+<%= content_tag :h4, "Similar Locations"%>
+			
+<table class="table similar-locations locations-field">
+	<thead>
+		<tr>
+			<th colspan="3">
+				<div class="input-append similar-location-search">
+					<input data-site="<%= builder.object.site.id %>" class="similar-location-search-input" type="search" placeholder="Search Locations">
+					
+					<%= link_to_add_similar_location_fields "Add", builder, :similar_location_entities %>
+					<!--<button class="btn" type="button" disabled="true">Add</button>-->
+				</div>
+			</th>
+		</tr>
+	</thead>
+	<tbody>
+		<%= builder.fields_for :similar_location_entities do |sl| %>
+			<%= render :partial => 'admin/shared/similar_location_entity_fields', :locals => {:f => sl} %>
+		<% end %>
+	</tbody>
+</table>

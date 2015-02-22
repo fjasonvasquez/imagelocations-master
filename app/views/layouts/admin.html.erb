@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title><%= title %></title>
+  
+  <%= stylesheet_link_tag    "application", :media => "all" %>
+  <%= javascript_include_tag :modernizr %>
+  
+  <%= javascript_include_tag "application" %>
+  <%= csrf_meta_tags %>
+  <%= yield(:head) %>
+</head>
+<body class="<%= controller_name %> <%= action_name %>">   
+    <%= render :partial => 'layouts/admin/top_nav' %>
+    <%= render :partial => 'layouts/admin/primary_nav' %>
+    
+    <section id="main" role="main" class='container-fluid'>
+		
+		    <div class="row-fluid">
+		      <div id="content">
+		      	<%= render 'layouts/messages' %>
+		      	
+		      	<% unless searched_string.nil? %>
+		      		<div class="search-string">
+		      			<span class="label">Filter: <%= searched_string %></span>
+		      		</div>
+		      	
+		      	<% end %>
+		        <%= yield %>
+		      </div>
+		    </div>
+		
+		
+		<footer id="main-footer">
+			<%= yield(:footer) %>
+			Copyright &copy; <%= Time.new.year %> <a href="#">Image Locations</a>, all rights reserved. 
+			<a href="#" class="pull-right" id="on-top-link">
+				On Top &nbsp;<i class=" icon-chevron-up"></i>
+			</a>
+			<br>
+			<small><span class="text-muted">Ruby Version: <%= RUBY_VERSION %></span></small>
+		</footer>
+	</section>
+	
+	  
+	  <%= render 'admin/shared/modal' %>
+</body>
+</html>

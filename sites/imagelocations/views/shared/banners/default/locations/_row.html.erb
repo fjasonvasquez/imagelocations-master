@@ -1,0 +1,33 @@
+<% cache(banner) do %>
+	<div id="banner-<%= banner.object_id %>" class="row-fluid row-grid carousel slide" data-interval="5000">
+		<div class="row-inner">
+				<div class="content-info">
+					<h4 class="name"><%= formatted_location_name(banner.locations.first, "-") %></h4>
+					
+				</div>
+				<% unless banner.locations.count <= 1 %>
+				<ol class="carousel-indicators">
+						<% (0...banner.locations.count).each do |index| %>
+							<li data-target="#banner-<%= banner.object_id %>" data-slide-to="<%= index %>" class="<%= index.zero? ? "active" : "" %>"></li>
+						<% end %>
+				</ol>
+				<% end %>
+				<div class="carousel-inner">
+					<% banner.banner_entity_site_entities.includes(:site_entity).each_with_index do |he,index| %>
+							
+						<%= link_to location_path(he.site_entity.site_entitable) , 
+								:class => index.zero? ? ["item", "active"] : "item",
+								:data => {:name => h(formatted_location_name(he.site_entity.site_entitable, "-"))} do %>
+		
+							<% unless he.banner_url.nil? %>
+								<%= image_tag he.banner_url %>
+							<% else %>
+								<%= image_tag he.site_entity.site_entitable.current_asset_by_key(:extended).source_url(:extended) unless he.site_entity.site_entitable.current_asset_by_key(:extended).nil?%>
+							<% end %>
+						<% end %>
+							
+					<% end %>
+				</div>
+		</div>
+	</div>
+<% end %>

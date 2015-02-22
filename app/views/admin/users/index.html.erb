@@ -1,0 +1,112 @@
+<% content_for :search do %>
+	<%= search_form User %>
+<% end %>
+
+<% content_for :top_nav do %>
+	<% if can? :create, User %>
+		<li><%= link_to content_tag(:i,"",:class => "icon-user") + "New User", new_admin_user_path, :class => "" %></li>
+	<% end %>
+<% end %>
+
+
+<h1 class="page-title"><i class="icon-group"></i>&nbsp;Users</h1>
+
+<div class="box">
+	<table id="user-list" class="table table-condensed table-striped table-bordered">
+	  <thead>
+	    <tr>
+	      <th class="avatar"></th>
+	      <th><%= sort_column("profiles.last_name", "Name") %></th>
+	      <th><%= sort_column("users.username", "Username") %></th>
+	      <th>Email</th>
+	      <th>Last Signed In</th>
+	      <th><%= sort_column("users.created_at", "Registered") %></th>
+	      <th>Role(s)</th>
+	      <th><%= sort_column("users.status", "Status") %></th>
+	      <th></th>
+	    </tr>
+	  </thead>
+	  <tfoot>
+	  	<tr>
+	    	<th colspan="9" class="filter-row">
+	    		<div class="per-page pull-left">
+	    			<%= per_page_select %>
+	    		</div>
+	    		<div class="filters pull-right">
+	    		 <%= filter_select_field("by_role", "Roles", user_role_filter_options) %>
+				 <%= filter_select_field("by_status", "Status", user_status_filter_options) %>			
+				 <%= filter_clear_field %>
+	    		</div>
+	    	</th>
+	    </tr>
+	  </tfoot>
+	  <tbody>
+	  <%
+	  @users.each do |user| %>
+	    <tr>
+	      <td class="avatar"><%= 
+	      	#image_tag user.gravatar_url 
+	      	image_tag avatar_url user
+	      %></td>
+	      <td><%= user.full_name %></td>
+	      <td><%= user.username%></td>
+	      <td><%= user.email %></td>
+	      <td><%= format_user_date user.last_sign_in_at %></td>
+	      <td><%= format_user_date user.created_at %></td>
+	      <td><% user.memberships.each do |membership|%>
+	      			<%= link_to(format_membership_name(membership), admin_user_membership_path(user,membership)) %>
+	      <% end %>
+	      </td>
+	      <td><%= status_tag user.status%></td>
+	      <!--<td>
+	        <a data-toggle="modal" href="#role-options-<%= user.id %>" class="btn btn-mini" type="button">Change role</a>
+	      
+	      </td>-->
+	      <td class="td-actions center">
+			  <div class="btn-group">
+		  <%= link_to raw('<i class="icon-eye-open"></i>'), admin_user_path(user), :class => 'btn btn-mini' if can? :read, User %>
+		  
+	      <%= link_to(content_tag(:i, '',:class => 'icon-edit icon-white'), 
+	      			 	edit_admin_user_path(user), 
+	      			 	:class => 'btn btn-info btn-mini btn-tooltip',
+	      			 	'data-toggle' => 'tooltip',
+	      			 	:title => 'Edit User') unless cannot? :edit, user %>
+	      			 	
+	      <%= link_to(content_tag(:i, '',:class => 'icon-key icon-white'), 
+	      				sign_in_as_admin_user_path(user), 
+	      				:data => { :confirm => "Are you sure?" }, 
+	      				:method => :put, 
+	      				:class => 'btn btn-inverse btn-mini btn-tooltip', 
+	      				'data-toggle' => 'tooltip', 
+	      				:title => "Log in as #{user.username}") unless cannot?(:sign_in_as, user) || user == current_user %>
+	      
+	      <% if user.is_active? %>
+		      <%= link_to(content_tag(:i, '',:class => 'icon-minus-sign icon-white'), 
+		      			admin_user_path(user,{
+			      			:user => {
+				      			:status => User.deactivated_status
+			      			}
+		      			}), 
+		      			:data => { :confirm => "Are you sure?" }, 
+		      			:method => :put, 
+		      			:class => 'btn btn-danger btn-mini btn-tooltip',
+		      			 'data-toggle' => 'tooltip',
+		      			 :title => 'Deactivate User') unless cannot?(:edit, user) || user == current_user %>
+	      
+	      <% else %>			
+		      <%= link_to(content_tag(:i, '',:class => 'icon-trash icon-white'), 
+		      			admin_user_path(user), 
+		      			:data => { :confirm => "Are you sure?" }, 
+		      			:method => :delete, 
+		      			:class => 'btn btn-danger btn-mini btn-tooltip',
+		      			 'data-toggle' => 'tooltip',
+		      			 :title => 'Delete User') unless cannot?(:destroy, user) || user == current_user %>
+	      <% end %>
+			  </div>
+	      </td>
+	    </tr>
+	  <% end %>
+	  </tbody>
+	</table>
+		<%= paginate @users %>
+</div>

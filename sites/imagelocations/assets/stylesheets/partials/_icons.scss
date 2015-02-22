@@ -1,0 +1,92 @@
+@import "mixins";
+
+@mixin custom-icon {
+	height: 14px;
+	width: 14px;
+	background-size: 100% 100%;
+	background-position: center center;
+	background-repeat: no-repeat;
+	&::before {
+		content: "" !important;
+	}
+
+}
+
+.icon-angle-left {
+	@include svg-bkgd('imagelocations/angle-left');
+	@include custom-icon;
+}
+
+.icon-angle-right {
+	@include svg-bkgd('imagelocations/angle-right');
+	@include custom-icon;
+}
+
+.icon-plus {
+	@include svg-bkgd('imagelocations/plus');
+	@include custom-icon;
+	
+	&:hover {
+		@include svg-bkgd('imagelocations/plus-black');
+	}
+}
+
+.icon-minus {
+	@include svg-bkgd('imagelocations/minus');
+	@include custom-icon;
+	
+	&:hover {
+		@include svg-bkgd('imagelocations/minus-black');
+	}
+}
+
+.icon-plus-original {
+	&:before {
+		content: "\f067";
+	}
+}
+
+.icon-pdf {
+	background: transparent image-url('imagelocations/icons/icon-pdf.png') no-repeat center center !important;
+	@include custom-icon;
+	height: 22px;
+	width: 22px !important;
+}
+
+
+
+.icon-collage {
+	background: transparent image-url('imagelocations/icons/icon-collage.png') no-repeat center center !important;
+	@include custom-icon;
+}
+
+.icon-email-location {
+	background: transparent image-url('imagelocations/icons/icon-email.png') no-repeat center center !important;
+	@include custom-icon;
+}
+
+.icon-download-location {
+	background: transparent image-url('imagelocations/icons/icon-download.png') no-repeat center center !important;
+	@include custom-icon;
+}
+.icon-imagelocations {
+	background: transparent image-url("imagelocations/icons/icon-imagelocations.png") no-repeat center center;
+	@include custom-icon;
+	height: 20px;
+	width: 202px !important;
+
+}
+
+.icon-weddingestates {
+	background: transparent image-url("imagelocations/icons/icon-weddingestates.png") no-repeat center center;
+	@include custom-icon;
+	height: 20px;
+	width: 57px !important;
+}
+
+.icon-exclusivelistings {
+	background: transparent image-url("imagelocations/icons/icon-exclusivelistings.png") no-repeat center center;
+	@include custom-icon;
+	height: 20px;
+	width: 47px !important;
+}

@@ -1,0 +1,26 @@
+<%= simple_form_for @asset, :url => path do |f| %>
+  
+  <%= f.input :source, as: :file do %>
+        <div class="fileupload fileupload-new" data-provides="fileupload">
+          <div class="fileupload-new thumbnail" style="width: <%= preview_width %>px; height: <%= preview_height %>px;">
+            <% if @asset.source_url.nil? %>
+            	<%= holder_tag("#{preview_height}x#{preview_width}", 'Image Preview') %>
+              <% else %>
+              <%= image_tag @asset.source_url(:thumb) %>
+              <% end %>
+          </div>
+        <div class="fileupload-preview fileupload-exists thumbnail" style="width: <%= preview_width %>px; height: <%= preview_height %>px;"></div>
+        <span class="btn btn-file">
+          <span class="fileupload-new">Select image</span>
+          <span class="fileupload-exists">Change</span>
+          <%= f.file_field :source %>
+        </span>
+        <a href="#" class="btn fileupload-exists" data-dismiss="fileupload">Remove</a>
+        </div>
+  <% end %>
+  <%= render :partial => 'admin/assets/asset_tag_form_fields', :locals => {:f => f} %>
+  <div class="form-actions">
+    <%= f.submit @asset.new_record? ? "Add #{@asset.type}" : "Update #{@asset.type}", @asset.new_record? ? { :class => 'btn btn-primary' } : { :class => 'btn btn-success' } %>
+  </div>
+<% end %>
+

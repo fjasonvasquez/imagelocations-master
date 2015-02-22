@@ -1,0 +1,93 @@
+<% title "Location Application" %>
+
+
+<h1 class="page-title"><i class="icon-archive"></i>&nbsp;View Application</h1>
+
+<div class="row-fluid">
+	<div class="span3">
+		<div class="box">
+			<h5>Name</h5>
+			<%= @location_application.name %>
+			
+			<h5>Email</h5>
+			<%= mail_to @location_application.email %>
+				
+			
+			<h5>Phone</h5>
+			<%= @location_application.phone %>	
+							
+			<h5>Submit Date</h5>
+			<%= @location_application.created_at.to_formatted_s(:long) %>
+
+		</div>
+		
+		<div class="box">
+		
+			<% if @location_application.international_address.blank? %>
+				
+				<h5>Address</h5>
+				<%= @location_application.address %>
+				
+				<h5>City</h5>
+				<%= @location_application.city %>
+				
+				<h5>State</h5>
+				<%= @location_application.state %>
+				
+				<h5>Zip</h5>
+				<%= @location_application.postcode %>
+			
+			<% else %>
+			
+				<%= @location_application.international_address %>
+			<% end %>
+		</div>
+		
+		<div class="box">
+			<% unless @location_application.sites.blank? %>
+			<h5>Sites</h5>
+			<%= @location_application.sites.map {|s| s.name }.join(", ") %>
+			
+			<% end %>
+			
+			<h5>Usage</h5>
+			<%= @location_application.usage.join(", ") %>
+			
+			<% unless @location_application.exclusive.blank? %>
+			
+				<h5>Exclusive</h5>
+				<%= @location_application.exclusive.join(", ") %>
+			
+			<% end %>
+			
+			<% unless @location_application.listing.blank? %>
+			
+				<h5>Listing</h5>
+				<%= @location_application.listing.join(", ") %>
+			
+			<% end %>
+			
+			<h5>Notes</h5>
+			<%= @location_application.notes %>
+
+		</div>
+		
+	</div>
+	<div class="span9">
+		<div class="box">
+			<% @location_application.location_application_images.each_with_index do |image, index| %>
+			
+				<% if index.zero? || index % 2 == 0 %>
+					<div class="row-fluid">
+				<% end %>
+				<div class="span6">
+				<%= image_tag image.source_url %>
+				</div>
+				<% if index + 1 ==  @location_application.location_application_images.count || (index + 1) % 2 == 0 %>
+					</div>
+				<% end %>
+			<% end %>
+		
+		</div>
+	</div>
+</div>

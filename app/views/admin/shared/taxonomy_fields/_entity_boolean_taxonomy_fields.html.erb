@@ -1,0 +1,16 @@
+<%= builder.fields_for :taxonomy_term_entities, taxonomy.initialized_entity_taxonomy_terms(builder.object) do |tt| %>
+			  
+		<%= tt.input :enable, :as => :check_boxes, :label => FALSE do %>
+			<%= tt.hidden_field :taxonomy_term_id %>
+			<%= tt.hidden_field :site_entity_id %>
+			<%= content_tag :div, :class => "input-prepend input-append" do %>
+				<%= content_tag :span, :class => "add-on" do
+					tt.check_box :enable, :disabled => cannot?(:read, tt.object.taxonomy_term)
+				end %>
+				<%= content_tag :span, :class => "add-on" do
+						tt.label :enable, taxonomy.name, :class => 'inline' 
+				end %>
+			<% end %>
+		<% end %>
+		   				   		
+<% end %>

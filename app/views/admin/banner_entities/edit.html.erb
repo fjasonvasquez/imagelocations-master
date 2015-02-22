@@ -1,0 +1,27 @@
+<% title "Edit Banner" %>
+
+<% content_for :top_nav do %>
+	<% if can?(:create, BannerEntity) && !@section.at_limit? %>
+		<li class="dropdown"><%= link_to content_tag(:i,"",:class => "icon-picture") + "New Banner", "#", :data => { :toggle => "dropdown" }, :class => "dropdown-toggle" %>
+			<ul class="dropdown-menu">
+				<% @section.section_objects.find_each do |s| %>
+					<li><%= link_to s.object.gsub("BannerEntity", ""), new_admin_section_banner_entity_path(@section,{ :type => s.object }) %></li>
+				<% end %>
+				
+				
+			</ul>
+		</li>
+	<% end %>
+<% end %>
+
+<h1>Editing Banner</h1>
+<div class="box">
+	<%= 
+		begin
+			render :partial => "#{@banner_entity.class.name.underscore}_form" 
+		rescue 
+			render :partial => 'form'
+		end
+		
+	%>
+</div>

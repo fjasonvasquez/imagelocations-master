@@ -1,0 +1,15 @@
+A new user has subscribed to <%= @subscription.site.name %>
+	   
+Order details:
+Plan: <%= @subscription.plan.name %>
+
+	   
+<% @subscription.orders.each do |o| %>
+	 Total: <%= o.net_total %>
+	<% o.credit_card_payments.each do |payment| %>
+		Amount: <%= payment.amount %>
+		Confirmation#: <%= payment.meta[:pnref] unless payment.meta[:pnref].nil? %>
+	<% end %>
+	
+	
+<% end %>

@@ -1,0 +1,39 @@
+<div class="row-fluid">
+<h1>Advanced Search<a href="Javascript:void(0);" class="icon-minus close"></a></h1>
+<%= simple_form_for "", :url => search_locations_path, :method => "get" do |f| %>
+	
+	<%= f.input :q, :as => :search, :label => false, :placeholder => "Enter Keywords", :input_html => {:class => "span12 input-keywords"} %>
+	<div class="search-options">
+		<ul>
+			<li>
+				<a class="option" href="Javascript:void(0);">Region&nbsp;(&nbsp;<span data-placeholder="All">All</span>&nbsp;)&nbsp;</a>
+				<%= f.collection_check_boxes :by_region, current_site.regions, :id, :name , :item_wrapper_tag => "li", :collection_wrapper_tag => "ul" %>
+			</li>
+			<li>
+				<a class="option" href="Javascript:void(0);">City&nbsp;(&nbsp;<span data-placeholder="All">All</span>&nbsp;)&nbsp;</a>
+				<%= f.collection_check_boxes :by_city, current_site.cities, :id, :name , :item_wrapper_tag => "li", :collection_wrapper_tag => "ul" %>
+			</li>
+			<% cache(cache_key_for_permits) do %>
+			<li>
+				<a class="option" href="Javascript:void(0);">Permit&nbsp;(&nbsp;<span data-placeholder="All">All</span>&nbsp;)&nbsp;</a>
+				<%= f.collection_check_boxes :by_permit, Permit.all, :id, :name, :item_wrapper_tag => "li", :collection_wrapper_tag => "ul" %>
+			</li>
+			<% end %>
+				<% Taxonomy.public().find_each do |t| %>
+					<% cache(t) do %>
+					<li>
+						<a class="option" href="Javascript:void(0);"><%= t.name %>&nbsp;(&nbsp;<span data-placeholder="No Preference">No Preference</span>&nbsp;)&nbsp;</a>
+						
+							<%= f.collection_check_boxes :by_term, t.taxonomy_terms.all, :id, :name, :item_wrapper_tag => "li", :collection_wrapper_tag => "ul" %>
+					</li>
+					<% end %>
+			<% end %>
+		</ul>
+	</div>
+	<a class="back hide" href="Javascript:void(0);">Back</a>
+	<%= button_tag(type: 'submit', class: "btn btn-primary btn-large span12") do %>
+    Search <i class="icon-search"></i>
+  <% end %>
+  
+<% end %>
+</div>

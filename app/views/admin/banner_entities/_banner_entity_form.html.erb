@@ -1,0 +1,8 @@
+<%= render :partial => 'admin/shared/related_entity_field', 
+			:locals => {:builder => f,
+			:association => :banner_entity_site_entities,
+			:title => f.object.respond_to?(:site_entity) ? f.object.class.entity.name : f.object.class.entity.name.pluralize , 
+			:type => f.object.class.entity.name, 
+			:id => 0,
+			:limit => f.object.respond_to?(:site_entity) ? 1 : 0
+			} %>

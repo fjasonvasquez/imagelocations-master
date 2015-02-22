@@ -1,0 +1,18 @@
+<div class="btn-group">
+	<a href="Javascript:void(0);" class="btn <%= classes %> <%= active ? "active" : ""%> "><%= text %></a>
+	<button class="btn <%= classes %> dropdown-toggle" data-toggle="dropdown">
+		<i class="<%= icon %>"></i>
+	</button>
+	<ul class="dropdown-menu">
+		<% options.each do |v,l| %>
+			<li class="<%= active == v ? "active" : ""%>"><%= link_to l,params.merge({param => v}),{} %></li>
+		
+		<% end %>
+		<% if active && show_all%>
+			<li class="divider"></li>
+			<li>
+				<%= link_to "All",filter_params,{} %>
+			</li>
+		<% end %>
+	</ul>
+</div>

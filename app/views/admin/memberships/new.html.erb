@@ -1,0 +1,10 @@
+<h2> Add User Membership</h2>
+
+
+<%= simple_form_for [@user,@membership], :url => admin_user_memberships_path(@user.id), :html => {:method => :post, :class => 'form-horizontal' } do |f| %>
+
+	
+	<%= f.collection_select :site_id, Site.all, :id, :name, {:disabled => lambda{|site| cannot? :manage, site },:selected => lambda{|site| site == f.object.site }}  %>
+	<%= f.collection_select :role_id, Role.all, :id, :label, {:disabled => lambda{|role| cannot? :manage, role },:selected => lambda{|role| role == f.object.role }}  %>
+	<%= f.submit %>
+<% end %>

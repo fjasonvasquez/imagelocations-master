@@ -1,0 +1,7 @@
+<%= image_tag asset.source_url(key),options %>
+
+<div id="<%= "asset-#{asset.id}-modal" %>" class="modal hide fade" tabindex="-1">
+	<div class="modal-body">
+		<%= video_tag asset.video_source, :id => "video-#{asset.id}", :controls => true, :poster => asset.source_url, :autobuffer => false %>
+	</div>
+</div>

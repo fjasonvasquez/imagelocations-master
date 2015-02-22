@@ -1,0 +1,26 @@
+<% title @category.name %>
+
+<div class="row-fluid row-header">
+	<div class="span8">
+		<h2 class="page-title"><%= @category.name %></h2><h3 class="email-link"><%= link_to "Email Category",'#email-modal', :data => {:toggle => "modal"} %></h3>
+		<%= render :partial => "layouts/email_form", :locals => { :title => "Emailing Category", :object_type => :category, :object => @category, :path => email_category_path(@category) } %>
+	</div>
+	
+	<div class="span2">
+	
+		
+		<%= render "shared/locations/filter" %>	
+			
+	
+	</div>
+	
+	<div class="span2">
+		<%= render "layouts/moodboard" %>	
+	</div>
+</div>
+<div class="row-header-pad">
+</div>
+
+<%= render :partial => "shared/locations/view", :locals => {:locations => @locations, :view => view_as} %>
+
+

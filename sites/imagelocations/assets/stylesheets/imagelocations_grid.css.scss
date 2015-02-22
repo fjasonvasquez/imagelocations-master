@@ -1,0 +1,219 @@
+@import "compass/css3";
+@import "compass/utilities";
+@import "partials/variables";
+@import "mixins";
+
+
+$gridRatio: 0.66;
+
+
+
+
+
+@mixin location-grid-height($gridWidth: $gridRowWidth, $ratio: .66) {
+	height: floor((($gridWidth - (5*4 + 20*2)) / 5) * $ratio);
+}
+
+
+
+.locations-grid-view {
+		#content {
+			padding: 0 15px 20px 20px;
+		}
+		
+		#location-rows-container {
+			padding-top: 10px;
+		}
+		
+		.location-grid {
+			float: left;
+			width: 20%;
+			
+			
+			
+			a {
+				margin: 0px 5px 5px 0;
+				position: relative;
+				display: block;
+				color: $grayDarker;
+				
+				overflow: hidden;
+				
+				@include location-grid-height();
+				
+				&:hover {
+					color: $red;
+				}
+				
+				.location-name {
+					display: block;
+					position: absolute;
+					background-color: $white;
+					bottom: 0px;
+					left: 0px;
+					width: 100%;
+				}
+			}
+
+		}
+}
+
+.locations-list-view, .locations-grid-view {
+	
+	#content {
+		padding: 0 20px 20px 20px;
+	}
+	
+
+	&.show {
+		#content {
+			margin-top: 10px;
+		}
+		#main {
+			position:relative;
+			padding-bottom: 20px;
+		}
+		#location-rows {
+			//min-height: 300px;
+		}
+		.moodboard {
+			.moodboard-toggle {
+				//height: 33px;
+				padding: 20px 0px 20px 30px;
+			}
+		}
+		.thumbnails {
+			:first-child {
+			
+				margin-left: inherit;
+			}
+
+		}
+		
+	}
+	
+	.filters {
+		
+		.btn-group {
+			display: block;
+			margin-left: 0px !important;
+			margin-bottom: 3px;
+			
+			a.btn {
+				width: 110px;
+				text-align: left;
+			}
+			
+			button.btn {
+				color: $red;
+				@include box-shadow(none);
+			}
+
+		}
+	}
+}
+	
+
+@media (min-width: $minWidth1200) {
+	.locations-grid-view {
+			.location-grid {
+				a {
+					@include location-grid-height($gridRowWidth1200);
+				}
+			}
+		}
+}
+@media (min-width: 768px) and (max-width: 979px) {
+	.locations-grid-view, .locations-list-view {
+		&.show {
+			.row-header {
+				.span8 {
+					width: 48%;
+				}
+				
+				.span2 {
+					width: 24.75%;
+				}
+			}
+		}
+	
+	}
+	
+	.locations-grid-view {
+			.location-grid {
+				a {
+					@include location-grid-height($gridRowWidth768);
+				}
+			}
+		
+	}
+}
+
+@media (max-width: 767px) {
+
+	.locations-grid-view, .locations-list-view {
+		
+		.row-header {
+			.span8 {
+				@include clearfix;
+			}
+		}
+		
+		.extended {
+				display: none;
+			}
+			.page-title {
+				float: none;
+				margin-right: 0px;
+				padding-right: 0px;
+				border-right: none;
+			}
+		
+		.email-link {
+			float: none;
+		}
+		
+		#paginator-container {
+			&.affix {
+				position: relative;
+			}
+			
+			.back-to-library {
+				display: none;
+			}
+			
+		}
+	
+		.pagination {
+			float: none;
+			margin: 0px 10px 0 0;
+			position: relative;
+			//position: absolute;
+			ul {
+				width: auto;
+				@include box-shadow(none);
+				li {
+					width: 30px;
+					display: inline;
+					a {
+						float: none;
+						border: none;
+					}
+				}
+			}
+		}
+
+	
+		
+	}
+	.locations-grid-view {
+			.location-grid {
+				float: none;
+				width: auto;
+					a {
+						height: auto;
+						
+					}
+			}
+		}
+}

@@ -1,0 +1,51 @@
+.location-name-container {
+	position: relative;
+	.location_series_number {
+		position: relative;
+		
+		input {
+			width: 80px;
+			display: block;
+			padding: 0px 5px 0px 5px;
+			margin: 0px;
+		}
+		float: right;
+		
+		.help-inline {
+			display: block;
+			position: absolute;
+			top: 40px;
+			right: 0px;
+		}
+	}
+	
+	.location_series_name {
+		margin-right: 120px;
+	}
+}
+
+#entity-title-container {
+	margin-right: 120px;
+}
+
+th.td-count {
+	text-align: center;
+}
+td.td-count {
+	text-align: center;
+	div.loc-count {
+		display: inline-block;
+		margin: 0 auto;
+		padding: 9px 12px 7px;
+		background: #bbb;
+		-webkit-border-radius: 12px;
+		-moz-border-radius: 12px;
+		border-radius: 12px;
+		color: white;
+		font-weight: 700;
+		font-size: 14px;
+		line-height: 14px;
+		text-align: center;
+		vertical-align: middle;
+	}
+}

@@ -1,0 +1,29 @@
+<% unless @exclusive_location_banners.last_page? %>
+	<% _params = {:controller => 'categories', :section => "exclusive_locations", :page => @exclusive_location_banners.current_page + 1} %>
+	
+	<li class="next-page span3">
+		<%= link_to(_params, :remote => true, :rel => "next", :data => {:type => :script}) do %>
+			<% if @exclusive_location_banner_thumbs.any? %>
+				<div class="category-thumb carousel slide">
+					<div class="carousel-inner">
+						<% @exclusive_location_banner_thumbs.each_with_index do |be, index| %>
+							<% cache(be) do %>
+								<div class="item<% if index.zero? %> active<% end %>">
+									<%= image_tag(be.location.current_asset_by_key(:cover).source_url(:grid), :lazy => true) unless be.location.current_asset_by_key(:cover).nil?%>
+								</div>
+							<% end %>
+						<% end %>
+					</div>
+				</div>
+			<% else %>
+			<% next_location = @exclusive_location_banners.offset(@exclusive_location_banners.offset_value + @exclusive_location_banners.limit_value).limit(1).first.location %>
+									
+				<div class="category-thumb">
+					<%= image_tag(next_location.current_asset_by_key(:cover).source_url(:grid), :lazy => true) unless next_location.current_asset_by_key(:cover).nil?%>
+				</div>
+
+			<% end %>
+		<span class="more-text">More Exclusives</span>
+		<% end %>
+	</li>
+<% end %>

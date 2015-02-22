@@ -1,0 +1,27 @@
+
+	
+	<div class="row-fluid">
+	
+	<div class="span9">
+		<p>Your plan will be valid until <%= format_expiration_date @subscription.expiration_date %></p>
+	<div class="row-fluid">
+	    <%= render :partial => "cc_form" %>
+	</div>
+	
+	
+	</div>
+	
+		<div class="span3">
+			<% if @subscription.needs_payment? %>
+				
+				<div id="price-box">
+					<%= render :partial => "price" %>
+				</div>
+				
+				<div id="promo-code-box">
+					<%= render :partial => "promo_code" %>
+				</div>
+			<% end %>
+		</div>
+	</div>
+	

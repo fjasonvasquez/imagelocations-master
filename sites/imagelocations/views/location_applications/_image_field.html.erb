@@ -1,0 +1,25 @@
+<% _count = 0 %>
+<%= builder.fields_for :location_application_images, init_location_application_images(builder.object) do |fi| %>
+	<div id="location-application-image-field-<%= _count %>" class="location-application-image-field">
+	<% #image_tag(fi.object.source_url) if fi.object.source? %>
+	
+	<% _cache = fi.object.source? ? fi.object.source.filename : nil %>
+	
+	<%= fi.hidden_field :source_cache %>
+	<%= fi.input :source, :as => :file, 
+			:wrapper => "inline_file", 
+			:input_html => { 
+				:multiple => false, 
+				:placeholder => "Broqwse", 
+				:class => "location-application-image-file"
+			} , 
+			:label => "Browse", 
+			:wrapper_html => { 
+				:data => {
+					:label => "Select Image...",
+					:filename => _cache
+				}
+			} %>
+	</div>
+	<% _count += 1 %>		
+<% end %>

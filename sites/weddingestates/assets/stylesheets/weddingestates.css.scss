@@ -1,0 +1,521 @@
+/*
+ *= require_self
+ */
+
+@import "compass";
+@import "compass/css3";
+@import "compass/utilities";
+// Here's where we define some default constants
+@import "weddingestates/base";
+@import "weddingestates/fonts";
+
+@import "weddingestates/bootstrap";
+
+// Then we'll import the compass extension
+//@import "h5bp";
+
+// Now, you can simply include everything
+// (except print and helpers) by uncommeting this line
+//@include h5bp-normalize;
+
+// Or, you can import the "overrides" partial if
+// you want more control over individual mixins
+//@import "partials/overrides";
+
+// Finally, put your own styles in these partials
+// and add more as needed (i.e. forms, tables, nav)
+
+@import "weddingestates/supersized";
+@import "weddingestates/superslides";
+
+@import "weddingestates/forms";
+@import "weddingestates/scrollbars";
+
+//@import "partials/grid";
+//@import "partials/grid-list";
+//@import "partials/box";
+
+//@import "partials/frontpage-page";
+//@import "partials/contact-page";
+//@import "partials/signup-page";
+//@import "partials/list-form";
+
+//@import "partials/page";
+@import "weddingestates/scroller";
+@import "weddingestates/carousel";
+
+
+@import "weddingestates/forms";
+@import "weddingestates/navs";
+
+@import "font-awesome";
+
+@import 'bootstrap-modal';
+
+@import "fancy-select";
+
+
+// Helpers classes should come second-to-last
+//@include h5bp-helpers;
+$min-width : 1090px;
+
+$header-height: 120px;
+// Media should come last
+//@import "partials/media";
+body, html {
+	position: relative;
+	width: 100%;
+	height: 100%;
+	min-height: 100%;
+	min-width: $min-width;
+	-webkit-font-smoothing:  subpixel-antialiased;
+    -moz-osx-font-smoothing: grayscale;
+	//letter-spacing: 1px;
+}
+
+body {
+	//background-color: $gray;
+	background-color: #e3e3e3;
+	
+	
+}
+
+a {
+	color: $greenTitles;
+	&:hover {
+		text-decoration: none;
+	}
+}
+
+h1,h2,h3,h4,h5,h6 {
+	&.green {
+		color: $green;
+	}
+}
+
+span {
+	&.green {
+		color: $green;
+	}
+}
+
+p {
+	&.extra-margin {
+		margin-bottom: 20px;
+	}
+}
+
+#header {
+	background-color: $white;
+	position: absolute;
+	top: 0px;
+	width: 100%;
+	height: 120px;
+	z-index: 1000;
+	min-width: $min-width;
+}
+
+
+
+
+
+
+#header-menu {
+	font-family: $serifFontFamily;
+	font-size: .9em;
+	
+	
+	@extend .navbar-static-top;
+	
+	.navbar-inner {
+		@include box-shadow(none);
+		border-width: 0px;
+	}
+	
+	.container {
+		position: relative;
+	}
+	
+	.brand {
+		//padding: 13px 0;
+		padding: 23px 20px 23px;
+		
+		img {
+			display: block;
+			width: 190px;
+			height: 74px;
+			
+			
+		}
+		
+		&:hover{ 
+			img {
+				background: transparent image-url("weddingestates/logo-hover.png") no-repeat center center;
+			}
+			
+		}
+	}
+	
+	a {
+		
+		
+	}
+	
+	
+}
+
+#main-nav {
+		padding: 40px 0;
+		@extend .pull-right;
+		letter-spacing: 3px;
+		li {
+			border-left: 1px dotted $gray;
+			a {
+				text-transform: uppercase;
+				color: $grayDark;
+				font-size: 1.1em;
+				
+				&:hover {
+					color: $green;
+				}
+			}
+			&:first-child {
+				border-left: none;
+			}
+		}
+		
+	}
+	
+
+	
+#login-nav {
+	@extend .pull-right;
+	background-color: $green;
+	
+	height: 120px;
+	@extend .text-center;
+	
+	
+	
+	li {
+		line-height: 10px;
+	}
+	&:before {
+			content: '';
+			display: inline-block;
+			height: 100%;
+			vertical-align: middle;
+		}
+		ul {
+			vertical-align: middle;
+			display: inline-block;
+			list-style: none;
+			margin: 0;
+			padding: 0;
+		}
+	
+	a {
+		
+		font-size: .8em;
+		line-height: 18px;
+		font-style: italic;
+		display: block;
+		padding: 6px 24px 6px 24px;
+		color: $grayDarker;
+		letter-spacing: 2px;
+		&:hover {
+			text-decoration: none;
+			color: $white;
+		}
+	}
+	
+	#nav-login-toggle {
+		//line-height: 18px;
+		//padding: 33px 24px 33px 24px;
+	}
+	
+	
+	
+	
+	span {
+		font-style: normal;
+		text-transform: uppercase;
+		font-size: 1.2em;
+	}
+	
+}
+
+.user-signed-in {
+	#login-nav {
+		
+		//height: 90px;
+		//padding-top: 30px;
+	}
+}
+
+#login-signup {
+	
+	background-color: $green;
+	
+	position: absolute;
+	width: 100%;
+	z-index: 100;
+	.container {
+		padding: 40px 0px;
+	}
+	.row {
+		padding: 20px 0px;
+		border-top: 1px dotted $grayDark;
+		border-bottom: 1px dotted $grayDark;
+	}
+	
+	form {
+		margin: 0px;
+	}
+}
+
+
+
+#login-signup-block {
+	
+	position: relative;
+}
+
+#login-signup, .modal {
+	.close {
+		margin-right: 36px;
+		width: 36px;
+		@extend .text-center;
+		margin-top: -18px;
+		
+		@include opacity(100);
+		i {
+			width: 36px;
+			height: 36px;
+			@include border-radius(18px);
+			border: 1px solid $grayDark;
+			line-height: 36px;
+			color: $white;
+			background-color: $green;
+		}
+		.txt {
+			font-size: 9px;
+			color: $black;
+			@extend .italic;
+			text-shadow: none;
+		}
+		
+		&:hover {
+			@include opacity(100);
+			
+			i {
+				color: $black;
+			}
+		}
+	}
+}
+
+
+
+
+
+#signup-block {
+	@extend .text-center;
+	position: absolute;
+	width: 100%;
+	bottom: 0px;
+	left: 100%;
+	margin-left: 40px;
+	
+	span {
+		font-size: 1.2em;
+		letter-spacing: 1px;
+	}
+	
+	h2 {
+		color: $greenDark;
+		@extend .italic;
+		margin: 0px;
+	}
+}
+
+#wrapper {
+	position: relative;
+	z-index: 1000;
+	width: 100%;
+	height: 100%;
+	min-height: 100%;
+	pointer-events:none;
+	
+	> * {
+		pointer-events: all;
+	}
+}
+
+#content {
+	margin-top: 30px;
+	margin-bottom: 30px;
+}
+
+
+#main {
+	//overflow:auto;
+	padding-top: 120px;	
+	
+	
+	//position: absolute;
+	//top: 0px;
+	//left: 0px;
+	//right: 0px;
+	//bottom: 0px;
+}
+
+
+
+
+.main-container {
+	min-height: 100%;
+	position: relative;
+	
+	//padding-top: 120px;
+}
+
+.has-slides {
+	.main-container {
+		//padding-top: 0px;
+	}
+}
+
+
+.well {
+	//position: absolute;
+	//top: 120px;
+	//left: 0px;
+	//right: 0px;
+	//bottom: 120px;
+}
+
+#footer {
+	clear:both;
+	background-color: $white;
+	padding: 40px 0px;
+	margin-top: -120px;
+	height: 40px;
+	position: absolute;
+	bottom: 0px;
+	width: 100%;
+	min-width: $min-width;
+}
+
+#copy {
+	color: $grayDarker;
+	
+	small {
+		color: $greenTitles;
+		a {
+			//color: $green;
+			color: $greenTitles;
+			&:hover {
+				color: $black;
+				text-decoration: none;
+			}
+		}
+	}
+}
+
+#paginator-container {
+	position: relative;
+	
+	
+	.per-page {
+		//float: right;
+		position: absolute;
+		right: 0px;
+		top: 20px;
+		display: none;
+	}
+}
+
+
+.pagination {
+	text-align: center;
+	> ul {
+		@include box-shadow(none);
+		//display: inline-block;
+		
+		> li {
+			display: inline-block;
+			
+			&:first-child {
+				
+				
+				> a, > span {
+					@include border-radius(15px);
+					
+				}
+			}
+			
+			&:last-child {
+				
+				
+				> a, > span {
+					
+					@include border-radius(15px);
+				}
+			}
+			
+			&.first-page, &.last-page {
+				display: none;
+			}
+			
+			&.active {
+				> a, > span {
+					color: $green;
+				}	
+				
+			}
+			
+			&.prev-page, &.next-page {
+				
+				> a, > span {
+					color: $green;
+				}
+				
+			}
+			
+			> a, > span {
+				
+				color: $grayDark;
+				
+				padding: 2px 4px 0px 4px;
+				min-width: 22px;
+				line-height: 24px;
+				
+				
+				@include border-radius(15px);
+				
+			}
+			
+			> a {
+				&:hover {
+					color: $green;
+				}
+			}
+		}
+		
+	}
+	
+	
+}
+
+
+
+
+@import "weddingestates/locations";
+@import "weddingestates/pages/signup";
+@import "weddingestates/pages/contact";
+@import "weddingestates/pages/front";
+@import "weddingestates/pages/locations";
+
+@import "weddingestates/pages/public-private";
+@import "weddingestates/pages/application";

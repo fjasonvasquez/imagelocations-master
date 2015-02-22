@@ -1,0 +1,32 @@
+.carousel-control {
+	position: absolute;
+	top: 50%;
+	left: -28px;
+	width: 24px;
+	height: 24px;
+	margin-top: -12px;
+	font-size: 16px;
+	font-weight: 100;
+	line-height: 24px;
+
+	text-align: center;
+	background: transparent;
+	border: none;
+	
+	@include opacity(1);
+	@include border-radius(0);
+	color: $grayDark;
+	
+	&:hover {
+		color: $green;
+	}
+	
+	&.right {
+		left: auto;
+		right: -28px;
+	}
+}
+
+.carousel {
+	margin: 0px 28px;
+}

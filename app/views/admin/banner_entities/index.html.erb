@@ -1,0 +1,52 @@
+<% title "Banners" %>
+
+<% content_for :top_nav do %>
+	<% if can? :create, BannerEntity %>
+		<li><%= link_to content_tag(:i,"",:class => "icon-picture") + "New Banner", new_admin_banner_entity_path, :class => "" %></li>
+	<% end %>
+<% end %>
+
+
+<h1 class="page-title"><i class="icon-picture"></i>&nbsp;Banners</h1>
+<div class="box">
+	<ul class="nav nav-tabs">
+	<% @banner_entity_sections.each_with_index do |(key,home_entities),index| %>
+		 <li class="<%= "active" if index.zero? %>"><a href="#<%= "#{key.to_s}-pane" %>" data-toggle="tab"><%= key.to_s.humanize %></a></li>
+	<% end %>
+	</ul>
+	
+	<div class="tab-content">
+	<% @banner_entity_sections.each_with_index do |(key,home_entities),index| %>
+		<div class="tab-pane <%= "active" if index.zero? %>" id="<%= "#{key.to_s}-pane" %>">
+		<%= form_tag reorder_admin_home_entities_path, method: :post do %>
+		
+		<table class="table table-striped table-bordered table-ordered">
+		  <tr>
+		  	<th class="reorder"></th>
+		    <th><%= sort_column("home_entities.type", "Type") %></th>
+		    <th>Items</th>
+		    <th>Actions</th>
+		  </tr>
+		
+		<% banner_entities.each_with_index do |banner_entity,index| %>
+		  <tr>
+		  	<td class="reorder">
+		  		<i class="icon-reorder handle"></i>
+		  		<%= hidden_field_tag "banner_entity_ids[]",banner_entity.id %>
+		  	</td>
+		  	<td><%= banner_entity.type.gsub("HomeEntity", "").underscore.humanize %> Banner - <%= banner_entity.name %></td>
+		  	<td class="td-count"><span class="badge"><%= banner_entity.site_entities.count %></span></td>
+		    <td class="td-actions">
+		      <div class="btn-group">
+		        <%= link_to raw('<i class="icon-eye-open"></i>'), admin_banner_entity_path(banner_entity), :class => 'btn btn-small' if can? :read, BannerEntity %>
+		        <%= link_to raw('<i class="icon-edit"></i>'), edit_admin_banner_entity_path(banner_entity), :class => 'btn btn-small btn-warning' if can? :edit, BannerEntity%>
+		        <%= link_to raw('<i class="icon-trash icon-white"></i>'), admin_banner_entity_path(banner_entity), method: :delete, data: { confirm: 'Are you sure?' }, :class => 'btn btn-small btn-danger' if can? :delete, BannerEntity %></td>
+		      </div>
+		  </tr>
+		<% end %>
+		</table>
+		<% end %>
+		</div>
+	<% end %>
+	</div>
+</div>

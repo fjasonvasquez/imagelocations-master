@@ -1,0 +1,5 @@
+<% cache(banner) do %>
+	<%= link_to banner.link, :class => [""] do %>
+		<%= image_tag banner.banner_entity_site_entity.banner_url unless banner.banner_entity_site_entity.banner_url.nil? %>	
+	<% end %>
+<% end %>

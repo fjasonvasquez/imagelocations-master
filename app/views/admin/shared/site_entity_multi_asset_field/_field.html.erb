@@ -1,0 +1,101 @@
+<% 	
+	height = 200
+	width = 200
+	new_object = new_object_from_association(builder, association)
+	id = new_object.object_id
+	new_object.key = key
+	new_object.enable = true
+	new_object.build_asset()
+	
+	path = builder.object.site_entitable.nil? ? admin_assets_path : nil
+	field_id = "asset-multi-upload-#{builder.object.object_id}"
+	
+	download_tpl = builder.fields_for(association, new_object, :child_index => id) do |f|
+		
+		render("admin/shared/site_entity_multi_asset_field/download_row", :f => f, :field_id => field_id, :base_input_name => f.object_name.gsub("[#{id}]",""),:width => width, :height => height)
+	end
+	
+	upload_tpl = builder.fields_for(association, new_object, :child_index => id) do |f|
+		render("admin/shared/site_entity_multi_asset_field/upload_row", :f => f, :field_id => field_id, :base_input_name => f.object_name.gsub("[#{id}]",""),:width => width, :height => height)
+	end
+		
+	
+	input_field = builder.fields_for(association, new_object, :child_index => id) do |f|
+		f.file_field :source, multiple: true
+	end
+	%>
+
+ <%= content_tag :div, :id => field_id, :class => "multi-asset-upload-field", :data => {
+    											:id => id,
+    											:url => admin_assets_path, 
+    											:asset_height => height,
+    											:asset_width => width,
+    											:download_tpl => download_tpl.gsub("/n",""), 
+    											:upload_tpl => upload_tpl.gsub("/n","") 
+    } do %>
+    
+    
+<ul class="well thumbnails files" data-toggle="modal-gallery" data-target="#modal-gallery">
+
+<%= builder.fields_for association, builder.object.initialized_entity_assets(key) do |f| %>
+    <%= render("admin/shared/site_entity_multi_asset_field/download_row", :f => f, :field_id => field_id,:width => width, :height => height) %>
+<% end %>
+</ul>
+
+
+<%= builder.fields_for(association, new_object, :child_index => id) do |f| %>
+    <div class="row-fluid fileupload-buttonbar file-actions navbar">
+      <div class="navbar-inner">
+      <div class="span10">
+        <!-- The fileinput-button span is used to style the file input field as button -->
+        <span class="btn btn-small btn-success fileinput-button">
+          <i class="icon-plus icon-white"></i>
+          <span>Add New</span>
+          <%= file_field "#{builder.object.object_id}-#{key}-upload", ""%>
+        </span>
+         <button type="reset" class="btn btn-warning btn-small removeall">
+          <i class="icon-ban-circle icon-white"></i>
+          <span>Remove All</span>
+        </button>
+        
+        <button type="reset" class="btn btn-default btn-small watermarkall">
+          <i class="icon-picture icon-white"></i>
+          <span>Remove Watermarks</span>
+        </button>
+        
+        <button type="submit" class="btn btn-primary btn-small start hide">
+          <i class="icon-upload icon-white"></i>
+          <span>Start upload</span>
+        </button>
+        <button type="reset" class="btn btn-warning btn-small cancel hide">
+          <i class="icon-ban-circle icon-white"></i>
+          <span>Cancel upload</span>
+        </button>
+        
+        
+        
+        <%= link_to content_tag(:i, "",:class => "icon-picture icon-white"), admin_assets_path(:per_page => 12),
+							:title => "Existing Assets",
+							:data => {:remote => true, :target => "#ajax-modal", :title => "Assets"}, 
+							:class => "btn btn-small btn-info btn-tooltip edit asset-library"%>
+
+        
+      </div>
+      <div class="span2">
+        <!-- The global progress bar -->
+        <!--<div class="progress progress-success progress-striped active fade">
+          <div class="bar" style="width:0%;"></div>
+        </div>-->
+        
+        <%= select_tag "",
+	        options_for_select(
+				Photographer.all.collect {|p| [ p.name, p.id ] }
+			),
+			{:include_blank => "", :default => nil, :class => 'photographer-select pull-right', :multiple => false, :data => {:placeholder => "Default Photographer"}} %>
+      </div>
+    </div>
+    </div>
+    <!-- The loading indicator is shown during image processing -->
+    <div class="fileupload-loading"></div>
+    <% end %>
+<% end %>

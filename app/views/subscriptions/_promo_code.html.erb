@@ -1,0 +1,14 @@
+<h4>Promo Code</h4>
+
+<% if @promo_code.nil? %>
+
+<%= simple_form_for :promo_code, :url => promo_code_path, :method => :post, :remote => true do |f| %>
+	<% _class = action_name == "promo_code" ? "error" : "" %>
+	<%= f.input :code, :label => false, :input_html => {:placeholder => "Code"}, :error => true, :wrapper_html => { :class => _class }%>
+	<%= f.submit "Add", :class => "btn btn-primary" %>
+<% end %>
+
+<% else %>
+	<%= link_to raw("<i class='icon icon-remove'></i>"), promo_code_path, :class => "btn btn-danger btn-mini", :method => :delete, :remote => true %>
+	<%= @promo_code.code %> (<%= format_price @promo_code.discount %>)
+<% end %>

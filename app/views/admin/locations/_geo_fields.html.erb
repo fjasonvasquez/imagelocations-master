@@ -1,0 +1,26 @@
+<% if can?(:geocode, f.object)%>
+
+	<%= content_tag :h4, "Address"%>
+	 <%= f.input :address, :label => false, :input_html => {:class => 'input-block-level', :placeholder => 'Address'} %>
+	   <div class="row-fluid">
+	   <%= f.fields_for :city_attributes, f.object.city || new_object_from_association(f,:city) do |cf| %>
+	  	<%= cf.input :name, :label => false, :wrapper_html => {:class => 'span3'}, :input_html => { :placeholder => 'City', :class => 'input-block-level' }%>
+	  	
+	  	<%= cf.fields_for :state_attributes, cf.object.state || new_object_from_association(cf,:state) do |csf| %>
+	  		<%= csf.input :name, :label => false, :wrapper_html => {:class => 'span3'}, :input_html => { :placeholder => 'State', :class => 'input-block-level' }%>
+	  		
+	  		<%= f.input :postcode, :label => false, :wrapper_html => {:class => 'span3'}, :input_html => { :placeholder => 'Zipcode', :class => 'input-block-level' } %>
+	  		
+	  		<%= csf.input :country_alpha2, :label => false, :wrapper_html => {:class => 'span3'}, :input_html => {:class => 'input-block-level country-select'}, :as => :select, :priority => [ "United States" ] , :collection => [].tap { |o| 
+	  			c = Country.find_country_by_name("United States") 
+	  			o << [c.name,c.alpha2]  
+	  			o << ["------------------------------", nil]
+	  		} + Country.all, :include_blank => true%>
+	  	<% end %>
+	  <% end %>
+	</div>
+ 
+<% else %>
+
+
+<% end %>

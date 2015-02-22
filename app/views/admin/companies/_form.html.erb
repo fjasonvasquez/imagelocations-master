@@ -1,0 +1,36 @@
+<div class="box">
+<%= simple_form_for([:admin, @company]) do |f| %>
+
+<%= f.input :name, :input_html => {:class => "input-big input-block-level"} %>
+
+<%= f.input :logo, as: :file do %>
+	   			<div class="fileupload fileupload-new" data-provides="fileupload">
+				   	<div class="fileupload-new thumbnail" style="width: 100px; height: 100px;">
+				   		<% if f.object.logo.url.present? %>
+				   			<%= image_tag f.object.logo_url %>
+				   		
+				   		
+				   		<% else %>
+				   		
+				   			<%= holder_tag "200x200", 'Logo Preview' %>
+				   		<% end %>
+				   	</div>
+				   	<div class="fileupload-preview fileupload-exists thumbnail" style="width: 100px; height: 100px;"></div>
+				   	<span class="btn btn-file"><span class="fileupload-new">Select image</span><span class="fileupload-exists">Change</span><%= f.file_field :logo %></span>
+				   	<a href="#" class="btn fileupload-exists" data-dismiss="fileupload">Remove</a>
+				   
+	   			</div>
+	   			<% if f.object.logo.url.present? %>
+	   				<%= f.label :remove_logo do %>
+		   				<%= f.check_box :remove_logo %>
+		   				Delete
+		   			<% end %>
+      			<% end %>
+	   		<% end %>
+
+<div class="form-actions">
+<%= f.submit @company.new_record? ? "Add Company" : "Update Company", 
+		   				@company.new_record? ? { :class => 'btn btn-primary' } : { :class => 'btn btn-success' } %>
+</div>
+<% end %>
+</div>

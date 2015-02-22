@@ -1,0 +1,46 @@
+<%= builder.hidden_field attribute_name %>
+<%= link_to admin_assets_path(:per_page => 12, :type => asset_type),
+							:title => "Existing Assets",
+							:data => {
+								:remote => true, 
+								:target => "#ajax-modal", 
+								:title => asset_type.pluralize,
+								:input => attribute_name
+							},
+							:id => input_id,
+							:class => "btn btn-small btn-info btn-tooltip edit asset-library-single" do %>
+		<%= content_tag(:i, "",:class => "icon-picture icon-white") %>&nbsp;Select Asset					
+<% end %>
+
+<script>
+	$(document).ready(function(){
+		
+		$('#<%= input_id %>').on('click',function(){
+			$this = $(this);
+			var selectAsset = function(){
+				var val = $(this).data('site-entity-id');
+					$this.prev(':input').val(val);
+					
+					console.log($this.prev(':input'));
+				
+			}
+			
+			$($this.data('target')).one('shown',function(){
+				var $modal = $(this);
+
+				$modal.on('click','[data-site-entity-id]',selectAsset);
+				
+				$modal.one('hidden',function(){
+					
+					$modal.off('click','[data-site-entity-id]',selectAsset);
+				});
+				
+			});
+		});
+		
+		
+		
+		
+	});
+
+</script>

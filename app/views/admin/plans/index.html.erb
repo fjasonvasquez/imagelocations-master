@@ -1,0 +1,60 @@
+<% title "Plans" %>
+
+<% content_for :search do %>
+	<%= search_form Plan %>
+<% end %>
+
+<% content_for :top_nav do %>
+	<% if can? :create, Plan %>
+		<li><%= link_to content_tag(:i,"",:class => "icon-archive") + "New Plan", new_admin_plan_path, :class => "" %></li>
+	<% end %>
+	
+	<% if can? :read, PromoCode %>
+		<li><%= link_to "Promo Codes", admin_promo_codes_path, :class => "" %></li>
+	<% end %>
+<% end %>
+
+<h1 class="page-title"><i class="icon-archive"></i>&nbsp;Plans</h1>
+<div class="box">
+	
+	
+	<table class="table table-striped table-bordered">
+	<thead>
+	  <tr>
+	    <th><%= sort_column("plans.name", "Name") %></th>
+	    <th class="td-count"><%= sort_column("plans.duration", "Duration") %></th>
+	    <th class="td-count"><%= sort_column("plans.price", "Price") %></th>
+	    <th class="td-count">Subscriptions</th>
+	    <th>Actions</th>
+	  </tr>
+	</thead>
+	<tfoot>
+	  	<tr>
+	    	<th colspan="5" class="filter-row">
+	    		<div class="per-page pull-left">
+	    			<%= per_page_select %>
+	    		</div>
+	    	</th>
+	    </tr>
+	  </tfoot>
+	 <tbody>
+	
+	<% @plans.each do |plan| %>
+	  <tr>
+	  	<td><%= plan.name %></td>
+	    <td class="td-count"><%= format_duration(plan.duration) %></td>
+	    <td class="td-count"><%= format_price(plan.price) %></td>
+	    <td class="td-count"><%= plan.users.count %></td>
+	    <td class="td-actions">
+	      <div class="btn-group">
+	        <%= link_to raw('<i class="icon-eye-open"></i>'), admin_plan_path(plan), :class => 'btn btn-small' if can? :read, Plan %>
+	        <%= link_to raw('<i class="icon-edit"></i>'), edit_admin_plan_path(plan), :class => 'btn btn-small btn-warning' if can? :edit, Plan %>
+	        <%= link_to raw('<i class="icon-trash icon-white"></i>'), admin_plan_path(plan), method: :delete, data: { confirm: 'Are you sure?' }, :class => 'btn btn-small btn-danger' if can? :delete, Plan %>
+	      </div>
+	    </td>
+	  </tr>
+	<% end %>
+	</table>
+	
+	<%= paginate @plans %>
+</div>

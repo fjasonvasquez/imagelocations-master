@@ -1,0 +1,21 @@
+<div class="fileupload fileupload-new" data-provides="fileupload">
+				   	<div class="fileupload-new thumbnail">
+				   		<% if builder.object.send(attribute_name).url.present? %>
+				   			<%= image_tag builder.object.send(attribute_name).url %>
+				   		
+				   		
+				   		<% else %>
+				   			<%= holder_tag "200x200", "Preview" %>
+				   		<% end %>
+				   	</div>
+				   	<div class="fileupload-preview fileupload-exists thumbnail"></div>
+				   	<span class="btn btn-file"><span class="fileupload-new">Select image</span><span class="fileupload-exists">Change</span><%= builder.file_field attribute_name %></span>
+				   	<a href="#" class="btn fileupload-exists" data-dismiss="fileupload">Remove</a>
+				   
+	   			</div>
+	   			<% if builder.object.send(attribute_name).url.present? %>
+	   				<%= builder.label "remove_#{attribute_name}".to_sym do %>
+		   				<%= builder.check_box "remove_#{attribute_name}".to_sym %>
+		   				Delete
+		   			<% end %>
+      			<% end %>

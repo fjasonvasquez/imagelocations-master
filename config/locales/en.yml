@@ -1,0 +1,55 @@
+# Sample localization file for English. Add more files in this directory for other locales.
+# See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
+
+en:
+  hello: "Hello world"
+  #Locations
+  locations:
+    search:
+      no_results: "No Results"
+      found_append: "Found"
+      search_results_heading: "Search Results"
+      empty_search_results: "No Locations that match your search were found. Try adding commas between terms for better results."
+      
+  
+  #Permissions
+  read: "Read"
+  create: "Create" 
+  edit: "Edit"
+  delete: "Delete"
+  manage: "Manage"
+  
+  
+  #User Model
+  active: "Active"
+  inactive: "Inactive"
+  pending: "Pending"
+  banned: "Banned"
+  
+  
+  destroy_confirm:
+    body: "Are you sure you want to delete %{item}"
+    title: "Delete Confirmation"
+    cancel: "Cancel"
+    proceed: "Delete"
+    
+  #Site Entity Status
+  published: "Published"
+  draft: "Draft"
+  suspended: "Suspended"
+  complete: "Complete"
+  
+  projects:
+    client_access_error: "The password you entered was incorrect."
+  
+  collections:
+    email:
+      sent: "You're email has been sent."
+      error: "The email could not be sent."
+  onhold: "On-Hold"
+  
+  simple_captcha:
+    placeholder: "Enter Code"
+    label: "Please enter the code above."
+    message:
+      locationapplication: "Captcha image did not match."

@@ -1,0 +1,26 @@
+<% title @plan.name %>
+
+<% content_for :top_nav do %>
+	<% if can? :update, @plan %>
+		<li><%= link_to content_tag(:i,"",:class => "icon-file") + "Edit Plan", edit_admin_plan_path(@plan), :class => "" %></li>
+	<% end %>
+<% end %>
+
+
+<div class="row-fluid">
+	<div class="span10">
+		<h1 class="page-title"><i class="icon-map-marker"></i>&nbsp;<%= @plan.name %> <small>id:<%= @plan.id %></small></h1>
+	</div>
+	<div class="span2">
+		<div class="site-entity-status">
+			<h3 class="pull-right"><%= status_tag @plan.status %></h3>
+		</div>
+	</div>
+</div>
+
+<div class="box">
+	
+	<p>Duration: <%= @plan.duration %></p>
+	
+
+</div>

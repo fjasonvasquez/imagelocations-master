@@ -1,0 +1,13 @@
+<div class="control-group tag-taxonomy-field">
+<%= content_tag :label, taxonomy.name.pluralize%>
+<% initialized_terms = taxonomy.initialized_entity_taxonomy_terms(builder.object) 
+%>
+<%= builder.fields_for :taxonomy_term_entities, initialized_terms do |tt| %>			   	
+	    <%= tt.hidden_field :taxonomy_term_id %>
+	    
+	    <%= tt.hidden_field :enable, :value => tt.object.enable ? "1" : "0" %>
+	    <%= tt.hidden_field :site_entity_id %>
+	    <%= tt.hidden_field :id %>
+<% end %>
+	<%= select_tag "", options_for_select(initialized_terms.collect{ |t| [t.name, t.taxonomy_term_id, t.enable ? {:selected => "selected"} : {}]}), :multiple => true, :class => "tag-select2", :disabled => cannot?(:read, builder.object), :placeholder => "Select #{taxonomy.name.pluralize}" %>
+</div>

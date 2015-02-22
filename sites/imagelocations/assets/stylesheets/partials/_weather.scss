@@ -1,0 +1,306 @@
+/* Partial: twitter/bootstrap/_modals.scss */
+//
+// Modals
+// --------------------------------------------------
+@import "compass/css3";
+@import "compass/utilities";
+@import "mixins";
+@import "variables";
+
+
+@mixin weather-icon($icon) {
+	background-image: image-url('imagelocations/weather/icons/' + $icon + '.png');
+	
+}
+
+
+.icon-weather {
+	height: 18px;
+	width: 18px;
+	display: inline-block;
+	background-repeat: no-repeat;
+	background-position: center center;
+	background-size: 100% 100%;
+	vertical-align:middle;
+}
+.icon-clear-day {
+	@include weather-icon('clear-day');
+}
+
+.icon-clear {
+	@include weather-icon('clear-day');
+}
+
+.icon-cloudy, .icon-partly-cloudy-night, .icon-partly-cloudy-day  {
+	@include weather-icon('cloudy');
+}
+
+.icon-fog {
+	@include weather-icon('fog');
+}
+
+.icon-night-partly-cloudy {
+	@include weather-icon('night-partly-cloudy');
+}
+
+.icon-night {
+	@include weather-icon('night');
+	
+}
+
+.icon-partly-sunny {
+	@include weather-icon('partly-sunny');
+}
+
+.icon-rain {
+	@include weather-icon('rain');
+}
+
+.icon-sleet {
+	@include weather-icon('sleet');
+}
+
+.icon-snow {
+	@include weather-icon('snow');
+}
+
+.icon-wind {
+	@include weather-icon('wind');
+}
+
+.btn-group-region {
+	> .btn:first-child {
+		@include border-radius(8px);
+		//height: 10px;
+		width: 16px;
+		line-height: 10px;
+		padding: 2px;
+		color: $red;
+		margin-right: 3px;
+		vertical-align: middle;
+	}
+
+}
+#weather-modal {
+	.deg {
+		&:after {
+			
+		 	content: "\00b0";
+		 	//font-size: .4em;
+		 	//line-height: 100%;
+		 }
+	}
+	
+	.current-temp {
+		font-size: 84px;
+		float:left;
+		line-height: 84px;
+		font-family: $thinFontFamily;
+		font-weight: 100;
+		vertical-align: bottom;
+		position: relative;
+		margin: 0px;
+		height: 70px;
+		span {
+			font-size: .3em;
+			//line-height: 70px;
+			position: absolute;
+			display: block;
+			height: 5px;
+			line-height: 5px;
+			//width: 5px;
+			top : 10px;
+			right: -5px;
+			//vertical-align: text-top;
+			
+		}
+	}
+	
+	.current-summary {
+		float: left;
+		//line-height: 70px;
+		//vertical-align: text-bottom;
+		padding-left: 10px;
+		margin: 30px 0 0 0;
+	}
+	
+	.weather-city {
+		margin: 0px;
+		text-align: right;
+	}
+	
+	.current-highs {
+		margin: 0px;
+		text-align: right;
+	}
+	
+	table {
+		width: 100%;
+		border-top: 1px solid $white;
+		border-bottom: 1px solid $white;
+		font-family: $thinFontFamily;
+		margin: 40px 0 140px 0;
+		
+		.first {
+			td {
+				padding-top: 40px;
+			}
+		}
+		
+		.last {
+			td {
+				padding-bottom: 40px;
+			}
+			
+		}
+		td {
+			padding: 10px 0px;
+		}
+		.dow {
+			font-size: 1.9em;
+			
+		}
+		
+		.temp-high, .temp-low {
+			font-size: 3em;
+			padding-left: 5px;
+			padding-right: 5px;
+		}
+		.temp-high {
+			
+		}
+		
+		.temp-low {
+			
+		}
+		
+		.summary {
+			font-size: 1.2em;
+		}
+		
+		.sun-times {
+			text-align: right;
+		}
+	}
+	// Background
+	.modal-backdrop {
+	  //background-color: $black;
+	  // Fade for backdrop
+	  &.fade { }
+	}
+	
+	.modal-backdrop,
+	.modal-backdrop.fade.in {
+	 
+	}
+	
+	// Base modal
+	&.modal {
+	 background-color: #605F5C;
+	 color: $white;
+	 border: none;
+	 
+	 max-height: 1100px;
+	 
+	  &.fade {
+	  
+	
+	  }
+	  &.fade.in { }
+	  
+	  
+	  
+	  &.cloudy {
+		  background-image: image-url("imagelocations/weather/bg/cloudy.jpg");
+	  }
+	  
+	   &.rain {
+		  background-image: image-url("imagelocations/weather/bg/rain.jpg");
+	  }
+	  
+	  &.clear {
+		  background-image: image-url("imagelocations/weather/bg/clear.jpg");
+	  }
+	  
+	  &.clear-day {
+		  background-image: image-url("imagelocations/weather/bg/clear-day.jpg");
+	  }
+	  &.foggy {
+		  background-image: image-url("imagelocations/weather/bg/foggy.jpg");
+	  }
+	  &.clear-night {
+		  background-image: image-url("imagelocations/weather/bg/clear-night.jpg");
+	  }
+	  &.partly-cloudy-night {
+		  background-image: image-url("imagelocations/weather/bg/partly-cloudy-night.jpg");
+	  }
+	  &.partly-cloudy-day {
+		  background-image: image-url("imagelocations/weather/bg/partly-cloudy-day.jpg");
+	  }
+	  
+	  &.sleet {
+		  background-image: image-url("imagelocations/weather/bg/sleet.jpg");
+	  }
+	  &.snow {
+		  background-image: image-url("imagelocations/weather/bg/snow.jpg");
+	  }
+	  
+	  &.wind {
+		  background-image: image-url("imagelocations/weather/bg/wind.jpg");
+	  }
+	  
+	}
+	.modal-header {
+		border: none;
+		@include clearfix;
+		padding: 15px;
+	   .close { 
+		   height: 46px;
+		   width: 46px;
+		   border: 1px solid $white;
+		   @include border-radius(23px);
+		   color: $white;
+		   @include opacity(1);
+		   text-indent: -1000em;
+		   overflow: hidden;
+		   @include svg-bkgd('imagelocations/modal-close');
+		   background-position: center center;
+		   background-size: 20px 20px;
+		   background-repeat: no-repeat;
+		   
+		   &:hover {
+			   @include opacity(.5);
+		   }
+		   
+	   }
+	  // Heading
+	  h3 {
+	  
+	  }
+	}
+	
+	// Body (where all modal content resides)
+	.modal-body {
+	
+	  
+	}
+	// Remove bottom margin if need be
+	.modal-form {
+	  
+	}
+	
+	// Footer (for actions)
+	.modal-footer {
+	   // Properly space out buttons
+	  .btn + .btn {
+	   }
+	  // but override tht for button groups
+	  .btn-group .btn + .btn {
+	   
+	  }
+	  // and override it for block buttons as well
+	  .btn-block + .btn-block {
+	    
+	  }
+	}
+}

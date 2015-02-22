@@ -1,0 +1,31 @@
+<h2>Sites</h2>
+<div class='row-fluid'>
+<table id="sites-list" class="table table-condensed table-striped table-bordered">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th><%= sort_column("sites.name", "Site") %></th>
+      <th><%= sort_column("sites.host", "Host") %></th>
+      <th>Users</th>
+      <th>Locations</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+  <%
+  @sites.each do |site| %>
+    <tr>
+	  <td><%= site.id %></td>
+	  <td><%= site.name %></td>
+	  <td><%= site.hostname %></td>
+	  <td><%= site.locations.count %></td>
+	  <td><%= site.memberships.count %></td>
+      <td class="center">
+     
+      <%= link_to(content_tag(:i, '',:class => 'icon-edit icon-white'), edit_admin_site_path(site), :class => 'btn btn-info btn-mini') unless cannot? :edit, site %>
+      <%= link_to(content_tag(:i, '',:class => 'icon-trash icon-white'), admin_site_path(site), :data => { :confirm => "Are you sure?" }, :method => :delete, :class => 'btn btn-danger btn-mini') unless cannot?(:destroy, site)%></td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+	<%= paginate @sites %>

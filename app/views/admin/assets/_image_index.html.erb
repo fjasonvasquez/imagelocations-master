@@ -1,0 +1,39 @@
+<table id="image-asset-list" class="table table-condensed table-striped table-bordered">
+  <thead>
+    <tr>
+      <th class="image"></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+
+    <% @assets.each do |asset| %>
+      <tr>
+        <td class="image">
+          <%= image_tag asset.source_url %>
+        </td>
+        <td class="center">
+       
+        <%= link_to(content_tag(:i, '',:class => 'icon-edit icon-white'), 
+        			 	edit_admin_asset_path(asset), 
+        			 	:class => 'btn btn-info btn-mini btn-tooltip',
+        			 	'data-toggle' => 'tooltip',
+        			 	:title => 'Edit asset') unless cannot? :edit, asset %>
+        			 	
+             
+        	
+  	      <%= link_to(content_tag(:i, '',:class => 'icon-trash icon-white'), 
+  	      			admin_asset_path(asset), 
+  	      			:data => { :confirm => "Are you sure?" }, 
+  	      			:method => :delete, 
+  	      			:class => 'btn btn-danger btn-mini btn-tooltip',
+  	      			 'data-toggle' => 'tooltip',
+  	      			 :title => 'Delete asset') unless cannot?(:destroy, asset) %>
+        </td>
+      </tr>
+    <% end %>
+
+  </tbody>
+</table>
+
+<%= paginate @assets %>

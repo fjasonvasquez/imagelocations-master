@@ -1,0 +1,15 @@
+var $el = $('<%= @element %>');
+var $msg = $('<div/>');
+
+$msg.html("<p><%= escape_javascript @message %></p>");
+
+$el.find('form, .modal-footer').addClass('hide');
+
+$el.find('form').after($msg);
+
+$el.one('hidden', function () {
+  
+  $el.find('form, .modal-footer').removeClass('hide');
+  
+  $msg.remove();
+})

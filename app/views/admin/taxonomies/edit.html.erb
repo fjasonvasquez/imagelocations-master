@@ -1,0 +1,6 @@
+<h1 class="page-title">Editing Taxonomy: <%= @taxonomy.name %></h1>
+
+<%= render :partial => 'form', :locals => {:taxonomy => @taxonomy} %>
+
+<%= link_to 'Show', admin_taxonomy_path %> |
+<%= link_to 'Back', admin_taxonomies_path %>

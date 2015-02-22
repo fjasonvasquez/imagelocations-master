@@ -1,0 +1,23 @@
+// font-face fonts
+// see http://compass-style.org/docs/reference/compass/css3/font_face/
+
+@import "compass/css3/font-face";
+
+@include font-face("Didot", font-files(asset-path("Didot.woff",font), woff, asset-path("Didot.svg",font),svg), asset-path("Didot.eot",font), "normal", "normal");
+
+
+.uppercase {
+	text-transform: uppercase;
+}
+
+.italic {
+	font-style: italic;
+}
+
+.small-caps {
+	font-variant: small-caps;
+}
+
+.letter-space {
+	letter-spacing: 3px;
+}

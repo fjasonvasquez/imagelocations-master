@@ -1,0 +1,48 @@
+
+
+
+
+<div id="banner-featured" class="spotlight">
+	<div class="row-inner">
+		<% content_for :spotlight_info do %>
+			<div class="spotlight-controls">
+				<div class="spotlight-info">
+					<h2 class="name"><%= formatted_location_name(entities.first.location, "-") %></h2>
+					<%= link_to "View Location", location_path(entities.first.location), :class => "link" %>
+				</div>
+				<div class="content-info">
+					<ol class="spotlight-slider-indicators">
+						
+						<% (0...entities.count).each do |index| %>
+							<li data-target="#banner-featured" data-spotlight-slide-to="<%= index %>" class="<%= index.zero? ? "active" : "" %>"></li>
+							
+						<% end %>
+
+					</ol>
+					<span><strong>FEATURED LOCATION</strong></span>
+				</div>
+			</div>
+		<% end %>
+		
+			<div class="spotlight-slider-wrapper">
+					<div class="spotlight-slider royalSlider rsDefault visibleNearby slider">
+						<% entities.each_with_index do |he,index| %>
+								
+									<%= link_to location_path(he.banner_entity_site_entity.site_entity.site_entitable), :class => "slide", :data => { :name => h(formatted_location_name(he.banner_entity_site_entity.site_entity.site_entitable, "-"))} do %>
+										<% unless he.banner_entity_site_entity.banner_url.nil? %>
+											<%= image_tag he.banner_entity_site_entity.banner_url %>
+										<% else %>
+											<%= image_tag he.banner_entity_site_entity.site_entity.site_entitable.current_asset_by_key(:cover).source_url(:gallery) unless he.banner_entity_site_entity.site_entity.site_entitable.current_asset_by_key(:cover).nil?%>
+										<% end %>
+									<% end %>
+								
+							<% end %>			
+					</div>
+					
+				<a class="prev-slide" data-target="-1" href="Javascript:void(0);"><i class="icon-angle-left"></i></a>
+				<a class="next-slide" data-target="1" href="Javascript:void(0);"><i class="icon-angle-right"></i></a>
+				
+			</div>
+		
+	</div>
+</div>

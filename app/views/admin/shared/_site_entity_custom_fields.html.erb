@@ -1,0 +1,8 @@
+<% builder.object.entity_fields.each do |field| %>
+	<%= builder.fields_for :field_entities, field do |fe| %>
+		<%= fe.hidden_field :id %>
+		<%= fe.hidden_field :field_id %>
+		<%= fe.input :value, field.args %>
+	<% end %>
+	
+<% end %>

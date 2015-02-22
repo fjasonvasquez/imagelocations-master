@@ -1,0 +1,74 @@
+<% title @section.name %>
+
+<% content_for :top_nav do %>
+	<% if can?(:create, BannerEntity) && !@section.at_limit? %>
+		<% if @section.section_objects.count > 1 %>
+		<li class="dropdown"><%= link_to content_tag(:i,"",:class => "icon-picture") + "New Banner", "#", :data => { :toggle => "dropdown" }, :class => "dropdown-toggle" %>
+			<ul class="dropdown-menu">
+				<% @section.section_objects.find_each do |s| %>
+					<li><%= link_to s.object.gsub("BannerEntity", ""), new_admin_section_banner_entity_path(@section,{ :type => s.object }) %></li>
+				<% end %>
+				
+				
+			</ul>
+		</li>
+		<% else %>
+		
+		<li><%= link_to content_tag(:i,"",:class => "icon-picture") + "Add #{@section.section_objects.first.object.gsub("BannerEntity", "")}", new_admin_section_banner_entity_path(@section,{ :type => @section.section_objects.first.object }), :class => "" %></li>
+		
+		
+		<% end %>
+	<% end %>
+<% end %>
+
+
+<h1 class="page-title"><i class="icon-picture"></i>&nbsp;<%= @section.name %></h1>
+<div class="box">
+	<ul class="nav nav-tabs">
+	<% current_site.sections.find_each do |s| %>
+		 <li class="<%= "active" if s == @section %>">
+		 	<%= link_to s.name, admin_section_path(s) %>
+		 </li>
+		
+	<% end %>
+	</ul>
+	
+	<div class="tab-content">
+
+		<%= form_tag reorder_admin_section_banner_entities_path(@section), method: :post do %>
+		
+		<table class="table table-striped table-bordered table-ordered">
+		  <tr>
+		  	<th class="reorder"></th>
+		    <th><%= sort_column("home_entities.type", "Type") %></th>
+		    <th>Items</th>
+		    <th>Actions</th>
+		  </tr>
+		
+		<% @banner_entities.each_with_index do |banner_entity,index| %>
+		  <tr>
+		  	<td class="reorder">
+		  		<i class="icon-reorder handle"></i>
+		  		<%= hidden_field_tag "banner_entity_ids[]",banner_entity.id %>
+		  	</td>
+		  	<td>
+		  		<% if @section.has_one_section_object? %>
+		  			<%= banner_entity.name %>
+		  		<% else %>
+		  		<%= banner_entity.type.gsub("BannerEntity", "").underscore.humanize %> Banner - <%= banner_entity.name %>
+		  		<% end %>
+		  	</td>
+		  	<td class="td-count"><span class="badge"><%= banner_entity.site_entities.count %></span></td>
+		    <td class="td-actions">
+		      <div class="btn-group">
+		        <!--<%= link_to raw('<i class="icon-eye-open"></i>'), admin_section_banner_entity_path(@section,banner_entity), :class => 'btn btn-small' if can? :read, BannerEntity %>-->
+		        <%= link_to raw('<i class="icon-edit"></i>'), edit_admin_section_banner_entity_path(@section,banner_entity), :class => 'btn btn-small btn-warning' if can? :edit, BannerEntity%>
+		        <%= link_to raw('<i class="icon-trash icon-white"></i>'), admin_section_banner_entity_path(@section,banner_entity), method: :delete, data: { confirm: 'Are you sure?' }, :class => 'btn btn-small btn-danger' if can? :delete, BannerEntity %></td>
+		      </div>
+		  </tr>
+		<% end %>
+		</table>
+		<% end %>
+
+	</div>
+</div>

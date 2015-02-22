@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  banner_site: 
+  type: 
+  banner_sources: MyText
+
+two:
+  banner_site: 
+  type: 
+  banner_sources: MyText

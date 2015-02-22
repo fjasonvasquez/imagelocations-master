@@ -1,0 +1,222 @@
+<% title @location.name.html_safe %>
+<% meta_description @location.field_description %>
+
+  
+  <% content_for :google_analytics_code do %>
+  _gaq.push(['_trackEvent', 'Locations', 'View', '<%= @location.id %>',1, 1]);
+  
+ <% end %>
+ 
+<% content_for :before_client_link do %>
+	<li class="location-back-link"><%= link_to "Back", referer_path, :class => "back-link" unless referer_path.nil?%></li>
+<% end %> 
+ 
+<% cache([@location, @location.permit, @tears]) do %>
+	<div class="row-fluid">
+		<div id="location-container" class="span12 gallery-container">
+			
+				
+			<div id="location-info-thumbs-wrap">
+				<div id="location-info" class="">
+					<% _location_name = formatted_location_name(@location, "-", false) 
+						_title_cls = ["page-title"]
+						
+						if @location.name.length > 15
+							_title_cls << "small-title"
+						end
+						
+					%>
+					<h2 class="<%= _title_cls.join(" ")%>"><%= _location_name %></h2>
+					<h5 class="city-name"><%= @location.city.name %></h5>
+					
+					<div id="mobile-share-links">
+					<%= link_to "Email Link","#email-modal", :class => "email-link", :data => { :toggle => "modal"} %>
+							<span>/</span>		
+						<%= link_to "Save PDF", collection_from_location_and_images_path(@location, @gallery_images), :class => "save-link", :data => {:target => "_blank"} %>
+							<span>/</span>
+						<%= link_to "Email PDF", "#pdf-email-location-modal", :class => "email-link", :data => { :toggle => "modal"} %>
+					</div>
+					
+				</div>
+				
+				
+				
+				<div id="location-share">
+					<div id="location-options" class="dropup">
+						<a href="Javascript:void(0)" data-toggle="dropdown">Location Options</a>
+						<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
+							<% if @collage_images.any? %>
+							<li><a id="collage-toggle" tabindex="-1" href="Javascript:void(0)" data-open="View Collage" data-close="Close Collage"><i class="icon-collage pull-right"></i><span>View Collage</span></a></li>
+							<% end %>
+							<li><%= link_to "<i class='icon-email-location pull-right'></i>Email Link".html_safe,"#email-modal", :tabindex => "-1", :class => "", :data => { :toggle => "modal"} %></li>
+							<li><%= link_to "<i class='icon-pdf pull-right'></i><i class='icon-download-location pull-right'></i>Save PDF".html_safe, collection_from_location_and_images_path(@location, @gallery_images), :tabindex => "-1", :class => "", :data => {:target => "_blank"} %></li>
+							<li><%= link_to "<i class='icon-pdf pull-right'></i><i class='icon-email-location pull-right'></i>Email PDF".html_safe, "#pdf-email-location-modal", :tabindex => "-1", :class => "", :data => { :toggle => "modal"} %></li>
+							<li><%= link_to "<i class='icon-download-location pull-right'></i>Download All Images".html_safe, download_images_location_path(@location, :version => :gallery), :tabindex => "-1", :download => :file, :rel => "nofollow" %></li>
+						</ul>
+					</div>
+					<%= render "layouts/moodboard" %>
+				</div>
+				<div id="thumb-scroller-wrap" class="" data-target="#location-asset-list-wrapper">
+				
+					<div id="thumb-prev" class="thumb-scroll-nav" unselectable="on" data-slide="prev"><i class="icon-caret-left"></i></div>
+						<div id="thumb-scroller">
+							<ul id="thumb-inner">
+								
+							<% @gallery_images.each_with_index do |asset_entity, index| %>
+							
+								<%= content_tag :li, :class => index.zero? ? ["thumb-inner","active"] : "thumb-inner", :data => {:id => asset_entity.object_id} do %>
+									<div class="thumb-inner-img">
+										
+										<%= image_tag(asset_entity.asset.source_url(:tiny),
+												:alt => asset_entity.title,
+												:lazy => true,
+												:data => {
+													:load_priority => index < 15 ? 1 : 0
+												}
+												)%>
+									</div>
+								<% end %>
+							
+							<% end %>
+							
+							<% @tears.each do |tear| %>
+								<%= content_tag :li, :class => "thumb-inner", :data => {:id => tear.object_id} do %>
+									<div class="thumb-inner-img">
+										<%= image_tag tear.cover_url(:tiny), :lazy => true %>
+									</div>
+								<% end %>
+							<% end %>
+						
+						
+							</ul>
+						</div>
+					<div id="thumb-next" class="thumb-scroll-nav" unselectable="on" data-slide="next"><i class="icon-caret-right"></i></div>	
+				</div>
+			</div>
+		
+		<% unless @location.permit.nil? %>
+			<div id="permit-info" class="hide">
+				<a href="Javascript:void(0);" class="icon-minus close"></a>
+				<div id="permit-info-inner" >
+					
+					<h6 id="permit-name"><%= @location.permit.name %></h6>
+					<div id="permit-description">
+						<%= @location.permit.field_description.html_safe unless @location.permit.field_description.nil? %>
+					</div>
+				</div>
+			</div>
+		<% end %>
+			
+		<div id="location-asset-list-wrapper" class="gallery-inner">
+				
+				<ul id="location-asset-list" class="location-gallery assets">
+					<% @gallery_images.each_with_index do |asset_entity, index| %>
+						<%= content_tag :li, :data => {:id => asset_entity.object_id}, :class => index.zero? ? "active" : nil do %>
+
+							<%= image_tag(asset_entity.asset.source_url(:gallery),
+											:alt => asset_entity.title,
+											:lazy => true,
+											:data => {
+												:load_priority => index < 3 ? 1 : 0,
+												:asset_entity => asset_entity.id
+											})%>
+							
+							
+						<% end %>
+					<% end %>
+					
+					<% @tears.each do |tear| %>
+						<%= content_tag :li, :data => {:id => tear.object_id} do %>
+							<%= image_tag tear.cover_url, :lazy => true %>
+						<% end %>
+					<% end %>
+				</ul>
+		</div>
+		
+		
+		<% if @collage_images.any? %>
+			<a href="Javascript:void(0)" id="collage-close" class="close hide"><i class="icon-remove"></i></a>
+			<div id="location-collage-list-wrapper" class="gallery-inner fade">
+				
+					<ul id="location-collage-list" class="location-gallery assets">
+						<% @collage_images.each_with_index do |asset_entity, index| %>
+							<%= content_tag :li, :data => {:id => asset_entity.object_id}, :class => index.zero? ? "active" : nil do %>
+	
+								<%= image_tag(asset_entity.asset.source_url(),
+												:alt => asset_entity.title,
+												:lazy => true,
+												:data => {
+													:load_priority => 0
+												})%>
+
+							<% end %>
+						<% end %>
+					</ul>
+			</div>
+		<% end %>
+
+		</div>
+	</div>
+	
+	
+		<div class="row-fluid similar-wrap">
+			<% if @location.current_published_related_entities().any? %>
+			<div class="span10">
+				<div class="similar-inner">
+					<div class="similar-heading">
+						<div class="similar-heading-text">
+							<h3>Similar Locations</h3>
+						</div>
+						<%= render_asset(@location.current_asset_by_key(:cover),:gallery_thumb) %>
+					</div>
+					<div class="slider-container">
+						<ul>
+							
+						<% @location.current_published_related_entities().includes(:site_entitable).each do |site_entity| %>
+							<% location = site_entity.site_entitable %>
+							<%= content_tag :li, :class => "similar-location", :data => { :name => h(formatted_location_name(location))} do %>
+
+									<%= link_to location_path(location), :class => "" do %>
+										<h3><%= formatted_location_name(location, "-") %></h3>
+										<%= render_asset(location.current_asset_by_key(:cover),:gallery_thumb)%>
+									<% end %>
+						
+							<% end %>
+						<% end %>
+						</ul>
+					</div>
+					<div class="controls">
+						<a href="#" class="prev-slide"><i class="icon-angle-left"></i></a>
+						<a href="#" class="next-slide"><i class="icon-angle-right"></i></a>
+					</div>
+				</div>
+			</div>
+			<% end %>
+			
+			
+			<div class="span2 pull-right">
+				<% unless @location.permit.nil? %>
+							
+							<%= link_to permit_path(@location.permit), :class => "permit-link" do %>
+								<% if @location.permit.logo.url.present? %>
+									<%= image_tag @location.permit.logo_url %>
+									<br/>
+								<% end %>
+								Click
+							<% end %>
+				<% end %>
+				
+				<% unless @location.series.locations_count < 2 %>
+						<%= link_to series_path(@location.series), :class => "series-link", :data => { :close_text => "Close"} do %>View all <span><%= @location.series.name %></span> Locations<% end %>
+				<% end %>
+			
+			</div>
+			
+		</div>
+
+<%= render :partial => "layouts/email_form", :locals => { :title => "Emailing Location", :object_type => :location, :object => @location, :path => email_location_path(@location) } %>
+								
+<%= render :partial => "layouts/pdf_email_modal", :locals => { :title => "Emailing Location", :object_type => :location, :object => @location, :path => email_location_path(@location) } %>
+								
+									
+<% end %>

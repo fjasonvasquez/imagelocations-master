@@ -1,0 +1,20 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <%= wicked_pdf_stylesheet_link_tag "pdf" -%>
+    <%= wicked_pdf_javascript_include_tag "pdf" %>
+  </head>
+  <body class="pdf-document" onload='number_pages'>
+  	<% if content_for? :page_title %>
+    <div class="header-content">
+      <%= wicked_pdf_image_tag "#{current_site.namespace}/pdf/logo.png", :width => 300 %> <h1 class="page-title"><%= content_for :page_title %></h1>
+    </div>
+    <% end %>
+
+    <div id="content">
+      <%= yield %>
+    </div>
+  </body>
+</html>

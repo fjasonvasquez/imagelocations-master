@@ -1,0 +1,11 @@
+<div id="location-application-modal" class="modal container hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-header">
+    <a href="Javascript:void(0)" data-dismiss="modal" class="close" aria-hidden="true"><i class="icon icon-remove"></i></a>
+    <h3 id="location-application-modal-header" class="italic">List Your Estate with WeddingEstates.com</h3>
+  </div>
+  <div class="modal-body">
+  	<%= render :partial => "location_applications/form", :locals => {:location_application => LocationApplication.new} %>
+  	
+    
+  </div>
+</div>

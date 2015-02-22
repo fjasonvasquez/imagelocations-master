@@ -1,0 +1,34 @@
+<% cache(banner) do %>
+	<div id="banner-<%= banner.object_id %>" class="carousel slide tear" data-interval="300">
+		<div class="carousel-inner">
+			
+			<% banner.banner_entity_site_entities.includes(:site_entity).each_with_index do |he,index| %>
+				<%= link_to he.site_entity.site_entitable.location.nil? ? "#" : location_path(he.site_entity.site_entitable.location) , :class => index.zero? ? ["item", "active"] : "item" do %>
+				
+					<% unless he.banner_url.nil? %>
+						<%= image_tag he.banner_url %>
+					<% else %>
+						<%= image_tag he.site_entity.site_entitable.cover_url %>
+					<% end %>
+					<div class="content-info">
+						<div class="content-info-wrap">
+							<h5 class="name"><%= he.site_entity.site_entitable.name %></h5>
+							<div class="description"><%= he.site_entity.site_entitable.description %></div>
+						</div>
+					</div>
+				<% end %>
+				
+				
+			<% end %>
+		
+		</div>
+		
+		<% if banner.tears.count > 1 %>
+			<ol class="carousel-indicators">
+				<% (0...banner.tears.count).each do |index| %>
+					<li data-target="#banner-<%= banner.object_id %>" data-slide-to="<%= index %>" class="<%= index.zero? ? "active" : "" %>"></li>
+				<% end %>	
+			</ol>
+		<% end %>
+	</div>
+<% end %>

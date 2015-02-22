@@ -1,0 +1,165 @@
+.mask {
+	position: fixed;
+	height: 100%;
+	width: 100%;
+	z-index: 1000;
+	top: 0px;
+	left: 0px;
+	background-color: rgba(255,255,255,.7);
+	display: none;
+}
+
+.close-mask {
+	position: absolute;
+	top:-23px;
+	right: -23px;
+	height: 50px;
+	width: 50px;
+	@include background-image(image-url('close-btn.png'));
+	background-position: center center;
+	background-repeat: no-repeat;
+	z-index: 2000;
+	cursor: pointer;
+}
+.has-mask {
+	
+	#wrapper {
+		overflow: hidden;
+	}
+}
+$list-form-height : 552px;
+$list-form-width : 1028px;
+
+$list-form-padding: 60px;
+
+$list-form-inner-padding: 20px;
+
+.location-list-form-mask {
+	min-height: $list-form-height;
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	height: 100%;
+	width: 100%;
+	z-index: 1010;
+	display: none;
+	h1 {
+		color: $red;
+		font-style: italic;
+	}
+	
+	h2 {
+		color: $mail-blue;
+		font-style: italic;
+		font-size: 1.3em;
+		margin: 0.60em 0;
+	}
+}
+
+#location-list-form {
+	border: 1px solid $grey;
+	padding: $list-form-inner-padding;
+	position: relative;
+	left: 7px;
+	top: -7px;
+	height: $list-form-height - (($list-form-padding*2 ) + ($list-form-inner-padding*2 ));
+	
+	ul {
+		list-style: none;
+		margin: 0px;
+		padding: 0px;
+		li {
+			clear: both;
+			input {
+				display: block;
+				border: none;
+				background-color: transparent;
+				border-bottom: 1px solid $grey;
+				//width: 100%;
+			}
+			label {
+				display: block;
+				float: left;
+			}
+		}
+	}
+	
+	label {
+		display: inline-block;
+		font-style: italic;
+		span {
+			color: $red;
+		}
+	}
+	
+	select {
+		display: inline-block;
+		margin-right: 10px;
+	}
+	
+	.submit {
+		display: block;
+		position: absolute;
+		bottom: 20px;
+		left: -90px;
+		border: 0px;
+		font-size: 1.4em;
+		background-color: transparent;
+		@include background-image(image-url('featured-lg-left-bg.png'));
+		background-position: left center;
+		background-repeat: no-repeat;
+		padding: 0px;
+		margin: 0px;
+		span {
+			padding: 0px 75px 0px 90px;
+			line-height: 40px;
+			display: block;
+			@include background-image(image-url('featured-lg-right-bg.png'));
+			background-position: right center;
+			background-repeat: no-repeat;
+			margin-left: 20px;
+		}
+	}
+	.form-note {
+		position: absolute;
+		bottom: 20px;
+		right: $list-form-inner-padding;
+		text-align: right;
+		font-style: italic;
+		span {
+			color: $red;
+		}
+	}
+	
+	#location-list-files {
+		input {
+			display: inline-block;
+			margin-left: 10px;
+			color: $red;
+			font-style: italic;
+		}
+	}
+	
+}
+#location-list-form-wrap {
+	@include background-image(image-url('list-bg.png'));
+	height: $list-form-height;
+	width: $list-form-width;
+	@include box-shadow(0px 0px 10px rgba(0,0,0,.3));
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	margin-top: -($list-form-height/2);
+	margin-left: -($list-form-width/2);
+	.form-content {
+		padding: $list-form-padding;
+		
+		
+		.form-wrap {
+			border: 1px solid $grey;
+			height: $list-form-height - ($list-form-padding*2);
+		}
+		
+		
+	}
+}

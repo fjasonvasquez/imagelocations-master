@@ -1,0 +1,109 @@
+.full-height {
+	
+	background-color: rgba($white, .8);
+	
+	> div {
+		padding: 20px 10%;
+	}
+	
+	textarea, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"], .uneditable-input {
+		background-color: rgba($white, .5);
+	}
+}
+
+.circle-title {
+	background-color: $white;
+	width: 260px;
+	height: 260px;
+	margin: 0 auto;
+	
+	@include border-radius(130px);
+	
+	color: $grayDark;
+	@extend .text-center;
+	
+	&:before {
+		content: '';
+		display: inline-block;
+		height: 100%;
+		vertical-align: middle;
+	}
+	
+	.circle-inner {
+		display: inline-block;
+		vertical-align: middle;
+	}
+	margin-bottom: 20px;
+}
+
+.registration.new, .registration.create {
+	.full-height {
+		> div {
+			padding: 20px 0px;
+		}
+		
+	}
+	#content {
+		margin-top: 0px;
+		margin-bottom: 0px;
+		.circle-title {
+			h1 {
+				font-size: 80px;
+				font-weight: 100;
+				@extend .italic;
+				line-height: 70px;
+				letter-spacing: -3px;
+				sup {
+					font-size: 50px;
+				}
+				sub {
+					letter-spacing: 0px;
+					margin-left: 5px;
+					font-size: 11px;
+					line-height: 10px;
+					float: right;
+					margin-top: 40px;
+				}
+			}
+			h2 {
+				color: darken($green,5%);
+				border-top: 1px dotted $grayDark;
+				letter-spacing: -2px;
+				font-size: 26px;
+				border-bottom: 1px dotted $grayDark;
+			}
+		
+		}
+		.signup-form {
+			label {
+				display: none;
+			}
+			
+		}
+		
+		.control-group {
+			padding: 0 10%;
+		}
+		.btn-primary {
+			//padding-left: 30px;
+			//padding-right: 30px;
+			width: 100%;
+			//margin-left: -13%;
+			//margin-right: -10%;
+			display: block;
+			//min-width: 120%;
+		}
+		
+		.controls-submit-group {
+			//position: relative;
+			padding: 0;
+			.btn-primary {
+			
+				//position: absolute;
+				//left: -30px;
+				//right: -30px;
+			}
+		}
+	}	
+	
+}

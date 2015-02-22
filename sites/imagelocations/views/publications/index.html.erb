@@ -1,0 +1,24 @@
+<% title "Publications" %>
+
+<div class="row-fluid">
+	<ul class="publications clearfix">
+	<% cache(cache_key_for_publications) do %>
+		<% @publications.each_with_index do |publication, index| %>
+			
+			<%= content_tag :li, :class => index.zero? || index % 7 == 0 ? ["clear"] : "" do %>
+				<% cache(publication) do %>
+					<%= link_to publication_path(publication) do %>
+					    
+					    <%= image_tag(publication.cover_url(:thumb), :alt => publication.name, :lazy => true , :data => { :load_priority => index.zero? ? 1 : 0 }) unless publication.cover.nil?%>
+					    
+						<div class="publication-info">
+							<h5 class="publication-name"><%= publication.fullname %></h5>
+							<h6>View All</h6>
+						</div>
+					<% end %>
+				<% end %>
+			<% end %>
+		<% end %>
+	<% end %>
+	</ul>
+</div>

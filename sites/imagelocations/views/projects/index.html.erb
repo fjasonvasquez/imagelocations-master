@@ -1,0 +1,40 @@
+<% title "Projects" %>
+
+<div class="row-fluid">
+	<% previous_letter = FALSE 
+	   target_columns = 4
+	   per_column = (@projects.count.to_f / target_columns).ceil
+	   current_column = 0
+		
+	%>
+	<% @projects.each_with_index do |project, index| %>
+		
+		
+			<% current_letter = get_first_letter(project.name) %>
+			<% new_letter = (current_letter != previous_letter) %>
+			
+			<% if current_column.zero? || ((index / current_column) >= per_column && new_letter) %>
+				<div class="span3">
+					<% if current_column.zero? %>
+						<h2>Client Login</h2>
+						<hr>
+					<% end %>
+				<% current_column += 1 %>
+			<% end %>
+			
+				<% if new_letter %>
+					<h3><%= current_letter %></h3>
+				<% end %>
+				<% cache(cache_key_for_project(project,"list")) do %>
+					<div><%= link_to project_link_title(project), get_project_path(project) %></div>
+				<% end %>
+				
+			<% if @projects[index + 1].nil? || ( get_first_letter(@projects[index + 1].name) != current_letter && (( index + 1) / current_column) >= per_column ) %>
+				</div>
+			<% end %>
+			
+			<% previous_letter = current_letter %>
+		<% end %>
+	
+
+</div>

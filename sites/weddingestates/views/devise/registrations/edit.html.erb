@@ -1,0 +1,55 @@
+<% title("My Account") %>
+
+<div class="row-fluid">
+
+	<div class="span8">
+		<h2>Edit My Account</h2>
+		<%= simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put }) do |f| %>
+		  <%- #devise_error_messages! %>
+		  
+		  
+		  <%= f.fields_for :profile do |pf| %>
+		  	<%= pf.input :first_name %>
+		  	<%= pf.input :last_name %>
+		  <% end %>
+		  
+		  <%- #f.input :username -%>
+		  
+		  <%= f.input :email, :input_html => {:autofocus => true } %>
+		  
+		  <%= f.input :password, :hint => "(leave blank if you don't want to change it)" %>
+		  
+		  <%= f.input :password_confirmation %>
+		  
+		  <%= f.input :current_password, :hint => "(we need your current password to confirm your changes)" %>
+		  
+		
+		  <div><%= f.submit "Update", :class => "btn btn-primary" %></div>
+		<% end %>
+		
+		
+		
+	</div>
+	<div class="span4">
+	
+	<h2>Subscription</h2>
+		
+		<% if resource.subscriptions.current_site.any? %>
+			<% resource.subscriptions.current_site.each do |s| %>
+				<%= s.plan.name %>
+				<%= format_subscription_status s %>
+				<% if can?(:renew, s) %>
+					<br/>
+					<%= link_to "Extend", order_plan_path(s.plan), :class => "btn btn-primary btn-small" %>
+				<% end %>
+			<% end %>
+		<% else %>
+			<%= link_to "Add a plan", plans_path, :class => "btn btn-primary" %>
+		
+		<% end %>
+	
+	<!--<h3>Cancel my account</h3>
+	
+	<p>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), :data => { :confirm => "Are you sure?" }, :method => :delete, :class => "btn btn-primary" %>.</p>-->
+	</div>
+</div>

@@ -1,0 +1,9 @@
+<% cache(banner) do %>
+	<%= link_to city_path(banner.city), :class => [""] do %>
+		<% unless banner.banner_entity_site_entity.banner_url.nil? %>
+				<%= image_tag banner.banner_entity_site_entity.banner_url %>
+			<% else %>
+				<%= image_tag banner.city.current_asset_by_key(:cover).source_url unless banner.city.current_asset_by_key(:cover).nil?%>
+		<% end %>
+	<% end %>
+<% end %>

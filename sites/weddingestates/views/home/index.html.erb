@@ -1,0 +1,24 @@
+
+
+<% bg_slides(@home_slideshow_entities.map {|he| { :link => location_path(he.banner_entity_site_entity.site_entity.site_entitable), :image => he.banner_entity_site_entity.banner_url.nil? ? he.banner_entity_site_entity.site_entity.site_entitable.current_asset_by_key(:cover).source_url(:background) : he.banner_entity_site_entity.banner_url} }) do %>
+
+	<div id="front-social-btns">
+		<a href="https://www.facebook.com/WeddingEstatesInc" data-target="_blank" class="facebook">Facebook</a>
+		<a href="https://twitter.com/@weddingestate" data-target="_blank" class="twitter">Twitter</a>
+		<a href="http://www.pinterest.com/weddingestate/" data-target="_blank" class="pinterest">Pinterest</a>
+	</div>
+
+<% end unless @home_slideshow_entities.nil?%>
+
+<% body_classes "has-scroll-container with-frames scroll-closed" %>
+
+<% main_container_classes("scroll-container") %>
+
+
+	<%= render :partial => "shared/popup" %>
+
+	<%= render :partial => "shared/regions/grid", :locals => {:regions => @front_entities} %>
+
+<div class="text-center">
+	<a class="scroll-top uppercase" href="Javascript:void(0)">Back to Top</a>
+</div>

@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  asset_entitable_id: 1
+  asset_entitable_type: MyString
+  site_id: 1
+  asset_id: 1
+  asset_entity_key: MyString
+  asset_entity_meta: MyText
+  asset_entity_priority: 1
+
+two:
+  asset_entitable_id: 1
+  asset_entitable_type: MyString
+  site_id: 1
+  asset_id: 1
+  asset_entity_key: MyString
+  asset_entity_meta: MyText
+  asset_entity_priority: 1

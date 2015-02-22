@@ -1,0 +1,31 @@
+var prevPageHtml = '<%= escape_javascript render(:partial => "previous_page") %>';
+var nextPageHtml = '<%= escape_javascript render(:partial => "next_page") %>';
+
+var $exclusiveList = $('#exclusive-locations-list');
+
+var $prevPagers = $('#exclusive-location-list-back .prev-page, #exclusive-locations-list .next-page');
+
+$prevPagers.hide();
+
+$prevPagers.appendTo('body');
+
+$prevPagers.on('ajax:complete',function(){
+	$(this).remove();
+	
+	$("#exclusive-location-list-back").html(prevPageHtml);
+	
+	if(nextPageHtml != ''){
+		$exclusiveList.append(nextPageHtml);
+		
+		$exclusiveList.find('.carousel').carousel({
+			interval: 400,
+			pause: "true"
+		}).carousel('pause');
+	}
+});
+
+$exclusiveList.html('<%= escape_javascript render(:partial => "shared/locations/exclusive", :collection => @exclusive_locations, :as => :location) %>');
+
+
+
+

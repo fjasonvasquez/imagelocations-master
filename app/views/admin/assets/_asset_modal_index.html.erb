@@ -1,0 +1,15 @@
+
+<ul id="modal-asset-list" class="thumbnails">
+ <% @assets.each do |asset| %>
+    <li class="span2">
+      <div class="thumbnail">
+       <%= render_admin_asset_thumb(asset,:thumb,{:modal => false, :data => { 
+		:site_entity_id => asset.site_entity.id,
+		:files => asset.to_jq_upload.to_json, 
+		:dismiss => "modal",
+		:toggle =>  false,
+		:target => "#asset-#{asset.id}-modal" 
+		      	}}) %>
+    </li>
+  <% end %>
+</ul>

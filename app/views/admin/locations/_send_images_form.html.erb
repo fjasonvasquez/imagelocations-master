@@ -1,0 +1,34 @@
+<%= simple_form_for Email.new(:user => current_user), :as => :share_email, :url => process_send_images_admin_location_path(location), :method => :post, :remote => true, :validate => true, 
+			  		:html => {
+			  			:id => "send-images-form-#{location.id}",
+			  			:data => {
+			  				:method => "post"
+			  			},
+			  			:class => "form-horizontal"
+			  			
+			  		} do |f| %>
+  	<%= hidden_field_tag :version, :gallery %>
+  	<div class="form-inputs">
+  		<%= f.input :sender, :input_html => { :value => current_user.email } %>
+  	</div>
+  	<div class="form-inputs">
+  	<%= f.input :recipient %>
+  	</div>
+  	<!--<div class="form-inputs">
+  	<%= f.input :cc %>
+  	</div>
+  	<div class="form-inputs">
+  	<%= f.input :bcc %>
+  	</div>-->
+  	<div class="form-inputs">
+  	<%= f.input :subject, :input_html => { :value => "IMAGE LOCATIONS has sent you a file"} %>
+  	</div>
+  	<div class="form-inputs">
+  		<%= f.input :body, :as => :text, :input_html => {:rows => 5, :value => "IMAGE LOCATIONS would like to share a file with you."} %>
+  	</div>
+  	<div class="control-group">
+  		<div class="controls">
+	  		<%= f.submit "Send", :class => 'btn btn-primary', :data => { :loading_text => "Sending..."} %>
+  		</div>
+  	</div>
+<% end %>

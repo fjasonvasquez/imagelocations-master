@@ -1,0 +1,72 @@
+label {
+	//display: block;
+	//margin: .4em 0;
+	//line-height: 1.2em;
+}
+input {
+	//display: block;
+	//padding: 1px 2px 1px 2px;
+	//margin: 0px;
+}
+button {
+	//padding: 4px 0px 4px 0px;
+	//font-family: $primary-font-family;
+}
+.submit {
+	//border:1px solid $grey;
+	//background-color: $light-blue;
+	//color: $white;
+	//margin: 0px;
+	
+}
+
+.btn {
+	color: $white;
+	font-variant:small-caps;
+	letter-spacing: 1px;
+	font-size: 1.3em;
+	text-shadow: none !important;
+}
+
+.btn, .btn-primary, .btn-danger, btn-secondary {
+	border: none;
+	@include box-shadow(none);
+}
+
+.btn-primary {
+	color: $black;
+}
+
+.btn-large {
+	padding: 21px 29px;
+	font-size: 18px;
+	text-transform: uppercase;
+	letter-spacing: 2px;
+}
+
+.control-group {
+	margin-bottom: 5px;
+}
+
+select,
+textarea,
+input[type="text"],
+input[type="password"],
+input[type="datetime"],
+input[type="datetime-local"],
+input[type="date"],
+input[type="month"],
+input[type="time"],
+input[type="week"],
+input[type="number"],
+input[type="email"],
+input[type="url"],
+input[type="search"],
+input[type="tel"],
+input[type="color"],
+.uneditable-input {
+	color: darken($grayDarker,20%);
+	margin-bottom: 5px;
+
+
+}

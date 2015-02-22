@@ -1,0 +1,8 @@
+<div class="row-fluid">
+	<% builder.object.entity_taxonomies.each do |taxonomy| %>
+		<% next unless taxonomy.has_terms? %>
+	
+		<%= render(:partial => "admin/shared/taxonomy_fields/entity_#{taxonomy.class.name.underscore}_fields", :locals => {:builder => builder, :taxonomy => taxonomy}) %>
+		
+	<% end %>
+</div>

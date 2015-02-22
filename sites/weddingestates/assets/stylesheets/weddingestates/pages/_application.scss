@@ -1,0 +1,268 @@
+.modal {
+	@include border-radius(0px);
+	border-color: $white;
+	
+	
+	abbr[title], abbr[data-original-title] {
+		color: $green;
+		border-bottom: none;
+		
+		
+	}
+	
+	
+	.control-group.inline-input {
+		border-bottom: 1px solid $gray;
+		
+		.help-inline {
+			display: block;
+			position: absolute;
+			bottom: -30px;
+			display: none;
+		}
+		
+		
+		&.error {
+			//margin-bottom: 30px;
+		}
+		label {
+			//float: left;
+			line-height: 30px;
+			
+			margin-bottom: -1px;
+			padding-right: 15px;
+			display: inline-block;
+			border-bottom: 1px solid $white;
+			
+			
+			font-style: italic;
+		}
+		
+		&.span6 {
+			label {
+				padding-right: 5px;
+			}
+		}
+		.controls {
+			//float: left;
+			position: relative;
+			display: inline-block;
+			width: auto;
+		}
+		input {
+			margin-bottom: 0;
+			padding: 0 0 0 5px;
+			border: none;
+			display: inline-block;
+			@include box-shadow(none);
+			
+		}
+		
+		&.string3 {
+			//display: table-row;
+			label {
+				//display: table-cell;
+				float: left;
+				padding: 0px 5px 0px 0px;
+				margin: 0px;
+					abbr {
+						display: inline;
+					}
+			}
+			
+			.controls {
+				//display: table-cell;
+				
+				float: none;
+				padding: 0px;
+				margin: 0px;
+				input {
+					display: block;
+					width: 100%;
+					padding: 0px;
+					margin: 0px;
+					border: none;
+				}
+			}
+			
+			
+		}
+	}
+}
+
+.modal-header {
+	border-bottom: none;
+	position: absolute;
+	width: 100%;
+	text-align: center;
+	z-index: 1;
+	padding: 0px;
+	
+	
+	h3 {
+		display: inline-block;
+		padding: 30px 10px 10px 10px;
+		background-color: $white;
+	}
+	
+	button.close {
+		background-color: $green;
+		width: 38px;
+		height: 38px;
+		@include border-radius(18px);
+		border: 1px solid $grayDark;
+		line-height: 38px;
+		color: $white;
+		background-color: $green;
+		
+	}
+	.close {
+		margin-top: -19px;
+		margin-right: -19px;
+		
+		i {
+			border: none;
+			line-height: 38px;
+			width: 38px;
+			height: 38px;
+			@include box-shadow( 0px 2px 5px rgba($black,.5));
+		}
+		
+	}
+}
+
+$modal-border-offset: 5px;
+$modal-border-color: $gray;
+
+.modal-body {
+	border: 1px solid $modal-border-color;
+	padding: 70px 15px 15px 15px;
+	margin: 50px 50px 50px 50px;
+	
+	position: relative;
+	
+	&:after {
+		content: " ";
+		position: absolute;
+		z-index: -1;
+		top: $modal-border-offset - 1;
+		right: $modal-border-offset - 1;
+		bottom: - ($modal-border-offset + 1);
+		left: - ($modal-border-offset + 1);
+		border: 1px solid $modal-border-color;
+	}
+	
+	
+	.fancy {
+		color: $greenTitles;
+		text-align: center;
+		
+		@extend .uppercase;
+		font-size: 15px;
+		
+		 > span {
+			display: inline-block;
+			padding-right: 115px;
+			background: transparent image-url("weddingestates/header-decoration-right.png") no-repeat right center;
+			 > span {
+				 display: inline-block;
+				 padding-left: 120px;
+				 text-align: center;
+				 background: transparent image-url("weddingestates/header-decoration-left.png") no-repeat left center;
+			 }
+		}
+	}
+	
+	button {
+		
+		&.fancy {
+			height: 44px;
+			//padding: 4px 10px;
+			padding: 0px 30px 0px 30px;
+			@extend .btn;
+			@extend .btn-primary;
+			position: relative;
+			display: inline-block;
+			
+			&.disabled {
+				@include opacity(.6);
+			}
+			
+			> span {
+				//background: transparent image-url("weddingestates/button-fancy-left.png") no-repeat left center;
+			}
+			
+			&:before {
+				content: " ";
+				display: block;
+				position: absolute;
+				left: 0px;
+				top: 0px;
+				height: 0px;
+				width: 0px;
+				border: 22px solid transparent;
+				border-left-width: 5px;
+				border-left-color: $white;
+			}
+			&:after {
+				content: " ";
+				display: block;
+				position: absolute;
+				right: 0px;
+				top: 0px;
+				height: 0px;
+				width: 0px;
+				border: 22px solid transparent;
+				border-right-width: 5px;
+				border-right-color: $white;
+			}
+		
+		}
+	}
+	
+}
+
+#location-application-modal {
+	&.modal {
+		//top: $header-height + 20;
+		
+		
+		form {
+			
+			//width: 60%;
+			
+			width: 500px;
+			margin: 0 auto;
+		}
+	}
+}
+
+
+#location-application-modal-header {
+	width: 314px;
+	height: 80px;
+	overflow: hidden;
+	text-indent: -1000em;
+	background: $white image-url("weddingestates/location-application-header.png") no-repeat center center;
+}
+
+#location_application_form {
+	
+	
+	.location_application_images {
+		margin-bottom: 20px;
+		margin-top: 10px;
+		@extend .row-fluid;
+		label {
+			@extend .span6;
+			float: left;
+			@extend .uppercase;
+		}
+		
+		.controls {
+			@extend .span6;
+			float: left;
+		}
+	}
+	
+}

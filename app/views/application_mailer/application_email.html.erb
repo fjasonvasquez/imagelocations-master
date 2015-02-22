@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+       <h2><%= @application.site.name %> Location Application</h2>
+       
+       <h3>Contact Info</h3>
+       <table>
+       		<tr>
+       			<td>Name</td>
+       			<td><%= @application.name %></td>
+       		</tr>
+       		<tr>
+       			<td>Email</td>
+       			<td><%= @application.email %></td>
+       		</tr>
+       		<tr>
+       			<td>Phone Number</td>
+       			<td><%= @application.phone %></td>
+       		</tr>
+       		<tr>
+       			<td>Address</td>
+       			<td><%= @application.address %></td>
+       		</tr>
+       		<tr>
+       			<td>City</td>
+       			<td><%= @application.city %></td>
+       		</tr>
+       		<tr>
+       			<td>State</td>
+       			<td><%= @application.state %></td>
+       		</tr>
+       		<tr>
+       			<td>Zip</td>
+       			<td><%= @application.postcode %></td>
+       		</tr>
+       		<tr>
+       			<td>International</td>
+       			<td><%= @application.international_address %></td>
+       		</tr>
+       </table>
+       
+       <h3>Extra Info</h3>
+       <table>
+       	<% unless @application.sites.blank? %>
+			<tr>
+       			<td>Sites</td>
+       			<td><%= @application.sites.map {|s| s.name }.join(", ") %></td>
+       		</tr>
+       	<% end %>
+       	
+       	<% unless @application.usage.blank? %>	
+       		<tr>
+       			<td>Usage</td>
+       			<td><%= @application.usage.join(", ") %></td>
+       		</tr>
+       	<% end %>
+       	
+	   	<% unless @application.exclusive.blank? %>
+				<tr>
+       				<td>Exclusive</td>
+	   				<td><%= @application.exclusive.join(", ") %></td>
+	   			</tr>
+		<% end %>
+		
+	   	<% unless @application.listing.blank? %>
+
+				<tr>
+       				<td>Listing</td>
+	   				<td><%= @application.listing.join(", ") %></td>
+	   			</tr>
+			<% end %>
+	   	
+       </table>
+       
+	   <% unless @application.notes.blank? %>
+	   <h3>Notes</h3>
+	   <p><%= @application.notes %></p>
+	   <% end %>
+	   
+       <h3>Images</h3>
+       <ul>
+       <% @images.each do |image| %>
+       	<li><%= image_tag attachments[image].url %></li>
+       <% end %>
+       </ul>
+  </body>
+</html>

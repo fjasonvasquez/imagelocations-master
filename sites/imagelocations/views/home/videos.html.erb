@@ -1,0 +1,17 @@
+
+
+<div class="container-fluid container-grid">
+<% @videos_entities.each_with_index do |e, index| %>
+	
+	<% if index.zero? || index % 3 == 0 %>
+		
+		<div class="row-fluid">
+	<% end %>
+	<div class="span4">
+		<%= render :partial => "shared/banners/videos/#{e.class.entity_association.to_s}/row", :locals => {:banner => e} %>
+	</div>
+	<% if (!index.zero? && (((index + 1) % 3 == 0)) || (index + 1 == @videos_entities.count)) %>
+		</div>
+	<% end %>
+<% end %>
+</div>

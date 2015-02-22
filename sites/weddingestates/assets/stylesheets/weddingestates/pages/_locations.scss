@@ -1,0 +1,417 @@
+.locations-list-view {
+	#content {
+		margin-top: 0px;
+	}
+	
+	.ads {
+		background-color: $white;
+		padding: 10px;
+		margin-top: 10px;
+		text-align: center;
+		
+		a {
+			display: block;
+			
+			img {
+				display: inline-block;
+			}
+		}
+			
+	}
+}
+
+
+#location-info-tab-content {
+	> div {
+		//@extend .small-caps;
+	
+		i {
+			//font-family: $serifFontFamily;
+			//font-variant: normal;
+		}
+	}
+	
+}
+
+$slider-img-height: 533px;
+
+$similar-locations-height: 120px;
+
+
+
+.page-title {
+	background-color: $white;
+	margin-bottom: -10px;
+	padding: 20px;
+	margin-top: 10px;
+	h2 {
+		margin: 0px;
+	}
+	
+}
+
+#location-scroll-btn, #location-scroll-back-btn {
+	color: $white;
+	font-size: 13px;
+	//padding: 8px 12px;
+	
+	i {
+		font-size: 12px;
+	}
+}
+
+#location-scroll-back-btn {
+    font-variant: normal;
+    @extend .italic;
+}
+
+.locations.show {
+	
+	background-color: $white;
+	
+	.location-title {
+		letter-spacing: -1px;
+		line-height: 28px;
+		margin-bottom: 0px;
+		margin-top: 0px;
+	}
+	
+	.city-name {
+		margin: 0px 0px 20px 0px;
+		
+		> a { 
+			@extend .italic;
+			font-weight: normal;
+		}
+	}
+	
+	#content {
+		padding-top: $slider-img-height + 60px;
+		padding-bottom: 40px;
+		border-bottom: 1px solid $gray;
+	}
+	
+	#similar-estates {
+		border-left: 1px dotted $black;
+		//padding-top: 16px;
+		
+		padding: 10px 0px 0px 10%;
+		
+		margin-right: -28px;
+		
+		h5 {
+			margin-top: 0px;
+			color: $grayDark;
+			letter-spacing: 2px;
+			margin-bottom: 20px;
+		}
+		
+		.carousel-inner {
+			
+			.item {
+				height: $similar-locations-height;
+				overflow: hidden;
+				.similar-location {
+					//display: block;
+					//float: left;
+					//width: 33.33%;
+					> a {
+						display: block;
+						
+					
+					}
+					
+					img {
+						display: block;
+						//min-height: 150px;
+						margin: 0px;
+						
+						width: 100%;
+						min-height: 100%;
+						height: auto;
+						
+					}
+				}
+				
+			}
+		}
+		
+	}
+}
+
+
+.slider-container {
+	ul {
+		margin: 0px;
+		padding: 0px;
+		list-style: none;
+		display: block; 
+	}
+	
+}
+
+#location-container {
+	position: absolute;
+	top: 120px;
+	left: 0px;
+	right: 0px;
+	min-width: $min-width;
+}
+
+
+#location-container .gallery-inner img {
+	height: $slider-img-height;
+	min-width: none;
+}
+
+
+.locations-list-view {
+	
+	.page-title {
+		h2 {
+			font-size: 20px;
+			line-height: 30px;
+			letter-spacing: -1px;
+		}
+		h4 {
+			color: $grayDark;
+			margin: 0 0 10px 0;
+			letter-spacing: 3px;
+			font-size: 12px;
+		}
+	}
+
+	.content-meta {
+		margin: 0 0 10px 0;
+	}
+			
+	.thumbnails-container, .gallery-container {
+		.thumbnails, .location-gallery {
+			margin-bottom: 15px;
+		
+		li {
+			display:  block;
+			float: none;
+			margin: 0px;
+				
+			img {
+				display: block;
+				max-width: none;
+				min-width: 100%;
+			}
+			
+			
+		}
+	}
+	
+	}
+}
+
+.thumbnails-container, .gallery-container {
+		
+		white-space:nowrap;
+		position: relative;
+		overflow: auto;
+		
+		a {
+			display: block;
+		}
+		//zoom: 1;
+		
+	.thumbnails, .location-gallery {
+		//float: left;
+		margin: 0px 0px 0px 0px;
+		//padding-bottom: 10px;
+		
+		//overflow-y: hidden;
+		//width: 3000em;
+		li {
+			display:  inline-block;
+			float: none;
+			margin: 0px;
+						//overflow-y: hidden;
+			img {
+				display: block;
+				max-width: none;
+				
+			}
+		}
+	}
+	
+	.thumbnails {
+		overflow: visible !important;
+		height: auto;
+		img {
+			height: 200px;
+			width:auto;
+			//padding-bottom: 15px;
+		}
+		
+		li {
+			overflow: hidden !important;
+		}
+		
+	}
+	
+	.gallery-inner, .thumbnails-inner {
+		height: auto;
+		
+		overflow: auto;
+		@include webkit-scrollbars();
+		position: relative;
+		
+		-webkit-transform: translate3d(0,0,0);
+		-webkit-overflow-scrolling: touch;
+		
+		ul {
+			margin: 0px 0px 64px 0px;
+			padding: 0px;
+		}
+		
+	}
+	.location-gallery {
+		
+		max-height: $slider-img-height + 15px;
+		overflow: visible;
+		
+		li {
+			//@include opacity(.5);
+			&.active {
+				//@include opacity(1);
+				//@include transition(opacity .25s ease-in);
+				
+			}
+			
+			img {
+				//max-height: 100%;
+				//max-width: auto !important;
+				//height: 100%;
+				//width: auto;
+			}
+		}
+	}
+	
+}
+
+#thumb-scroller-wrap {
+		position: absolute;
+		height : 70px;
+		left: 0px;
+		//bottom: 8px;
+		top: $slider-img-height;
+		//margin-top: -70px;
+		overflow: hidden;
+		z-index: 5;
+		//width: 100%;
+		
+		right: 0px;
+		
+		background: $white;
+		
+		@include box-shadow(0 0 3px 0px rgba($black,.3));
+	}
+	#thumb-scroller {
+		position: relative;
+		height: 100%;
+		
+		margin: 0 20px;
+		overflow: hidden;
+		padding: 0px;
+		//padding: 5px 0px 5px 0px;
+		.thumb-inner {
+			height: 50px;
+			width: 50px;
+			line-height: 50px;
+			//float: left;
+			margin: 10px 10px 10px 0px;
+			position: relative;
+			cursor: pointer;
+			padding: 0px;
+			//padding: 0px 0px 10px 0px;
+			list-style: none;
+			display: inline-block;
+			
+			
+			&.active {
+				.thumb-inner-img {
+					border: 2px solid $grayDarker;
+				}
+			}
+			
+			.thumb-inner-img {
+				position: absolute;
+				top: 0px;
+				left: 0px;
+				height: 50px;
+				width: 50px;
+				border:2px solid $white;
+				overflow: hidden;
+			}
+			
+			&.last {
+				margin-right: 0px;
+			}
+			
+			&:hover {
+				
+				@include opacity(.2);
+			}
+		}
+		
+		img {
+			width: 100%;
+			min-height: 100%;
+			display: block;
+			
+		}
+
+	}
+	#image-wrap {
+		position: relative;
+		overflow: hidden;
+	}
+	#thumb-inner {
+		position: absolute;
+		//width: 5000em;
+		white-space:nowrap;
+		margin: 0px;
+	}
+
+	#thumb-prev, #thumb-next {
+		position: absolute;
+		left: 0px;
+		top: 10px;
+		bottom: 10px;
+		//height: 100%;
+		line-height: 50px;
+		font-size: 1.4em;
+		width: 16px;
+		z-index: 310;
+		background-color: $white;
+		color: $gray;
+		text-align: center;
+		cursor: pointer;
+		border: 1px solid $white;
+		&:hover {
+			color: $grayDark;
+		}
+
+	}
+	#thumb-next {
+	
+		right: 0px;
+		left: auto;
+	}
+	
+@media (min-width: $minWidth1200) {
+	.thumbnails-container {
+		
+		.thumbnails {
+			img {
+				height: 244px;
+			}
+		}
+	}
+
+
+}

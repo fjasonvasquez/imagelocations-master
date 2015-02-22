@@ -1,0 +1,21 @@
+<%= content_tag :h4, title unless title.nil? %>
+			
+<table class="table related-entities" >
+	<thead>
+		<tr>
+			<th colspan="3">
+				<div class="input-append related-entity-search">
+					<input data-limit="<%= limit %>" data-site="<%= builder.object.site.id %>" data-type="<%= type %>" data-id="<%= id %>" class="related-entity-search-input" type="search" placeholder="Search <%= type.pluralize %>">
+					
+					<%= link_to_add_related_entity_fields "Add", builder, association, nil %>
+					<!--<button class="btn" type="button" disabled="true">Add</button>-->
+				</div>
+			</th>
+		</tr>
+	</thead>
+	<tbody>
+		<%= builder.fields_for association do |sl| %>
+			<%= render :partial => 'admin/shared/related_site_entity_fields', :locals => {:f => sl} %>
+		<% end %>
+	</tbody>
+</table>

@@ -1,0 +1,29 @@
+<h1><i class="icon-globe"></i>&nbsp;<%= @region.name %></h1>
+
+<div class="box">
+	<%= alphabet_filter @cities %>
+	<table class="table table-striped table-bordered table-thumbnails">
+	  <tr>
+	  	<th class="thumb"></th>
+	    <th>City</th>
+	    <th class="td-count">Locations</th>
+	  </tr>
+	
+	<% @cities.each do |city| %>
+	  <tr>
+	  	<td class="thumb"><%=
+	  		table_thumb(city)
+	  		%>
+	  	</td>
+	    <td class="title"><%= 
+	    	if can? :read, city
+	    		link_to city.name, admin_state_city_path(city.state,city) 
+	    	else
+	    		city.name
+	    	end
+			%></td>
+	    <td class="td-count"><%= count_tag city.locations.count %></td>
+	  </tr>
+	<% end %>
+	</table>
+</div>

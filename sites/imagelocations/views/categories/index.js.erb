@@ -1,0 +1,5 @@
+$('#category-list').scrollPage("appendContent",'<%= escape_javascript render(:partial => "category", :collection => @categories) %>');
+
+$('#category-list').scrollPage("replacePagination",'<%= escape_javascript(paginate(@categories, :remote => true).to_s) %>');
+
+$('#category-list').scrollPage("replaceFilter",'<%= escape_javascript(alphabet_filter(@categories, {:remote => true, :data => { :type => :script,:scroll_to => "true", :target => "#category-thumbs" }}).to_s) %>');

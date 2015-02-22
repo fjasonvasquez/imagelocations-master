@@ -1,0 +1,210 @@
+@import "partials/variables";
+
+
+@import "mixins";
+
+$content-padding: 20px;
+
+$padding: 5px;
+
+$rows: 7;
+
+$item-width: percentage(1/$rows);
+
+
+.publications {
+	&.index {
+		#content {
+			padding: 0 ($content-padding - $padding) $content-padding $content-padding;
+		}
+	}
+	
+	
+	&.show {
+		#content {
+			margin-top: 0px;
+		}
+		
+		.page-title {
+			//text-align: center;
+			margin: 30px 0px;
+		}
+		.publication-meta {
+			text-align: center;
+		}
+		.back-link {
+			background-color: $red;
+			display: inline-block;
+			color: $white;
+			padding: 5px 10px;
+			text-transform: uppercase;
+			font-size: .8em;
+			
+			
+			
+			&:hover {
+				text-decoration: none;
+			}
+		}
+		#content {
+			padding-top: 5px;
+			position: relative;
+			
+		}
+		
+		a.next-slide , a.prev-slide {
+			position: absolute;
+			z-index: 2;
+			top: 50%;
+			margin-top: -18px;
+			left: 20px;
+		} 
+		a.next-slide {
+			left: auto;
+			right: 20px;
+		}
+		
+		ul.gallery {
+			list-style: none;
+			list-style-type: none;
+			margin: 0;
+			li {
+				display: inline-block;
+				overflow: hidden;
+			}	
+		}
+	}
+}
+
+
+ul.publications {
+	margin: 0px;
+	padding: 0px;
+	position: relative;
+	
+	> li {
+		float: left;	
+		list-style: none;
+		display: block;
+		width: $item-width;
+		
+		
+		&.clear {}
+		
+		a {
+			display: block;
+			margin: 0px $padding $padding 0;
+			position: relative;
+			
+			&:hover {
+				.publication-info {		
+					@include opacity-hover(1);
+				}
+			}
+					
+			.publication-info {
+				position: absolute;
+				width: 100%;
+				bottom: 0px;
+				left: 0px;
+				text-align: center;
+				padding-top: 20%;
+				background-color: transparent;
+				@include background-image(linear-gradient(bottom, rgba($white,.9), rgba($white,0)));
+				
+				@include opacity(0);
+					
+					
+				.publication-name {
+					
+					color: $black !important;
+					border-bottom: 1px solid $grayDark;
+					margin: 0px;
+					padding-bottom: 3px;
+					text-transform: none !important;
+					display: inline-block;
+					
+				}
+				
+				h6 {
+					color: $red !important;
+					text-transform: uppercase !important;
+					margin: 0px 0px 10px 0px;
+					font-weight: bold;
+				}
+			}
+		}
+		img {
+			display: block;
+			width: 100%;
+			
+		}
+		
+		
+	}
+	
+}
+
+.publications {
+	&.show {
+		.tear {
+			position: relative;
+			line-height: 1em;
+			&:hover {
+				.tear-info {		
+					@include opacity-hover(1);
+				}
+			}
+			
+			.tear-info {
+				position: absolute;
+				width: 100%;
+				bottom: 0px;
+				left: 0px;
+				text-align: center;
+				padding-top: 20%;
+				background-color: transparent;
+				@include background-image(linear-gradient(bottom, rgba($white,.9), rgba($white,0)));
+				
+				@include opacity(0);
+					
+					
+				.tear-description {
+					
+					color: $black !important;
+					border-bottom: 1px solid $grayDark;
+					margin: 0px;
+					padding-bottom: 3px;
+					margin-bottom: 3px;
+					text-transform: none !important;
+					display: inline-block;
+					
+				}
+				
+				.tear-location {
+					color: $red !important;
+					text-transform: uppercase !important;
+					margin: 0px 0px 10px 0px;
+					font-weight: normal !important;
+				}
+			}
+		}
+		
+	}
+}
+
+@media (max-width: 767px) {
+
+	ul.publications {
+	
+		> li {
+			width: 50%;
+			&.clear {
+				clear:none;
+				
+			}
+		}
+	}
+
+
+}

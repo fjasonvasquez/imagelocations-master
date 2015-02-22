@@ -1,0 +1,21 @@
+// Place all the styles related to the Admin::Media controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+.asset-library-list {
+	.actions {
+		position: absolute;
+		bottom: 8px;
+		left: 8px;
+	}
+	.thumbnail {
+		position: relative;
+		
+		video {
+			max-width: 100%;
+			height: auto;
+			vertical-align: middle;
+		}
+	}
+}
+
+

@@ -1,0 +1,15 @@
+$.adminModal('setBody','<%= j render( :partial => "send_images_form", :locals => { :location => @location}) %>');
+
+$.adminModal('modalEl').one("shown", function(){
+	var $form = $("#send-images-form-<%= @location.id %>");
+	$form.enableClientSideValidations();
+	var $submit = $form.find('input[type=submit]');
+	$submit.button();
+	
+	$form.on("ajax:beforeSend",function(){
+		$submit.button('loading');
+	});
+	
+	
+});
+

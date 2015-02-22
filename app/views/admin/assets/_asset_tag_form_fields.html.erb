@@ -1,0 +1,14 @@
+<%= f.input :title, :input_html => {:class => 'input-block-level'} %>
+<%= f.hidden_field :id %>
+
+<%= f.input :photographer, :wrapper_html => {:class => ""} do %>
+	<%= f.select :photographer_id, 
+			Photographer.all.collect {|p| [ p.name, p.id ] }, 
+			{:include_blank => "None", :default => nil},
+			{:class => 'input-block-level select2', :multiple => false, :data => {:placeholder => "Select Photographer"}} %>
+<% end %>
+
+<%= f.fields_for :site_entity_attributes, f.object.site_entity.nil? ? f.object.build_site_entity(:site => current_site) : f.object.site_entity  do |b| %>
+	<%= b.hidden_field :id %>
+	<%= render :partial => 'admin/shared/taxonomy_fields/entity_taxonomies', :locals => {:builder => b} %>
+<% end %>

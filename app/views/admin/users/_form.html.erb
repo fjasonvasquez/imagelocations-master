@@ -1,0 +1,73 @@
+
+
+
+
+  <%= simple_form_for user, :url => [:admin, user] do |f| %>
+   	<div class="row-fluid">
+   	
+   	<div class="span8">
+   		<div class="box">
+   	<%= f.fields_for :profile do |profile| %>
+   		<%= profile.input :avatar, as: :file do %>
+	   			<div class="fileupload fileupload-new" data-provides="fileupload">
+				   	<div class="fileupload-new thumbnail" style="width: 50px; height: 50px;"><img src="<%= avatar_url user %>" /></div>
+				   	<div class="fileupload-preview fileupload-exists thumbnail" style="width: 50px; height: 50px;"></div>
+				   	<span class="btn btn-file"><span class="fileupload-new">Select image</span><span class="fileupload-exists">Change</span><%= profile.file_field :avatar %></span>
+				   	<a href="#" class="btn fileupload-exists" data-dismiss="fileupload">Remove</a>
+				   
+	   			</div>
+	   			<% if user.profile.avatar.url.present? %>
+	   				<%= profile.label :remove_avatar do %>
+		   				<%= profile.check_box :remove_avatar %>
+		   				Delete
+		   			<% end %>
+      			<% end %>
+	   		<% end %>
+   		<%= profile.input :first_name, label: 'Name', input_html: {class: 'span3'}, wrapper_html: {class: 'controls controls-row'} do %>
+   	 		<%= profile.input_field :first_name, :placeholder => 'First Name' %> 
+   	 		<%= profile.input_field :last_name, :placeholder => 'Last Name' %> 
+   	 	<% end %>
+   	 	
+   	 	<%= profile.association :company, :input_html => {:class => 'selectpicker'} %>
+   	<% end %>
+   	
+   	<%= f.input :username, :wrapper => :prepend, :required => true do
+   			content_tag(:span, content_tag(:i,'',:class => 'icon-user'), :class => "add-on") +
+	   		f.input_field(:username)
+	 	end  	
+	   	
+   	%> 
+   	<%= f.input :email, :wrapper => :prepend, :required => true do
+	   		content_tag(:span, content_tag(:i,'',:class => 'icon-envelope'), :class => "add-on") +
+	   		f.email_field(:email)
+	   	end
+   	%>
+   	<%= f.input :status, as: :select, :collection => User::USER_STATUSES.collect {|p| [ I18n.t(p.to_sym), p ] }, :selected => f.object.status, :disabled => current_user == user, :input_html => {:class => 'selectpicker'} %>
+   	
+
+  <%= f.input :password, :input_html => {:autocomplete => "off"} %>
+
+  <%= f.input :password_confirmation %>
+  
+  
+   			<div class="form-actions">
+	   			<%= f.button :submit, :class => 'btn-primary' %>
+	   			<%= submit_tag 'Cancel', :type => :reset, :class => "btn btn-danger" %>
+			</div>
+
+   		
+   	</div>
+   	</div>
+   	<div class="span3">
+   		<div class="box">
+	   	<%= render :partial => 'usermeta', :locals => {:user => user} %>
+	   	
+	   	<%= render :partial => 'membership_form', :locals => {:user => user, :f => f} %>
+	     </div>
+   	</div>
+   	
+   	
+</div>
+
+   	
+  <% end %>

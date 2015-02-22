@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+       <p>IMAGE LOCATIONS has sent you a pdf.</p>
+       <p><%= @email.body %></p>
+       <h2><a href="<%= pdf_file_download_path(@collection)%>">Download</a></h2>
+  </body>
+</html>

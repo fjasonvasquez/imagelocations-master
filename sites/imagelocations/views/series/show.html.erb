@@ -1,0 +1,18 @@
+<div class="row-fluid row-header">
+	<div class="span8">
+		<h2 class="page-title"><%= @series.name %></h2>
+	</div>
+	
+	<div class="span2">
+		<div class="filters pull-right">
+		<%= filter_select_field("by_city", "All Cities", {}.tap { |o| @series.cities.find_each {|city| o.merge!({city.id.to_s => city.name}) } }, {:icon => "icon-angle-down", :classes => "btn-white"}) %>
+		<%= filter_select_field("by_term", "All Keywords", {}.tap { |o| @terms.find_each {|t| o.merge!({t.id.to_s => t.name}) } }, {:icon => "icon-angle-down", :classes => "btn-white"}) %>	
+		</div>
+	</div>
+	
+	<div class="span2">
+		<%= render "layouts/moodboard" %>	
+	</div>
+</div>
+<div class="row-header-pad"></div>
+<%= render :partial => "shared/locations/view", :locals => {:locations => @locations, :view => view_as} %>

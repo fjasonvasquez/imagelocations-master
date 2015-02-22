@@ -1,0 +1,297 @@
+
+
+//-----------------------------------------------
+// The following html5-boilerplate styles should
+// probably be customized for each site
+//-----------------------------------------------
+body, html {
+	position: relative;
+	width: 100%;
+	height: 100%;
+	min-height: 100%;
+	
+}
+
+body {
+	min-width: $container-width + ($container-padding*2);
+	letter-spacing: 1px;
+	
+}
+
+#wrapper {
+	position: relative;
+	z-index: 1000;
+	width: 100%;
+	height: 100%;
+	min-height: 100%;
+}
+
+body, select, input, textarea {
+  color: $font-color;
+  // Set your base font here, to apply evenly
+  font-family: $primary-font-family;
+  
+  font-size: 10pt;
+}
+a {
+	 color: $link-color;
+	 text-decoration: none;
+	 &:hover {
+		  color: $link-hover-color;
+	 }
+	 &:visited {
+		  color: $link-visited-color;
+	 }
+}
+
+h1,h2,h3,h4,h5 {
+	font-weight: 400;
+}
+h1 {
+	
+}
+
+h2 {
+	
+}
+
+h3 {
+	margin: .6em 0;
+}
+h4 {
+	margin: .4em 0;
+}
+h5 {
+	
+}
+
+hr {
+	border: none;
+	border-bottom: 1px solid $grey;
+	border-top: 1px solid $grey;
+    height : 3px;
+    margin : 30px 0;
+}
+//-----------------------------------
+// Add your own custom styles below
+//-----------------------------------
+
+body {
+	background-color: #E3E3E3;
+	
+}
+
+
+
+.container {
+	width: $container-width;
+	margin: 0px auto;
+	position: relative;
+	padding: 0px $container-padding;
+	
+	//@include clearfix;	
+}
+
+.main-container {
+	//height: 100%;
+	min-height: 100%;
+	position: relative;
+}
+
+header {
+	position: absolute;
+	z-index: 1;
+	top: 0px;
+	left: 0px;
+	//padding: 15px 0;
+	width: 100%;
+	min-width: 100%;
+	//min-width: $container-width + ($container-padding *2);
+	height: $nav-height;
+	@include box-shadow(0px 0px 10px rgba(0,0,0,.3));
+	//position: relative;
+	//z-index: 1;
+	.container {
+		z-index: 1;
+		height: $nav-height;
+	}
+	#site-title {
+		margin: 0px;
+		padding: 15px 0;
+		height: $nav-height - (15*2);
+		//line-height: 26px;
+	}
+	
+	hgroup {
+		float: left;
+		margin-right: 20px;
+		a {
+			display: block;
+			img {
+				display: block;
+			}
+		}
+	}
+	ul {
+		list-style: none;
+		margin: 0px;
+		padding: 0px;
+		
+		li {
+			line-height: $nav-height;
+			float: left;
+			a {
+				font-size: 1em;
+				
+			}
+			.login-menu {
+				right: -15px;
+			}
+			.sub-menu {
+				position: absolute;
+				z-index: -100;
+				top: $nav-height;
+				display: none;
+				&.open {
+					display: block;
+				}
+				//background-color: #FDFDFD;
+			}
+		}
+	}
+	#main-menu {
+		float: left;
+		ul {
+			
+			li {
+				margin-right: 30px;
+				a {
+					color: $font-color;
+					display: block;
+					padding: 0px 10px 0px 10px;
+					&:hover {
+						background-color: $white;
+					}
+				}
+			}
+		}
+	}
+	
+	#user-menu {
+		float: right;
+		ul {
+			li {
+				margin-left: 10px;
+				font-style: italic;
+				a {
+					&:hover {
+						color: darken($font-color,10%);
+					}
+				
+				}
+			}
+		}
+		
+	}
+	
+	.login-form {
+		padding: 20px 40px 60px 40px;
+		line-height: 1em;
+		text-align: center;
+		width: 114px;
+		@include background-image(image-url('login-nav-bg.png'));
+		background-repeat: no-repeat;
+		background-position: center bottom;
+		position: relative;
+		form {
+			width: 100%;
+			border-bottom: 1px dashed $grey;
+			margin-bottom: 20px;
+			input {
+				width: 106px;
+				
+			}
+			.submit {
+				width: 114px;
+				display: block;
+				border-top: none;
+				margin-bottom: 20px;
+			}
+		}
+		h3 {
+			a {
+				font-style: italic;
+				text-decoration: underline;
+			}
+		}
+	}
+	background-color: #F8F8F8;
+}
+
+#main {
+	//margin-top: $nav-height;
+	
+	padding: $nav-height + 20px 0px 30px 0px;
+	margin-bottom: 30px;
+	//margin-top: ;
+	//@include clearfix;
+}
+
+footer {
+	position: relative;
+	width: 100%;
+	//bottom: 0px;
+	text-align: center;
+	z-index: 1;
+		font-style: italic;
+		
+	#share {
+		margin-bottom: 20px;
+		h3 {
+			line-height: 34px;
+			
+			span {
+				padding: 10px 30px 10px 0px;
+				margin-right: 30px;
+				border-right: 1px solid $grey;
+			}
+		}
+		a {
+			display: inline-block;
+			height: 34px;
+			width: 34px;
+			@include background-image(image-url('share.png'));
+			background-position: -2px 0px;
+			background-repeat: no-repeat;
+			text-indent: -1000em;
+			overflow: hidden;
+			
+			&.facebook {
+				background-position: -41px 0px;
+			}
+			&.twitter {
+				background-position: -79px 0px;
+			}
+			
+			&.pintrest {
+				background-position: -114px 0px;
+			}
+		}
+	}
+	
+	#copy {
+		padding-bottom: 20px;
+		font-size: .8em;
+		a {
+			color: $font-color;
+			&:hover {
+				color: $link-color;
+			}
+		}
+	}
+}
+
+#frames {
+	display: none;
+}
+

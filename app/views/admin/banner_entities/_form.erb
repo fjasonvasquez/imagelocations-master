@@ -1,0 +1,18 @@
+<%= simple_form_for([:admin, @section, @banner_entity]) do |f| %>
+
+
+		<%= f.hidden_field :type %>
+		<%= 
+			begin
+				render :partial => "#{@banner_entity.class.name.underscore}_form", :locals => {:f => f}
+			rescue
+				render :partial => "banner_entity_form", :locals => {:f => f}
+			end
+		%>
+		
+		<div class="form-actions">
+			<%= f.submit f.object.new_record? ? "Add Banner" : "Update Banner", 
+		   				f.object.new_record? ? { :class => 'btn btn-primary' } : { :class => 'btn btn-success' } %>
+		</div>
+		<!-- switches between the update or new. -->
+<% end %>

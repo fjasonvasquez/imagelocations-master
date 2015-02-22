@@ -1,0 +1,101 @@
+@import "mixins";
+
+#front-scroller-content {
+	position: fixed;
+	bottom: 0px;
+	width: 100%;
+	z-index: 1;
+}
+
+#front-social-btns {
+	width: floor($gridRowWidth/2);
+	left: 50%;
+  	//margin-left: - floor($gridRowWidth/2);
+  	
+	z-index: 10;
+	position: absolute;
+	bottom: 10px;
+	
+	text-align: right;
+	height: 44px;
+	a {
+		display: inline-block;
+		height: 44px;
+		line-height: 44px;
+		width: 44px;
+		@include background-image(image-url('weddingestates/social-buttons.png'));
+		overflow: hidden;
+		text-indent: 1000em;
+		text-left: left;
+		
+		&.facebook {
+			background-position: 0px 0px;
+			&:hover {
+				background-position: 0px -44px;
+			}
+		}
+		
+		&.twitter {
+			background-position: 44px 0px;
+			&:hover {
+				background-position: 44px -44px;
+			}
+		}
+		
+		&.pinterest {
+			background-position: 88px 0px;
+			&:hover {
+				background-position: 88px -44px;
+			}
+		}
+	}
+}
+
+.regions.index {
+	#content {
+		margin-top: 30px;
+		background-color: $white;
+	}
+}
+
+
+#regions {
+	margin: 0 30px 30px 30px;
+	position: relative;
+	h4 {
+			margin: 0px;
+			padding: 30px 0px;
+		}
+	a {
+		display: block;
+		position: relative;
+		width: 100%;
+		height:auto;
+		img {
+			display: block;
+			width: 100%;
+			height: auto;
+		}
+		
+		&:hover {
+			@include opacity-hover(.6, .25s);
+			
+		}
+	}
+	
+	.row-fluid {
+		margin-bottom: 9.4375px;
+	}
+}
+
+
+.home.index {
+	
+	#content {
+		
+		margin-bottom: 0px;
+		margin-top: 0px;
+	}
+	
+	
+}

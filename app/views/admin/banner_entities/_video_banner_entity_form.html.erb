@@ -1,0 +1,5 @@
+<%= f.fields_for :banner_entity_site_entity_attributes, @banner_entity.banner_entity_site_entity || @banner_entity.build_banner_entity_site_entity() do |he| %>
+	<%= he.hidden_field :id %>
+	<%= he.input :related_site_entity_id, :as => :asset, :asset_type => "Video", :input_html => { :data => {:type => :video}} %>
+	<%= he.input :banner, :as => :file_upload %>
+<% end %>

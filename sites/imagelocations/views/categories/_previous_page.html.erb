@@ -1,0 +1,5 @@
+<% unless @exclusive_location_banners.first_page? %>
+	<%= link_to({:controller => 'categories', :section => "exclusive_locations", :page => @exclusive_location_banners.current_page - 1}, :remote => true, :rel => "previous", :data => {:type => :script}, :class => "prev-page") do %>
+		Back
+	<% end %>
+<% end %>

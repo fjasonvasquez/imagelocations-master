@@ -1,0 +1,40 @@
+<% title @publication.name %>
+
+<div class="row-fluid">
+	<div class="span12 gallery-container">
+		
+		<a href="#" class="prev-slide thumb-scroll-nav" data-slide="prev"><i class="icon-angle-left"></i></a>
+		
+		<div class="gallery-inner">
+			<ul class="gallery assets">
+				<% @tears.each_with_index do |tear, index| %>
+					<% cache(tear) do %>
+						<%= content_tag :li, :data => {:id => tear.object_id} do %>
+							<%= link_to tear.location.nil? ? "Javascript:void(0);" : location_path(tear.location), :class => "tear" do %>
+								<%= image_tag tear.cover_url(:cover), :lazy => true %>
+								<div class="tear-info">
+									<h5 class="tear-description"><%= tear.description %></h5>
+									<% unless tear.location.nil? %>
+										<h5 class="tear-location">At <strong><%= formatted_location_name(tear.location,"-") %></strong> / <%= tear.location.city.full_name %></h5>
+									<% end %>
+									
+								</div>
+							<% end %>
+						<% end %>
+					<% end %>
+				<% end %>
+			</ul>
+		</div>
+		
+		<a href="#" class="next-slide thumb-scroll-nav" data-slide="next"><i class="icon-angle-right"></i></a>
+		
+	</div>
+
+</div>
+
+<div class="row-fluid publication-meta">
+	<h2 class="page-title"><%= @publication.name %></h2>
+	<%= link_to publications_path, :class => "back-link" do %>
+		<strong><i class="icon-arrow-left"></i>&nbsp;Back to index</strong>
+	<% end %>
+</div>

@@ -1,0 +1,16 @@
+<% title "Client Login" %>
+
+<div class="row-fluid">
+	<div class="span6 offset3">
+		<%= form_tag auth_projects_path, :class => "form-horizontal" do |f| %>
+
+					<div class="input-append input-prepend">
+						<%= label_tag :client_access_code, "Password", :class => "control-label" %>
+						<%= password_field_tag :client_access_code %>
+						<%= submit_tag "Access", :class => "btn btn-primary" %>
+					</div>
+
+			
+		<% end %>
+	</div>
+</div>

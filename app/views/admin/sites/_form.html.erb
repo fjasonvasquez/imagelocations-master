@@ -1,0 +1,34 @@
+<h2>Edit: <%= site.name %></h2>
+
+<div class="row">
+
+  <%= simple_form_for site, :url => admin_site_path(site), :html => {:method => :put, :class => '' } do |f| %>
+   	<div class="span3">
+   <h3>Site</h3>
+   	<%= f.input :name, :wrapper => :prepend, :required => true do
+	   		content_tag(:span, content_tag(:i,'',:class => 'icon-tag'), :class => "add-on") +
+	   		f.input_field(:name)
+	   	end
+   	%>
+   	<%= f.input :hostname, :wrapper => :prepend, :required => true do
+   			content_tag(:span, content_tag(:i,'',:class => 'icon-globe'), :class => "add-on") +
+	   		f.input_field(:hostname)
+	 	end  	
+	   	
+   	%> 
+   	
+   	<%= f.input :active, as: :boolean, :checked => f.object.active?, :disabled => @current_site == f.object %>
+   	
+   	<%= f.button :submit, :class => 'btn-primary' %>
+	<%= submit_tag 'Cancel', :type => :reset, :class => "btn btn-danger" %>
+   	
+   	</div>
+   	<div class="span8">
+   		<h3>Settings</h3>
+   		<%= render :partial => 'settings', :locals => {:settings => site.settings, :builder => f} %>
+   	</div>
+   	
+
+  <% end %>
+
+</div>

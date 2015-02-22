@@ -1,0 +1,44 @@
+<div class="navbar">
+  <div class="navbar-inner">
+	<ul class="nav">
+	  <% site_entities.each do |s| %>
+	  	<% if !s.new_record? || s.site == current_site %>
+		  	<%= content_tag :li, :class => site_entity_tab_classes(s) do %>
+		  		<%=  link_to s.new_record? ? s.site.name.html_safe + content_tag(:i, "", :class => "icon-plus icon-badge") : s.site.name, {:site => s.site}, :id => "site-tab-#{s.site.id}", "data-site" => s.site.id %>
+		  	<% end %>
+		<% end %>
+	  <% end %>
+	  
+	  <% unless site_entity.new_record? %>
+	  
+	  <li class="dropdown site-dropdown-tab <%= "hide" if site_entities.count{|s| s.id.nil? && s.site != current_site} <= 0 %>">
+	    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+	      Add
+	      <b class="caret"></b>
+	    </a>
+	    	<ul class="dropdown-menu">
+		    	<% site_entities.each.reject {|s| s.site.id == 0 || s.site == current_site}.each do |s| %>
+		    		<%= content_tag :li, :class => site_entity_drop_classes(s) do %>
+		    			<%= link_to s.site.name, {:site => s.site},
+		    									"data-site" => s.site.id,
+		    									:id => "site-dropdown-#{s.site.id}"
+		    			%>
+		    		<% end %>
+		    	<% end %>
+	    	</ul>
+    	</li>
+	   
+	   <% end %>
+	</ul>
+	
+	<%= content_tag :div, :class => site_entity_action_bar_classes, 
+						  :id => 'nav-entity-actions' do %>
+		<% if can?(:delete, site_entity) && !site_entity.new_record? %>
+			<%= destroy_button_to "Remove", 
+									admin_site_entity_path({:id => site_entity.id }), 
+									:item => "this site entity", :class => "btn btn-danger" %>
+		<% end %>
+	<% end %>
+	
+  </div>
+</div>

@@ -1,0 +1,36 @@
+<% title "Filming Locations in Los Angeles — Motion Picture, Television and Photography" %>
+
+<div class="container-fluid container-grid">
+	<div class="row-fluid">
+		<div class="container-spotlight">
+			<% if @spotlight_entities.any? %>
+				
+				<%= render :partial => "shared/banners/spotlight/slider", :locals => {:entities => @spotlight_entities} %>
+			
+			<% end %>
+			
+		</div>
+		<div class="container-tear">
+			
+				<div class="container-spotlight-controls">
+			<%= yield :spotlight_info %>
+				</div>
+			<div class="container-tear-slider">
+				<% unless @tear_entity.nil? %>
+			<%= render :partial => "shared/banners/tear/#{@tear_entity.class.entity_association.to_s}/row", :locals => {:banner => @tear_entity} unless @tear_entity.nil?%>
+				<% end %>
+			</div>
+			
+			
+		</div>
+	</div>
+</div>
+
+<a class="scroll-to btn btn-inverse" data-scroll-to="true" data-target="#body-content" href="#body-content"><i class="icon-angle-down"></i></a>
+
+<div id="body-content" class="container-fluid container-grid">
+<% @body_entities.each do |e| %>
+
+	<%= render :partial => "shared/banners/default/#{e.class.entity_association.to_s}/row", :locals => {:banner => e} %>
+<% end %>
+</div>

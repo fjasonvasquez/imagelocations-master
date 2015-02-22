@@ -1,0 +1,11 @@
+<div class="btn-group dropup">
+	<a href="javascript:void()" class="btn btn-small btn-white"><%= active_text %></a>
+	<button class="btn btn-small btn-white dropdown-toggle" data-toggle="dropdown">
+		<i class="icon-angle-down"></i>
+	</button>
+	<ul class="dropdown-menu">
+		<% allowed_per_page.each do |v| %>
+			<li class="<%= per_page == v ? "active" : ""%>"><%= link_to v,params.merge({:per_page => v}),{} %></li>
+		<% end %>
+	</ul>
+</div>

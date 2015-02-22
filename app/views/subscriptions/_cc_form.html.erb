@@ -1,0 +1,24 @@
+<%= simple_form_for(@subscription, :url => checkout_path, :html => {:class => "span8"}, :remote => true ) do |f| %>
+	
+	<% if f.object.errors.include?("orders.credit_card_payments.payment".to_sym) %>
+		
+		<div class="alert alert-danger">
+			<% f.object.errors["orders.credit_card_payments.payment".to_sym].each do |msg| %>
+				<%= msg %>
+			<% end %>
+		</div>
+	<% end %>
+	
+	
+    
+	<%= f.hidden_field :plan_id %>
+	
+	<% if @subscription.needs_payment? %>
+		<%= f.fields_for :checkout_order_attributes, @subscription.checkout_order do |of| %>
+			<%= render :partial => "order_form", :locals => {:f => of} %>
+		<% end %>
+	<% end %>
+	
+	<p><%= f.submit "Place Order", { :class => 'btn btn-primary', :data => { :loading_text => "Processing..."} } %></p>
+	
+<% end %>

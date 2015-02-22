@@ -1,0 +1,23 @@
+<div class="site-entity-fields">
+  	  	<%= f.fields_for :site_entities, @site_entity do |site_entity| %>
+	  	 	
+	  	 	<% site_entity_builder site_entity %>
+		  	<%= site_entity.hidden_field :id %>
+		  	<%= site_entity.hidden_field :site_id %>
+		    <%= site_entity.hidden_field :enable, :value => 1 %>
+		    
+		  
+		  	
+		  	<%-# CUSTOM FIELDS -%>
+			<%= render :partial => 'admin/shared/site_entity_custom_fields', 
+						:locals => {:builder => site_entity} %>
+			 
+			<%= yield %>
+			
+			
+			<%-# PREPARE STATUS -%>
+			<%= render :partial => 'admin/shared/site_entity_status_field', 
+						:locals => {:site_entity => site_entity} %>
+			
+		<% end %>
+</div>

@@ -1,0 +1,20 @@
+<div id="bg-slides">
+	<div id="slides" class="superslides">
+		<div class="slides-container">
+		
+		
+		<% slides.each_with_index do |slide, index| %>
+			<% unless slide[:link].nil? %>
+				<%= link_to slide[:link] do %>
+						<%= image_tag(slide[:image]) %>
+				<% end %>
+			<% else %>
+				<div><%= image_tag(slide[:image]) %></div>
+			<% end %>	
+		<% end %>
+		</div>
+		<nav id="bg-images-pagination"></nav>
+	</div>
+	<% block.call.html_safe unless block.nil? %>
+	<!-- super slide container is located here -->
+</div>

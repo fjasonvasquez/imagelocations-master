@@ -1,0 +1,26 @@
+<% title "Plans" %>
+
+
+
+<div class="row-fluid">
+	<% @subscriptions.each do |subscription| %>
+		<div class="span3">
+		<h4><%= subscription.plan.name %></h4>
+		
+		<%= subscription.plan.description %>
+		<br/>
+		
+		
+		<% if user_signed_in? %>
+		
+			<%= render :partial => "logged", :locals => {:subscription => subscription} %>
+		<% else %>
+			<%= render :partial => "public", :locals => {:subscription => subscription} %>
+		
+		<% end %>
+					
+		
+			
+		</div>
+	<% end %>
+</div>

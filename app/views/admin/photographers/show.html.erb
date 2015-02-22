@@ -1,0 +1,7 @@
+<% title @permit.name %>
+
+<h1 class="page-title"><i class="icon-legal"></i>&nbsp;<%= @permit.name %></h1>
+
+<div class="box">
+	<%= render :partial => "admin/locations/table", :locals => {:locations => @locations} %>
+</div>

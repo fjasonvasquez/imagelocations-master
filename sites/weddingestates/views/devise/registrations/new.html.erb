@@ -1,0 +1,93 @@
+<% bg_slides([{:image => image_path("weddingestates/bg/signup.jpg")}]) %>
+
+<div class="row">
+	<div class="span4 full-height offset8">
+		<div class="signup-form">
+			<div class="circle-title">
+				<div class="circle-inner">
+					<h1 class="price"><sup>$</sup><span id="plan-price" data-default-price="<%= @plan.price.to_i unless @plan.nil? %>"><%= @plan.calculated_price.to_i unless @plan.nil? %></span><sub>1 Year<br/>Access</sub></h1>
+					<h2 class="green small-caps">Sign Up!</h2>
+					<div class="text-center">
+			<div class="fb-like" data-href="http://www.weddingestates.com" data-width="100" data-layout="button" data-action="like" data-show-faces="false" data-share="false"></div>
+			</div>
+				</div>
+			</div>
+			
+			<%= simple_form_for(resource, 
+						:as => resource_name, 
+						:url => registration_path(resource_name),
+						:html => {:class => 'form' }) do |f| %>
+			  
+			  <%= f.simple_fields_for(:profile) do |fp| %>
+			  	 <%= fp.input :first_name, :input_html => { :class => "input-block-level", :placeholder => "First Name"} %>
+			  	 <%= fp.input :last_name, :input_html => { :class => "input-block-level", :placeholder => "Last Name"} %>
+			  <% end %>
+			  
+			  <%= f.input :email, :input_html => { :class => "input-block-level", :placeholder => "Email"} %>
+			  
+			  <%= f.input :password, :input_html => { :class => "input-block-level", :placeholder => "Password"} %>
+			  <%= f.input :password_confirmation, :input_html => { :class => "input-block-level", :placeholder => "Re-Enter Password"} %>
+			  
+			  <div class="control-group controls-submit-group">
+				  <div class="controls">
+				  	<%= f.button :button, "Next Step <i class='icon-chevron-right'></i>".html_safe, :class => "btn btn-large btn-primary btn-block" %>
+				  </div>
+			  </div>
+			  
+			  <div class="control-group">
+			  <br>
+			  - PLEASE NOTE -<br>
+
+<strong>Private Venues are Currently Available for:</strong> Beverly Hills, Downtown Los Angeles, Los Angeles, Malibu and Pasadena.<br><br>
+
+<strong>Coming Soon</strong>: Palm Springs, Santa Barbara, Orange County and San Diego. </div>
+			<% end %>
+
+		</div>
+	
+	</div>
+</div>
+<% unless @promo_code.nil? %>
+<% content_for(:body) do %>
+<script>
+		  window.fbAsyncInit = function() {
+		    FB.init({
+		      appId      : '1551827018388103',
+		      xfbml      : true,
+		      version    : 'v2.2'
+		    });
+		    
+		    FB.Event.subscribe('edge.remove', function(href, remove) {
+		    	if(href == "http://www.weddingestates.com/"){
+			    	$.post( "<%= public_promo_code_path(:format => :json) %>", {} ).done(function( data ) {
+						$('#plan-price').text($('#plan-price').data("default-price"));
+					});
+
+			    }
+		    });
+		    
+		    FB.Event.subscribe('edge.create', function(href, widget) {
+				//alert('You just liked the page!');
+				if(href == "http://www.weddingestates.com/"){
+					$.post( "<%= public_promo_code_path(:format => :json) %>", { id : <%= @promo_code.id %> }).done(function( data ) {							
+						if(data.promo_code.discounted_price){
+							var price = parseInt(data.promo_code.discounted_price);
+							$('#plan-price').text(price);
+						}
+					});
+					
+					
+				}
+  			});
+		  };
+		
+		  (function(d, s, id){
+		     var js, fjs = d.getElementsByTagName(s)[0];
+		     if (d.getElementById(id)) {return;}
+		     js = d.createElement(s); js.id = id;
+		     js.src = "//connect.facebook.net/en_US/sdk.js";
+		     fjs.parentNode.insertBefore(js, fjs);
+		   }(document, 'script', 'facebook-jssdk'));
+		</script>
+<% end %>
+<% end %>

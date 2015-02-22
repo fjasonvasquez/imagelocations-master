@@ -1,0 +1,34 @@
+<% title @tear.name %>
+
+<h1><%= @tear.name %></h1>
+
+<div class="row-fluid">
+	<div class="span3">
+		<%= image_tag @tear.cover_url %>
+	</div>
+	
+	<div class="span9">
+		<div class="box">
+			<% unless @tear.location.nil? %>
+				<h4>Location</h4>
+				<% if can? :read,  @tear.location %>
+					<%= link_to(@tear.location.name, admin_location_path(@tear.location)) %>
+				<% else %>
+					<%= @tear.location.name %>
+				<% end %>
+			<% end %>
+			
+			<% unless @tear.publication.nil? %>
+				<h4>Publication</h4>
+				<% if can? :read,  @tear.publication %>
+					<%= link_to(@tear.publication.name, admin_publication_path(@tear.publication)) %>
+				<% else %>
+					<%= @tear.publication.name %>
+				<% end %>
+			<% end %>
+			
+			<h4>Description</h4>
+			<%= @tear.description %>
+		</div>
+	</div>
+</div>

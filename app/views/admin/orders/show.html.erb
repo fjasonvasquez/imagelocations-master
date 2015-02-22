@@ -1,0 +1,83 @@
+<% title "Order: #{@order.id}" %>
+
+<% content_for :top_nav do %>
+	<% if can? :update, @order %>
+		<li><%= link_to content_tag(:i,"",:class => "icon-file") + "Edit order", edit_admin_order_path(@order), :class => "" %></li>
+	<% end %>
+<% end %>
+
+
+<div class="row-fluid">
+	<div class="span10">
+		<h1 class="page-title"><i class="icon-money"></i>&nbsp;Order <small>id:<%= @order.id %></small></h1>
+	</div>
+	<div class="span2">
+		<div class="site-entity-status">
+			<h3 class="pull-right"><%= status_tag @order.status %></h3>
+		</div>
+	</div>
+</div>
+
+<div class="row-fluid">
+	<div class="span3">
+		<div class="box">
+			<h4>Payment History</h4>
+			<% @order.payments.each do |payment| %>
+				<h6><%= payment.updated_at %></h6>
+				<%= payment.payment_type %>
+				<%= format_price payment.amount %>
+				<h6>Transaction ID</h6>
+				<%= payment.token %>
+				
+			<% end %>
+		
+		</div>
+	</div>
+	
+	<div class="span9">
+		<div class="box">
+			<% unless @order.user.nil? %>
+				<h4>User</h4>
+				<% if can?(:read, @order.user) %>
+					<%= link_to @order.user.full_name, admin_user_path(@order.user) %>
+				<% else %>
+				
+					<%= @order.user.full_name %>
+				<% end %>
+			<% end %>
+			
+			<h4>Order Items</h4>
+			<table class="table">
+				<tbody>
+			<% @order.order_entities.each do |o| %>
+				<tr>
+					<td><%= o.orderable_id %></td>
+					<td><%= o.orderable.name %></td>
+					<td class="text-right"><%= format_price o.orderable.price %></td>
+				</tr>
+				
+			<% end %>
+				</tbody>
+				<thead>
+					<tr>
+						<th>Id</th>
+						<th>Product</th>
+						<th>Price</th>
+					</tr>
+				</thead>
+				<tfoot>
+					<tr>
+						<td colspan="3">
+							<% if @order.promo_code %>
+								<h3 class="text-muted"><%= @order.promo_code.amount %></h3>
+							<% end %>
+							<h4 class="text-right"><%= format_price @order.net_total %></h4>
+						</td>
+					</tr>
+				</tfoot>
+			</table>
+			
+		</div>
+	</div>
+	
+</div>

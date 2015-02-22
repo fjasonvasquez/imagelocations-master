@@ -1,0 +1,8 @@
+<div class="well well-small tab-content">
+   	<h4>Nearby Locations</h4>
+   	<ul class="nav nav-list">
+   	<% location.nearbys(10).limit(10).each do |l| %>
+   		<li><%= link_to "#{l.name} (#{l.distance.round(2)} miles)", admin_location_path(l) %></li>
+   	<% end %>
+   	</ul>
+</div>

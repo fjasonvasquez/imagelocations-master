@@ -1,0 +1,17 @@
+<%= form_for(@entity_term) do |f| %>
+  <% if @entity_term.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@entity_term.errors.count, "error") %> prohibited this entity_term from being saved:</h2>
+
+      <ul>
+      <% @entity_term.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

@@ -1,0 +1,19 @@
+ <% builder.object.entity_taxonomies.each do |taxonomy| %>
+		<%= content_tag :h4, taxonomy.tax_label.pluralize%>
+		<div class="control-group">
+			<%= builder.fields_for :taxonomy_term_entities, taxonomy.initialized_entity_taxonomy_terms(builder.object) do |tt| %>
+			   	<div class="input-prepend input-append">
+		   		    <%= tt.hidden_field :taxonomy_term_id %>
+		   		    <%= tt.hidden_field :site_entity_id %>
+		   			<%= tt.input :enable, :as => :check_boxes, :label => false, :wrapper => :append do %>
+							<%= content_tag :span, :class => "add-on" do %>
+								<%= tt.check_box :enable, :disabled => cannot?(:manage, tt.object.taxonomy_term) %>
+							<% end %>
+							<%= content_tag :span, :class => "add-on" do %>
+									<%= tt.label :enable, tt.object.taxonomy_term.term_name, :class => 'inline' %>
+							<% end %>				
+		   			<% end %>
+		   		</div>
+			<% end %>
+		</div>
+<% end %>

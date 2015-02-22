@@ -1,0 +1,7 @@
+<% cache(cache_key_for_asset(asset, key)) do %>
+	<% unless asset.nil? %>
+		<%= image_tag asset.source_url(key), {:alt => asset.title }.merge!(options) %>
+	<% else %>
+		<%= holder_tag 100 %>
+	<% end %>
+<% end %>

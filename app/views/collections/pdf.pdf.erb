@@ -1,0 +1,33 @@
+<% content_for :page_title do %>
+	<%= @collection.title %>
+<% end %>
+
+
+<% @collection.asset_entities.each_with_index do |ae, index| %>
+	<% if index.zero? || index % 2 == 0 %>
+	
+	<% end %>
+	
+		<div class="item">
+			<div class="asset">
+				
+				<img src="file://<%= "#{Rails.root.join("public").to_s}#{ae.asset.source.safe_version(:pdf).url.to_s}" %>"/>
+				
+				
+				
+			</div>
+			<h5>
+					<% if ae.site_entity.site_entitable.is_a?(Location) %>
+						<%= formatted_location_name(ae.site_entity.site_entitable, "-") %>
+					<% else %>
+						<%= ae.site_entity.site_entitable.name %>
+					<% end %>
+			</h5>
+		</div>
+	
+	<% if (index + 1) % 2 == 0 || index + 1 >= @collection.asset_entities.count %>
+		
+	
+	<% end %>
+	
+<% end %>

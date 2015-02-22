@@ -1,0 +1,18 @@
+<% cache(banner) do %>
+	<div id="banner-<%= banner.object_id %>" class="row-fluid row-grid">
+		<div class="row-inner">
+			<%= link_to banner.link do %>
+				<div class="content-info">
+					<h4 class="name"><%= banner.name %></h4>
+				</div> 
+				
+				<div class="carousel-inner">
+					<% banner.banner_entity_site_entities.each_with_index do |he,index| %>		
+						<%= image_tag he.banner_url %>
+					<% end %>
+				
+				</div>
+			<% end %>
+		</div>
+	</div>
+<% end %>

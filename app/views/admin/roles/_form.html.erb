@@ -1,0 +1,32 @@
+<h1 class="page-title"><i class="icon-group"></i>&nbsp;Edit&nbsp;Role:&nbsp;<%= role.label %></h1>
+
+
+
+  <%= simple_form_for role, :url => admin_role_path(role), :html => {:method => :put, :class => '' } do |f| %>
+   	<div class="span3">
+   		<div class="box">
+   	<%= f.input :label, :wrapper => :prepend, :required => true do
+   			content_tag(:span, content_tag(:i,'',:class => 'icon-tag'), :class => "add-on") +
+	   		f.input_field(:label)
+	 	end  	
+	   	
+   	%> 
+   	<%= f.input :level, :wrapper => :prepend, :required => true do
+	   		content_tag(:span, content_tag(:i,'',:class => 'icon-flag'), :class => "add-on") +
+	   		f.number_field(:level,:disabled => f.object.id == 1)
+	   	end
+   	%>
+   		</div>
+   	</div>
+   	<div class="span8">
+	   	<div class="box">
+	   		<%= render :partial => "admin/shared/permissions", :locals => {:f => f} %>
+	   		
+	   				   	
+		   	<div class="form-actions">
+		   		   	<%= f.button :submit, :class => 'btn-primary' %>
+		   		   	<%= submit_tag 'Cancel', :type => :reset, :class => "btn btn-danger" %>
+		   	</div>
+	   	</div>
+   	</div>
+  <% end %>

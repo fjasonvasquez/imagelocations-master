@@ -1,0 +1,40 @@
+<div class="row-fluid">
+<ul class="asset-library-list thumbnails">
+ <% @assets.each.with_index do |asset,index| %>
+ 	<% if !index || index % 6 == 0 %>
+ 		<div class="row-fluid">
+ 	<% end %>
+ 	
+	    <li class="span2">
+	    	
+	      <div class="thumbnail">
+	      	<%= render_admin_asset_thumb(asset) %>
+	      <div class='actions'>
+	     
+	      <%= link_to(content_tag(:i, '',:class => 'icon-edit icon-white'), 
+	      			 	edit_admin_asset_path(asset), 
+	      			 	:class => 'btn btn-info btn-mini btn-tooltip',
+	      			 	'data-toggle' => 'tooltip',
+	      			 	:title => 'Edit asset') unless cannot? :edit, asset %>
+	      			 	
+	           
+	      	
+		      <%= link_to(content_tag(:i, '',:class => 'icon-trash icon-white'), 
+		      			admin_asset_path(asset), 
+		      			:data => { :confirm => "Are you sure?" }, 
+		      			:method => :delete, 
+		      			:class => 'btn btn-danger btn-mini btn-tooltip',
+		      			 'data-toggle' => 'tooltip',
+		      			 :title => 'Delete asset') unless cannot?(:destroy, asset) %>
+		      </div>
+	      </div>
+	    </li>
+	    
+	<% if (index + 1) ==  @assets.count || (index + 1) % 6 == 0 %>
+		</div>
+ 	<% end %>
+
+
+  <% end %>
+</ul>
+</div>

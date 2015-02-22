@@ -1,0 +1,58 @@
+<% unless current_region.weather_city.nil? %>
+		<div id="weather-modal" class="modal container hide fade <%= current_region.current_weather_icon %>" tabindex="-1" role="dialog">
+			  <div class="modal-header">
+			    	<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+			  </div>
+			  <div class="modal-body">
+				  	<% content_for :weather_table do %>
+					  	<% current_region.daily_weather_forecast.data.each_with_index do |d, index| %>
+					  			<% row_class = [].tap do |o| 
+						  			o << "first" if index.zero?
+						  			o << "last" if index == 4
+					  			end %>
+					  			<% break if index > 4 %>
+		  						<% content_for :current_highs do %>
+		  								Hi:&nbsp;<%= d.temperatureMax.to_int %>&deg;&nbsp;/&nbsp;Lo:&nbsp;<%= d.temperatureMin.to_int %>&deg;
+		  							<% end if index.zero? %>
+		  						<tr class="<%= row_class.join(' ')%>">
+		  							<td class="dow"><%= current_region.timezone.time(Time.at(d.time)).strftime("%A") %></td>
+		  							<td class="temp-high deg"><i class="icon-long-arrow-up"></i><%= d.temperatureMax.to_int %></td>
+		  							<td class="temp-low deg"><i class="icon-long-arrow-down"></i><%= d.temperatureMin.to_int %></td>
+		  							<td class="summary"><%= d.summary %></td>
+		  							<td class="sun-times">
+		  								Sunrise&nbsp;<%= Time.at(d.sunriseTime).strftime("%l:%M %p") %><br>
+		  								Sunset&nbsp;<%= Time.at(d.sunsetTime).strftime("%l:%M %p") %>
+		  							</td>
+		  							
+		  						</tr>
+					   <% end %>
+				   <% end %>
+
+			  		<div class="row-fluid">
+			  			<div class="span8 offset2">
+			  				<div class="row-fluid">
+				  				<div class="span8">
+				  					<h1 class="current-temp"><%= current_region.current_temperature.to_int %><span>&deg;</span></h1>
+				  					<h2 class="current-summary"><%= current_region.current_summary %></h2>
+				  				</div>
+				  				<div class="span4">
+				  					<h3 class="weather-city"><%= current_region.weather_city.name %>, <%= current_region.weather_city.state.state_code %></h3>
+				  					<h4 class="current-highs"><%= content_for :current_highs %></h4>
+				  				</div>
+			  				</div>
+			  				<div class="row-fluid">
+			  					<div class="span12">
+					  				<table>
+					  					<tbody>
+					  					
+					  						<%= content_for :weather_table %>
+					  					</tbody>
+					  				</table>
+					  			</div>
+					  		</div>
+			  			</div>
+			  		</div>
+			  </div>
+			  
+		</div>
+	<% end %>

@@ -1,0 +1,22 @@
+<%= render :partial => 'admin/shared/site_entity_navbar', :locals => {:site_entities => @site_entities, :site_entity => @site_entity} %>
+
+<div class="box">
+	<%= simple_form_for([:admin, state]) do |f| %>
+		<%= f.input :name, :input_html => {:class => 'input-block-level input-big'} %>
+		
+		<%= f.input :country_alpha2, :label => false, :wrapper_html => {:class => ''}, :input_html => {:class => 'country-select'}, :as => :select, :priority => [ "United States" ] , :collection => [].tap { |o| 
+		  			c = Country.find_country_by_name("United States") 
+		  			o << [c.name,c.alpha2]  
+		  			o << ["------------------------------", nil]
+		  		} + Country.all, :include_blank => true %>
+		
+		<%= render :layout => 'admin/shared/site_entity_form', :locals => {:f => f} do %>
+		  	<%-# ADD FIELDS -%>
+		  	
+		  <% end %>
+		<div class="form-actions">
+		<%= f.submit state.new_record? ? "Add State" : "Update State", 
+				   				state.new_record? ? { :class => 'btn btn-primary' } : { :class => 'btn btn-success' } %>
+		</div>
+	<% end %>
+</div>

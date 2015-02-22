@@ -1,0 +1,78 @@
+<%= render :partial => 'admin/shared/site_entity_navbar', :locals => {:site_entities => @site_entities, :site_entity => @site_entity} %>
+<div class="box">
+	<%= simple_form_for([:admin, @region], :html => {
+													:class => "site_content_form",
+													:multipart => true,
+													"data-site" => @current_site.id,
+													"data-entity-id" => @region.id,
+													"data-element-prefix" => site_entity_prefix(@region)}
+													) do |f| %>
+	
+	
+	<%= f.input :name, :input_html => {:class => "input-big input-block-level"} %>
+	
+	<%= render :layout => 'admin/shared/site_entity_form', :locals => {:f => f} do %>
+	  
+	  <%= render :partial => 'admin/shared/site_entity_single_asset_field', :locals => {:builder => site_entity_builder, :asset_entity_key => :cover}%>
+	  
+	<% end %>
+	
+	
+	
+	<h4>Countries</h4>
+	<%= f.fields_for :country_region_conditions, @region.initialized_country_region_conditions do |cf| %>
+		
+			
+			<%= cf.hidden_field :value %>
+				<%= cf.input :enable, :as => :check_boxes, :label => false, :wrapper => :append do %>
+						
+						<%= content_tag :span, :class => "add-on" do
+							cf.check_box :enable, :disabled => cannot?(:manage, cf.object)
+						end %>
+						<%= content_tag :span, :class => "add-on" do
+								cf.label :enable, cf.object.label, :class => 'inline' 
+							end %>
+				<% end %>
+	<% end %>
+	
+	<h4>States</h4>
+	<%= f.fields_for :state_region_conditions, @region.initialized_state_region_conditions do |sf| %>
+		
+			<%= sf.hidden_field :id %>
+			<%= sf.hidden_field :value %>
+				<%= sf.input :enable, :as => :check_boxes, :label => false, :wrapper => :append do %>
+						
+						<%= content_tag :span, :class => "add-on" do
+							sf.check_box :enable, :disabled => cannot?(:manage, sf.object)
+						end %>
+						<%= content_tag :span, :class => "add-on" do
+								sf.label :enable, sf.object.label, :class => 'inline' 
+							end %>
+				<% end %>
+	<% end %>
+	
+	<h4>Cities</h4>
+	<%= f.fields_for :city_region_conditions, @region.initialized_city_region_conditions do |sf| %>
+		
+			<%= sf.hidden_field :id %>
+			<%= sf.hidden_field :value %>
+				<%= sf.input :enable, :as => :check_boxes, :label => false, :wrapper => :append do %>
+						
+						<%= content_tag :span, :class => "add-on" do
+							sf.check_box :enable, :disabled => cannot?(:manage, sf.object)
+						end %>
+						<%= content_tag :span, :class => "add-on" do
+								sf.label :enable, sf.object.label, :class => 'inline' 
+							end %>
+				<% end %>
+	<% end %>
+	
+	<h4>Weather</h4>
+	<%= f.input :weather_city_id, :as => :select, :collection => City.all {|p| [ p.name, p.id ] } %>
+	
+	<div class="form-actions">
+	<%= f.submit @region.new_record? ? "Add Region" : "Update Region", 
+			   				@region.new_record? ? { :class => 'btn btn-primary' } : { :class => 'btn btn-success' } %>
+	</div>		   				
+	<% end %>
+</div>

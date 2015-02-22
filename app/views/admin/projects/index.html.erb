@@ -1,0 +1,81 @@
+<% title "Projects" %>
+
+<% content_for :top_nav do %>
+	<% if can? :create, Project %>
+		<li><%= link_to content_tag(:i,"",:class => "icon-file") + "New Project", new_admin_project_path, :class => "" %></li>
+	<% end %>
+<% end %>
+
+<% content_for :search do %>
+	<%= search_form Project %>
+<% end %>
+
+<h1 class="page-title"><i class="icon-tasks"></i>&nbsp;Projects</h1>
+
+<div class="box">
+	<%= alphabet_filter @projects %>
+	
+	<%= form_tag batch_destroy_admin_projects_path, method: :post do %>
+	
+	<table class="table table-striped table-bordered table-thumbnails">
+	 <thead> 
+	 <tr>
+	 	<% if can? :batch_destroy, Project %>
+	 	<th class="batch"><input type="checkbox" class="check-all"/></th>
+	 	<% end %>
+	  	<th class="thumb"></th>
+	    <th><%= sort_column("projects.name", "Name") %></th>
+	    <th><%= sort_column("companies.name", "Company") %></th>
+	    <th class="center">Locations</th>
+	    <th>Actions</th>
+	  </tr>
+	 </thead>
+	<tfoot>
+	  	<tr>
+	  		
+	    	<th colspan="6" class="filter-row">
+	    		<% if can? :batch_destroy, Project %>
+	    		<div class="pull-left">
+	    			<%= submit_tag "Delete", :class => "btn btn-danger", :data => { :confirm => "Are you sure?"} %>
+	    		</div>
+	    		<% end %>
+	    		<div class="per-page pull-right">
+	    			<%= per_page_select %>
+	    		</div>
+	    		<div class="filters pull-right">
+				 <%= filter_select_field("by_company", "Companies", project_companies_filter_options) %>			
+				 <%= filter_clear_field %>
+	    		</div>
+	    	</th>
+	    </tr>
+	  </tfoot>
+	 <tbody>
+	<% @projects.each do |project| %>
+	  <tr>
+	  	<% if can? :batch_destroy, Project %>
+	  	<td class="batch"><%= check_box_tag "project_ids[]",project.id %></td>
+	  	<% end %>
+	  	<td class="thumb">
+	  	<%= table_thumb(project) %>
+	    <td class="title"><%= 
+	    	if can? :read, project
+	    		link_to project.name, admin_project_path(project)
+	    	else
+	    		project.name 
+	    	end
+	    	%></td>
+	    <td><%= link_to project.company.name, admin_company_path(project.company) unless project.company.nil? %></td>
+	    <td class="td-count"><%= count_tag project.current_related_entities().count %></td>
+	    <td class="td-actions">
+	      <div class="btn-group">
+	        <%= link_to raw('<i class="icon-eye-open"></i>'), admin_project_path(project), :class => 'btn btn-small' if can? :read, Project %>
+	        <%= link_to raw('<i class="icon-edit"></i>'), edit_admin_project_path(project), :class => 'btn btn-small btn-warning' if can? :edit, Project %>
+	        <%= link_to raw('<i class="icon-trash icon-white"></i>'), admin_project_path(project), method: :delete, data: { confirm: 'Are you sure?' }, :class => 'btn btn-small btn-danger' if can? :delete, Project %></td>
+	      </div>
+	  </tr>
+	<% end %>
+		</tbody>
+	</table>
+	<% end %>
+	<%= paginate @projects %>
+</div>

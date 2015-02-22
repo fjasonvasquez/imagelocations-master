@@ -1,0 +1,29 @@
+<div class="box">
+	<%= simple_form_for([:admin, @plan]) do |f| %>
+	
+	<%= f.input :name %>
+	
+	<%= f.input :duration, :hint => "How many days will this plan be active?" %>
+	
+	<%= f.input :price, :as => :decimal %>
+	
+	<%= f.input :renewable, :as => :boolean %>
+	
+	<%= f.input :saleable, :as => :boolean %>
+	
+	<%= f.input :status, as: :select, 
+				:collection => Plan::PLAN_STATUSES.collect {|p| [ I18n.t(p.to_sym), p ] }, 
+				:selected => f.object.status, :input_html => {:class => 'input-block-level'}
+		%>
+
+	
+	<%= f.input :description, :as => :wysiwyg %>
+	
+	<%= render :partial => "admin/shared/permissions", :locals => {:f => f} %>
+	
+	<div class="form-actions">
+		<%= f.submit @plan.new_record? ? "Add plan" : "Update Plan", 
+		   				@plan.new_record? ? { :class => 'btn btn-primary' } : { :class => 'btn btn-success' } %>
+	</div>
+	<% end %>
+</div>

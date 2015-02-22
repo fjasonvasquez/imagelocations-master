@@ -1,0 +1,21 @@
+<% cache(cache_key_for_location(location, "grid")) do %>
+	<div class="location-grid content-grid">
+		
+		<%= link_to location_path(location), :class => ["item","active"] do %>
+		<% asset_entity = location.current_asset_entities.asset_load().by_key(:cover).first %>
+		<%= image_tag(asset_entity.asset.source_url(:grid),
+			:alt => asset_entity.title,
+											:lazy => true,
+											:data => {
+												:name => formatted_location_name(location),
+												:asset_entity => asset_entity.id
+											}
+
+		
+		
+		) unless asset_entity.nil? %>
+						
+		<div class="location-name"><%= formatted_location_name(location,"-") %></div>
+		<% end %>
+	</div>
+<% end %>

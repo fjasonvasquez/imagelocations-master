@@ -1,0 +1,18 @@
+<ul class="nav nav-tabs">
+	<% settings.controllers.each_with_index do |c, index| %>
+		<li<% if index == 0 %> class="active"<% end %>><a href="#<%= c.controller_name %>" data-toggle="tab"><%= c.controller_name.titleize %></a></li>
+	<% end %>
+</ul>
+<div class="tab-content">
+	<% settings.controllers.each_with_index do |c, index| %>
+	
+	<div id="<%= c.controller_name %>" class="tab-pane fade in<% if index == 0 %> active<% end %>">
+		<%= builder.fields_for :settings, settings.find_all_by_controller(c.controller), :class => 'form-horizontal' do |s| %>
+   		
+	   			
+	   			<%= s.input :value, format_setting_options(s.object) %>
+	   		
+   		<% end %>
+	</div>
+	<% end %>
+</div>

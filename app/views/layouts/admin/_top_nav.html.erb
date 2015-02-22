@@ -1,0 +1,92 @@
+<header class="navbar navbar-fixed-top" id="main-navbar">
+		<div class="navbar-inner">
+			<div class="container-fluid">
+				<%= link_to admin_root_path, :class => "current-site" do %>
+					<%= image_tag "admin/logo-white.png" %>
+				<% end %>
+				
+
+				<!--<a class="btn nav-button collapsed" data-toggle="collapse" data-target=".nav-collapse">
+					<span class="icon-reorder"></span>
+				</a>-->
+
+				<div class="nav-collapse collapse">
+					<ul class="nav">
+						<% if current_user.site_memberships.count > 1 %>
+							<li class="separator"></li>
+							<li class="dropdown">
+								<a href="#" class="dropdown-toggle site-select" data-toggle="dropdown">
+									
+									<span><%= site_name %></span><i class="icon-caret-down"></i>
+								</a>
+								<ul class="dropdown-menu">
+									<% current_user.admin_site_memberships.each do |s| %>
+											<li class="<%= "active" if @current_site.id == s.id%>"><%= link_to s.name, params.merge(:site => s.id) %></li>
+										<% end %>
+								</ul>
+							</li>
+							
+						<% end %>
+						
+						
+						<!--<li class="active"><a href="#">Home</a></li>
+						<li class="dropdown">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <i class=" icon-caret-down"></i></a>
+							<ul class="dropdown-menu">
+								<li><a href="#">Action</a></li>
+								<li><a href="#">Another action</a></li>
+								<li><a href="#">Something else here</a></li>
+								<li class="divider"></li>
+								<li class="nav-header">Nav header</li>
+								<li><a href="#">Separated link</a></li>
+								<li><a href="#">One more separated link</a></li>
+							</ul>
+						</li>-->
+						<li class="divider-vertical"></li>
+					</ul>
+					<%= yield :search %>
+					
+					<ul class="nav pull-right">
+						
+						<!--<li>
+							<ul class="messages">
+								<li>
+									<a href="#"><i class="icon-warning-sign"></i> 2<span class="		responsive-text"> alerts</span></a>
+								</li>
+								<li>
+									<a href="#"><i class="icon-envelope"></i> 25<span class="		responsive-text"> new messages</span></a>
+								</li>
+								
+							</ul>
+						</li>
+
+						<li class="separator"></li>-->
+						<%= yield :top_nav %>
+						
+						<li class="divider-vertical"></li>
+						<li class="dropdown">
+							<a href="#" class="dropdown-toggle usermenu" data-toggle="dropdown">
+								<img alt="Avatar" src="<%= avatar_url(current_user) %>">
+								<span><%= current_user.username %></span>
+							</a>
+							<ul class="dropdown-menu">
+								
+							  
+							  <% if user_signed_in? %>
+							    <li><%= link_to 'Edit account', edit_user_registration_path %></li>
+							  <% else %>
+							  	<li><%= link_to 'Sign up', new_user_registration_path %></li>
+							  <% end %>
+							  <li class="divider"></li>
+							  <% if user_signed_in? %>
+							    <li><%= link_to 'Logout', destroy_user_session_path, :method=>'delete' %></li>
+							  <% else %>
+							  	<li><%= link_to 'Login', new_user_session_path %></li>
+							  <% end %>
+							</ul>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</header>

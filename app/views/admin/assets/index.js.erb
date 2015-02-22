@@ -1,0 +1,5 @@
+$.adminModal('setBody','<%= j render( :partial => "asset_modal_index", :locals => { :assets => @assets}) %>');
+
+$.adminModal('setFooter','<%= j paginate(@assets, :remote => true) %>');
+
+$.adminModal('removeLoading');

@@ -1,0 +1,62 @@
+<nav id="left-panel" class="main-nav">
+	<div id="left-panel-content">
+		<ul class="main-menu">
+			<%= nav_link(:text => "Dashboard", :path => admin_dashboard_path, :icon => 'icon-bar-chart', :permission => Dashboard) %>
+			<% if current_site.sections.any? %>
+				
+				<%= nav_link(:text => "Banners", :path => '#', :icon => 'icon-picture', :sub_links => current_site.sections.map do |s| 
+						{:text => s.name, :path => admin_section_path(s.id), :icon => 'icon-globe', :permission => Section} 
+					end) %>
+		      
+			<% end %>
+			
+			
+		    <%= nav_link(:text => "Locations" , :path => admin_locations_path, :icon => 'icon-map-marker', :permission => Location) %>
+		    
+		    <% if current_site.location_applications.any? %>
+		     	
+		     <%= nav_link(:text => "Applications" , :path => admin_location_applications_path, :icon => 'icon-map-marker', :permission => LocationApplication) %>
+		    <% end %>
+		      <%= nav_link(:text => "Series", :path => admin_series_index_path, :icon => 'icon-sitemap', :permission => Series) %>
+		      <!--<%= nav_link(:text => "Categories", :path => admin_categories_path, :icon => 'icon-tag', :permission => Category) %>-->
+		      <%= nav_link(:text => "Permits", :path => admin_permits_path, :icon => 'icon-legal', :permission => Permit) %>
+		    
+		       <%= nav_link(:text => "Tagging", :path => '#', :icon => 'icon-tag', :sub_links => [
+		       		{:text => "Categories", :path => admin_categories_path, :icon => 'icon-tag', :permission => Category},
+			   		{:text => "Tags", :path => admin_taxonomy_terms_path, :icon => 'icon-tag', :permission => TaxonomyTerm },
+			   		{:text => "Taxonomies", :path => admin_taxonomies_path, :icon => 'icon-tag', :permission => Taxonomy }
+		       ])%>
+		      
+		      <%= nav_link(:text => "Geo", :path => '#', :icon => 'icon-globe', :sub_links => [
+		      	{:text => "Regions", :path => admin_regions_path, :icon => 'icon-globe', :permission => Region},
+		      	{:text => "States", :path => admin_states_path, :icon => 'icon-globe', :permission => State}
+		      ]) %>
+		      <!--<%= nav_link(:text => "Projects", :path => admin_projects_path, :icon => 'icon-tasks', :permission => Project) %>-->
+		      <%= nav_link(:text => "Tears", :path => 'javascript:void(0)', :icon => 'icon-book', :sub_links => [
+		      	{:text => "Tears", :path => admin_tears_path, :icon => 'icon-book', :permission => Tear},
+		      	{:text => "Publications", :path => admin_publications_path, :icon => 'icon-book', :permission => Publication},
+		      	{:text => "Categories", :path => admin_publication_categories_path, :icon => 'icon-book', :permission => PublicationCategory}
+		      ]) %>
+			  <%= nav_link(:text => "Projects", :path => admin_projects_path, :icon => 'icon-tasks', :permission => Project) %>
+			  
+			  <%= nav_link(:text => "Photographers", :path => admin_photographers_path, :icon => 'icon-picture', :permission => Photographer) %>
+			  
+		      <%= nav_link(:text => "Users", :path => 'javascript:void(0)', :icon => 'icon-user', :sub_links => [
+		      	{:text => "Users", :path => admin_users_path, :icon => 'icon-user', :permission => User},
+		      	{:text => "Roles", :path => admin_roles_path, :icon => 'icon-group', :permission => Role},
+		      	{:text => "Companies", :path => admin_companies_path, :icon => 'icon-building', :permission => Company},
+		      	{:text => "Plans", :path => admin_plans_path, :icon => 'icon-money', :permission => Plan},
+		      	{:text => "Subscribers", :path => admin_subscriptions_path, :icon => 'icon-user', :permission => Subscription}
+		      ]) %>
+			  <% if current_site.plans.any? %>
+			  	<%= nav_link(:text => "Orders", :path => admin_orders_path, :icon => 'icon-money', :permission => Order) %>
+			  
+			  <% end %>
+			  
+			  <%= nav_link(:text => "Assets", :path => admin_assets_path, :icon => 'icon-picture', :permission => Asset) %>
+			  
+		      <%- #nav_link(:text => "Sites", :path => admin_sites_path, :icon => 'icon-cloud', :permission => Site) -%>
+		      <%= nav_link(:text => "Settings", :path => admin_settings_path, :icon => 'icon-cog', :permission => Setting) if current_site.settings.any? %>
+		</ul>
+	</div>
+</nav>

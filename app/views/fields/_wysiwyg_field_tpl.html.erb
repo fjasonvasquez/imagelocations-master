@@ -1,0 +1,13 @@
+
+    <%= builder.text_area(attribute_name, input_html_options) %>
+    
+    <script type="text/javascript">
+    	$('#<%= "#{input_id}_#{attribute_name.to_s}" %>').wysihtml5({
+	    	"events": {
+		    	"load": function() { 
+			    	//console.log(this);
+			    }
+			 }
+		});
+    
+    </script>

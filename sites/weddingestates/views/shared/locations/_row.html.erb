@@ -1,0 +1,39 @@
+<% _cache_key = is_private_page? && user_is_subscribed? ? "row-private" : "row" %>
+
+<%- #cache(cache_key_for_location(location, _cache_key)) do -%>
+	<div class="location-row content-row">
+		<div class="row-fluid">
+			<div class="span12 thumbnails-container">
+				<div class="thumbnails-inner">
+					<ul id= "location-row-<%= location.object_id %>" class="thumbnails">
+					<% location.current_asset_entities.by_key(:extended).each do |asset_entity| %>
+								<li class="<%= asset_entity.key %>">
+									<%= link_to location_path(location) do %>
+										
+										<%= image_tag asset_entity.key == :extended ? asset_entity.asset.source_url() : asset_entity.asset.source_url(:gallery_thumb), 
+										{
+											:alt => asset_entity.title,
+											:lazy => false,
+											:lazy_class => "lazy-scroll",
+											:data => {
+												:name => formatted_location_name(location),
+												:asset_entity => asset_entity.id
+											}
+										} %>
+										
+									
+									<% end %>
+								</li>
+						<% end %>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="row-fluid">
+			<div class="span12 text-center">
+				<h4 class="content-name uppercase"><%= link_to formatted_location_name(location," "), location_path(location) %></h4>
+				<h5 class="content-meta italic"><%= link_to location.city.name, city_path(location.city) %></h5>
+			</div>
+		</div>
+	</div>
+<%- #end -%>

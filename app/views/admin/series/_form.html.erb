@@ -1,0 +1,27 @@
+<%= render :partial => 'admin/shared/site_entity_navbar', :locals => {:site_entities => @site_entities, :site_entity => @site_entity} %>
+<div class="box">
+<%= simple_form_for([:admin, @series], :html => {
+												:class => "site_content_form",
+												:multipart => true,
+												"data-site" => @current_site.id,
+												"data-entity-id" => @series.id,
+												"data-element-prefix" => site_entity_prefix(@series)}
+												) do |f| %>
+
+
+
+<%= f.input :name, :input_html => {:class => "input-big input-block-level"} %>
+
+<%= render :layout => 'admin/shared/site_entity_form', :locals => {:f => f} do %>
+  
+  <%= render :partial => 'admin/shared/site_entity_single_asset_field', :locals => {:builder => site_entity_builder, :asset_entity_key => :cover}%>
+  
+<% end %>
+
+
+
+<%= f.submit @series.new_record? ? "Add series" : "Update series", 
+		   				@series.new_record? ? { :class => 'btn btn-primary' } : { :class => 'btn btn-success' } %>
+		   				
+<% end %>
+</div>

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	  <meta charset="utf-8">
+	  <title><%= title %></title>
+	  <meta name="keywords" content="<%= meta_keywords %>" />
+	  <meta name="description" content="<%= meta_description %>" />
+	  <meta name="viewport" content="width=device-width">
+	  
+	  <link rel="icon" type="image/x-icon" href="<%= image_path("imagelocations/favicon.ico")%>" />
+	  
+	  <%= stylesheet_link_tag    "imagelocations", :media => "all" %>
+	  <%= csrf_meta_tags %>
+	  
+	  <style>
+	  	#old-site-link {
+	  		display: inline-block;
+		  	font-size: 15px;
+		  	line-height: 40px;
+		  	color: red !important;
+	  	}
+	  	
+	  	#old-site-link:hover {
+		  
+	  	}
+	  	
+	  </style>
+
+	</head>
+	<body class="<%= body_classes %> page-container"> 
+		<div id="wrapper" class="container">
+			<header class="container" id="header">
+				<div class="header-inner">
+					
+					<div class="row-fluid">
+						<div class="span7">
+						<a class="navbar-brand" href="/">
+							Image Locations
+						</a>
+						</div>
+						<div class="span4 offset1 searchbox pull-right">
+							
+								<div class="weather">
+									<%= render "layouts/weatherbox" %>
+									
+								</div>
+								<div class="location-search">
+									
+									<%= simple_form_for "", :url => search_locations_path, :html => { :id => "quick-search", :class => "form-search"},:method => "get" do |f| %>
+										<div class="input-append">
+											<input type="text" name="q" class="search-query span11">
+											<span class="input-placeholder">Search<span>&nbsp;(ie: Modern, Pool, Beverly Hills)</span></span>
+											<span class="input-results"><i class="icon-spinner icon-spin hide"></i><span class="result-text" data-default-text="<%= t("locations.search.no_results") %>" data-append-text="<%= t("locations.search.found_append") %>"></span></span>
+											<button type="submit" class="btn btn-primary"><i class="icon-search"></i></button>
+										</div>
+										
+					  				<% end %>
+					  				<a id="advanced-search-toggle" target="#advanced-search" href=""><strong>Advanced Search</strong></a>
+					  				<div id="advanced-search">
+					  					<%= render 'layouts/searchbox' %>
+					  				</div>
+								</div>
+							
+						</div>
+					</div>
+				</div>
+			</header>
+			
+				<nav id="primary-nav" class="navbar">
+					<div class="navbar-inner">
+						<a href="#" class="btn-navbar" data-toggle="collapse" data-target=".navbar-responsive-collapse">Menu</a>
+						<div class="nav-collapse collapse navbar-responsive-collapse">
+							<%- #cache("navigation") do %>
+							<ul class="nav primary-nav pull-left">
+								<% 
+								exclusiveCategory = ExclusiveCategory.site(current_site.id).first
+								unless exclusiveCategory.nil?  %> 
+										<li><%= link_to "Exclusives", category_path(exclusiveCategory) %></li>
+								<% end %>
+								<li><%= link_to "Location Library", categories_path %></li>
+								<li><%= link_to "Projects", publications_path %></li>
+								<li><a data-target="_blank" href="http://b-rolling.com/">B-Rolling</a></li>
+								<li class="hidden-large-desktop"><%= link_to "List Your Home", location_application_path %></li>
+								<li><a href="http://blog.imagelocations.com/">Blog</a></li>
+								<li><%= link_to "About", about_path %></li>
+								<li><%= link_to "Contact", contact_path %></li>
+							</ul>
+							<%- #end %>
+							<ul class="nav secondary-nav pull-right">
+								<%= content_for :before_client_link %>
+								<li class="visible-large-desktop"><%= link_to "List Your Home", location_application_path, :class => "red" %></li>
+								<li class="alt"><%= link_to "Client", projects_path %></li>
+							</ul>
+						</div>
+					</div>
+				</nav>
+			 
+			 <section id="main" role="main" class=''>
+			 	<div id="content" class="">
+			 		
+			      		<%= render 'layouts/messages' %>
+			 			
+			      		<%= yield %>
+			      	
+			    </div>
+			 </section>
+			
+			 <footer id="footer" class="container">
+			 	<div class="footer-inner">
+			 		<%= link_to "Log in", admin_dashboard_path, :class => "admin-login" %>
+			 		<div class="regions">
+			 			<% cache(cache_key_for_site_regions) do %>
+				 			<% current_site.regions.find_each do |r| %>
+				 				<%= link_to r.name, categories_path({:region => r.id}) %>
+				 			<% end %>
+			 			<% end %>
+			 		</div>
+					<%= yield(:footer) %>
+					
+			 	</div>
+			</footer>
+		</div>
+		<div id="copy" class="container">
+				&copy; Copyright 2008/<%= Time.new.year %>.  IMAGE LOCATIONS, INC. All Rights Reserved.  A <a href="http://www.thevhf.com">VHF</a> Production.
+				
+				<!--<% if current_user %>
+					<br/><%= link_to "Sign out", destroy_user_session_path, :method => :delete %>
+				<% end %>-->
+		</div>
+		
+		
+		
+		<%= yield(:modal) %>
+		
+		<%= javascript_include_tag :modernizr %>
+		<%= javascript_include_tag "imagelocations" %>
+		<%= google_analytics_script %>
+	</body>
+</html>

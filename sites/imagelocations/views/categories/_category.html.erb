@@ -1,0 +1,16 @@
+<% cache(cache_key_for_category(category, unless local_assigns[:cache_key].nil? then cache_key else nil end)) do %>
+	<%= content_tag :li, :class => category.is_special? ? ["special","span3"] : "span3" do %>
+		<%= link_to category_path(category) do %>
+				<div class="category-thumb">
+					
+					<% asset_entity = category.current_asset_by_key(:cover) %>
+					<%= image_tag(asset_entity.asset.source_url(:grid),
+						:alt => asset_entity.title,
+					     :lazy => true
+					) unless asset_entity.nil? %>
+
+				</div>
+				<span><%= category.name %></span>
+		<% end %>
+	<% end %>
+<% end %>

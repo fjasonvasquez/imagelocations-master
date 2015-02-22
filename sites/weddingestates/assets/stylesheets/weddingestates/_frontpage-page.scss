@@ -1,0 +1,23 @@
+.frontpage {
+	#supersized {
+		//position: absolute;
+	}
+	header {
+		position: fixed;
+		z-index: 13;
+	}
+	#frames {
+		display: block;
+		position: fixed !important;
+		div {
+			border: none !important;
+		}
+		#frame-logo {
+			display: block;
+			top: 30%;
+		}
+	}
+	footer {
+		position: relative !important;
+	}
+}

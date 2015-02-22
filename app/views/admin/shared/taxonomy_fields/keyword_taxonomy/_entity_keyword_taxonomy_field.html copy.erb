@@ -1,0 +1,10 @@
+<div class="hide">    
+    <%= builder.hidden_field :id %>
+    <%= builder.hidden_field :site_entity_id %>
+    <%= builder.fields_for :taxonomy_term do |tt| %>
+    	<%= tt.hidden_field :id %>
+    	<%= tt.hidden_field :taxonomy_id %>
+    	<%= tt.hidden_field :name %>
+    <% end %>
+	<%= builder.hidden_field :enable, :value => "1", :disabled => cannot?(:manage, builder.object.taxonomy_term) %>
+</div>

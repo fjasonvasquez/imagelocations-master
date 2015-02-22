@@ -1,0 +1,7 @@
+<address>
+<% if can?(:geocode, location) && !location.address.empty? %>
+	<%= location.address %><br/>
+<% end %>
+<%= link_to(location.city.name, admin_city_path(location.city)) %>, <%= link_to(location.city.state.state_code.nil? ? location.city.state.name : location.city.state.state_code, admin_state_path(location.city.state)) %>&nbsp;<%= location.postcode %><br/>
+<%= location.city.state.country_name %>
+</address>

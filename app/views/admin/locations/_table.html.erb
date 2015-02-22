@@ -1,0 +1,81 @@
+<%= alphabet_filter(locations) unless locations.is_a?(Array) %>
+
+<%= form_tag '', :method => :get, :class => "navbar-form form-search" do %>
+
+<table class="table table-striped table-bordered table-thumbnails">
+  <thead>
+  <tr>
+  	<th class="thumb"></th>
+    <th class="title"><%= locations.is_a?(Array) ? "Name" : sort_column("fullname", "Name") %></th>
+    <th class="center">Status</th>
+    <th>Actions</th>
+  </tr>
+  </thead>
+  <% unless locations.is_a?(Array) %>
+  <tfoot>
+	  	<tr>
+	    	<th colspan="4" class="filter-row">
+	    		<div class="per-page pull-left">
+	    			<%= per_page_select %>
+	    		</div>
+	    		<div class="filters pull-right">
+				 <%= filter_select_field("by_status", "Status", location_status_filter_options) %>			
+				 <%= filter_clear_field %>
+	    		</div>
+	    	</th>
+	    </tr>
+	  </tfoot>
+  <% end %>
+  <tbody>
+  	<% if locations.any? %>
+	<% locations.each do |location| %>
+	  <tr>
+	  	<td class="thumb"><%=
+	  		table_thumb(location)
+	  		%>
+	  	</td>
+	    <td class="title">
+	    	<% if can?(:read, location) %>
+	    		<%= link_to admin_formatted_location_name(location), admin_location_path(location) %>
+	    	<% else %>
+	    		<%= admin_formatted_location_name(location) %>
+	    	<% end %>
+	    	 
+	    </td>
+	    <td class="td-status center"><%= status_tag location.current_entity.status %>
+	    <td class="td-actions">
+	      <div class="btn-group">
+	        
+	        
+	        <%= link_to raw('<i class="icon-eye-open"></i>'), 
+	        		admin_location_path(location),
+	        		:title => "View Location",
+	        		:class => 'btn btn-mini btn-tooltip' if can? :read, Location %>
+	        
+	        <%= link_to raw('<i class="icon-envelope"></i>'), 
+	        	send_images_admin_location_path(location, :format => :js), 
+	        	:class => 'btn btn-tooltip btn-info btn-secondary btn-mini', 
+	        	:remote => true,
+	        	:title => "Share Images",
+	        	:data => {:remote => true, :target => "#ajax-modal", :title => "#{location.name} - Share Images"} if can? :read, Location %>
+	        	
+	        <%= link_to raw('<i class="icon-edit"></i>'), edit_admin_location_path(location), :title => "Edit Location", :class => 'btn btn-mini btn-tooltip btn-warning' if can? :update, Location %>
+	       <% if controller_name == "locations" %>
+	        <%= link_to raw('<i class="icon-trash icon-white"></i>'), admin_location_path(location), method: :delete, data: { confirm: 'Are you sure?' }, :class => 'btn btn-mini btn-danger' if can? :destroy, Location %>
+	        <% end %>
+	        </td>
+	      </div>
+	  </tr>
+	  <% end %>
+	<% else %>
+	
+		<tr>
+			<td colspan="4" class="center"><span class="muted">No Locations</span></td>
+		</tr>
+	<% end %>
+</tbody>
+</table>
+
+<% end %>
+<br />
+<%= paginate(locations) unless locations.is_a?(Array) %>

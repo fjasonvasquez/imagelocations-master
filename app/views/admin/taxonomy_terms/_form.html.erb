@@ -1,0 +1,29 @@
+<%= render :partial => 'admin/shared/site_entity_navbar', :locals => {:site_entities => @site_entities, :site_entity => @site_entity} %>
+<div class="box">
+<%= simple_form_for([:admin, @taxonomy_term], :html => {
+												:class => "site_content_form",
+												:multipart => true,
+												"data-site" => @current_site.id,
+												"data-entity-id" => @taxonomy_term.id,
+												"data-element-prefix" => site_entity_prefix(@taxonomy_term)}
+												) do |f| %>
+
+
+<%= f.input :name, :input_html => {:class => "input-big input-block-level"} %>
+<%= f.association :taxonomy, :as => :select, :collection => @taxonomy_term.available_taxonomies.map {|t| [ t.name, t.id ] } %>
+
+<%= render :layout => 'admin/shared/site_entity_form', :locals => {:f => f} do %>
+  
+<%= render :partial => 'admin/shared/site_entity_single_asset_field', :locals => {:builder => site_entity_builder, :asset_entity_key => :cover}%>
+  
+<% end %>
+
+
+  
+<div class="form-actions">
+<%= f.submit @taxonomy_term.new_record? ? "Add Term" : "Update Term", 
+		   				@taxonomy_term.new_record? ? { :class => 'btn btn-primary' } : { :class => 'btn btn-success' } %>
+</div>
+<% end %>
+
+</div>

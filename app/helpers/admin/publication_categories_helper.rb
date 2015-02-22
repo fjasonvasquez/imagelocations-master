@@ -1,0 +1,2 @@
+module Admin::PublicationCategoriesHelper
+end

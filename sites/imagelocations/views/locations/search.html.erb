@@ -1,0 +1,15 @@
+<% title "Search Results"%>
+
+<% content_for :before_client_link do %>
+	<li class="alt visible-large-desktop"><span class="results-heading"><%= t("locations.search.search_results_heading") %></span></li>
+	
+<% end %>
+
+
+<% unless @locations.empty? %>
+<%= render :partial => "shared/locations/view", :locals => {:locations => @locations, :view => :grid}  %>
+<% else %>
+	<div class="alert">
+		<%= t("locations.search.empty_search_results") %>
+	</div>
+<% end %>

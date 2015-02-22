@@ -1,0 +1,51 @@
+<% title "Tears" %>
+
+<% content_for :top_nav do %>
+	<% if can? :create, Tear %>
+		<li><%= link_to content_tag(:i,"",:class => "icon-file") + "New Tear", new_admin_tear_path, :class => "" %></li>
+	<% end %>
+<% end %>
+
+<% content_for :search do %>
+	<%= search_form Tear %>
+<% end %>
+
+<h1 class="page-title"><i class="icon-book"></i>&nbsp;Tears</h1>
+<div class="box">
+	<%= alphabet_filter @tears %>
+	
+	<table class="table table-striped table-bordered table-thumbnails">
+	  <tr>
+	  	<th class="thumb"></th>
+	    <th>Name</th>
+	    <th>Actions</th>
+	  </tr>
+	
+	<% @tears.each do |tear| %>
+	  <tr>
+	  	<td class="thumb"><%=
+	  		unless tear.cover_url.nil?	
+	  			image_tag tear.cover_url(:tiny), :class => :cover
+	  		else
+	  			holder_tag "40x40", 'None'
+	  		end
+	  		%></td>
+	    <td class="title"><%= 
+	    	if can? :read, tear
+	    		link_to tear.name, admin_tear_path(tear)
+	    	else
+	    		tear.name
+	    	end
+	    %></td>
+	    <td class="td-actions">
+	      <div class="btn-group">
+	        <%= link_to raw('<i class="icon-eye-open"></i>'), admin_tear_path(tear), :class => 'btn btn-mini' if can?(:read, tear) %>
+	        <%= link_to raw('<i class="icon-edit"></i>'), edit_admin_tear_path(tear), :class => 'btn btn-mini btn-warning' if can?(:update, tear) %>
+	        <%= link_to raw('<i class="icon-trash icon-white"></i>'), admin_tear_path(tear), method: :delete, data: { confirm: 'Are you sure?' }, :class => 'btn btn-mini btn-danger' if can?(:destroy, tear) %></td>
+	      </div>
+	  </tr>
+	<% end %>
+	</table>
+	
+	<%= paginate @tears %>
+</div>

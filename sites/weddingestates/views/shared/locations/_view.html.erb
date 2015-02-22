@@ -1,0 +1,62 @@
+<% view ||= "list"%>
+<% body_classes "locations-#{view.to_s}-view" %>
+
+<% unless is_private_page? %>
+	<% cache(cache_key_for_section("ads"),:expires_in => 1.hour) do %>
+	<% 
+	_ads = AdBannerEntity.site(current_site).by_section(:ads)
+	
+	unless !_ads.any? %>
+		<section class="ads">
+		<% _ads.each do |ad| %>
+			<%= link_to ad.link do %>
+				<% ad.banner_entity_site_entities.each_with_index do |he,index| %>		
+							
+				<% end %>
+				<%= image_tag ad.banner_url %>
+			<% end %>
+		
+		<% end %>
+		</section>	
+		<% end %>
+	<% end %>
+
+<% end %>
+
+<section>
+  <header class="page-title">
+    <hgroup>
+		<h2 class="text-center small-caps"><%= title %></h2>
+		<% unless is_private_page? %>
+			<h4 class="text-center uppercase letter-spacing">Public Estates</h4>
+		<% else %>
+			<h4 class="text-center uppercase letter-spacing">Private Estates</h4>
+		<% end %>
+    </hgroup>
+  </header>
+  
+
+	<div id="location-rows-container">
+		<div id="location-rows" class="row-fluid">
+			<%= render(:partial => "shared/locations/row",:collection => locations, :as => :location) %>
+		</div>
+		<% _page_scope = unless local_assigns[:pagination_scope].nil? then pagination_scope else locations end %>
+		<% if _page_scope.respond_to?(:current_page) %>
+		  		
+			<div id="paginator-container">
+				<div class="container">
+					<div class="row-fluid">
+						
+						<div id="paginator" <% unless has_views.nil? %>class="has-views"<% end %>>
+							<%= paginate _page_scope, :remote => FALSE, :window => 10 %>
+						</div>
+						<div class="per-page">
+							<%= per_page_select "View %s Locations Per Page" %>
+						</div>
+					</div>
+				</div>
+			</div>
+		<% end %>
+	</div>
+
+</section>

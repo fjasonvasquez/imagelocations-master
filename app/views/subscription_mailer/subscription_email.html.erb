@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+       
+  	     
+	   <p>Thank you for subscribing to <%= @subscription.site.name %>!</p>
+	   
+	   <p>You're subscription is valid until <%= format_expiration_date @subscription.expiration_date %></p>
+	   
+	   <p><%= link_to "Manage your account settings",  edit_user_registration_path(:only_path => false) %>
+  </body>
+</html>

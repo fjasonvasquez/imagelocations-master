@@ -1,0 +1,16 @@
+<% title "Locations" %>
+
+<% content_for :top_nav do %>
+	<% if can? :create, Location %>
+		<li><%= link_to content_tag(:i,"",:class => "icon-plus") + "New Location", new_admin_location_path, :class => "" %></li>
+	<% end %>
+<% end %>
+
+<% content_for :search do %>
+	<%= search_form Location %>
+<% end %>
+
+<h1 class="page-title"><i class="icon-map-marker"></i>&nbsp;Locations <small><%= @count %></small></h1>
+<div class="box">
+	<%= render :partial => "table", :locals => {:locations => @locations} %>
+</div>

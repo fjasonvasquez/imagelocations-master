@@ -1,0 +1,11 @@
+		
+<%= f.fields_for :banner_entity_site_entity, @banner_entity.banner_entity_site_entity || @banner_entity.build_banner_entity_site_entity() do |he| %>
+	<%= he.hidden_field :id %>
+	<%= he.fields_for :options do |of| %>
+		<%= of.input :name, :input_html => {:value => @banner_entity.name }  %>
+		<%= of.input :link, :input_html => {:value => @banner_entity.link } %>
+	<% end %>
+	
+	<%= he.input :banner, :as => :file_upload %>
+<% end %>
+		

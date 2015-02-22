@@ -1,0 +1,13 @@
+<h1 class="page-title"><i class="icon-archive"></i>&nbsp;Add User Subscription</h1>
+
+<div class="box">
+	<%= simple_form_for([:admin, @user, @subscription]) do |f| %>
+	
+	<%= f.association :plan, :collection => current_site.plans %>
+	
+	<div class="form-actions">
+		<%= f.submit @subscription.new_record? ? "Add plan" : "Update Plan", 
+		   				@subscription.new_record? ? { :class => 'btn btn-primary' } : { :class => 'btn btn-success' } %>
+	</div>
+	<% end %>
+</div>

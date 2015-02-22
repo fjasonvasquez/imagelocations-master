@@ -1,0 +1,31 @@
+<% title "Settings" %>
+
+
+
+<h1 class="page-title"><i class="icon-cog"></i>&nbsp;Settings</h1>
+
+<div class="box">
+	<%= simple_form_for current_site, :as => :current_site_settings, :url => admin_settings_path, :method => :post, :class => 'form-horizontal' do |f|%>
+		<ul class="nav nav-tabs">
+		<% controllers_settings.each_with_index do |c, index| %>
+			<li<% if current_controller_settings == c %> class="active"<% end %>>
+				<%= link_to c.to_s.titleize, admin_settings_path(:by_controller => c) %>
+			</li>
+		<% end %>
+		</ul>
+	<div class="tab-content">
+		
+		<div id="<%= current_controller_settings.to_s.titleize %>" class="tab-pane active">				
+			<% @settings.sections.each_with_index do |c, index| %>
+				<h4><%= c.section.titleize %></h4>
+					<%= f.fields_for :settings, @settings.section(c.section) do |s| %>					
+	   					
+	   					<%= s.input :value, format_setting_options(s.object) %>
+	   				<% end %>
+	   		<% end %>
+		</div>
+		
+		<%= f.submit "Update", { :class => 'btn btn-success' } %>
+	</div>
+	<% end %>
+</div>

@@ -1,0 +1,159 @@
+
+	<%= simple_form_for location_application, 
+					:url => location_application_path, 
+					:method => :post, 
+					:remote => false, 
+					:html => {
+						:id => :location_application_form,
+						:class => "row-flui",
+						:multipart => true
+					} do |f| %>
+	<div class="row-fluid">
+		<div class="span6">		
+			<div id="application-top" class="row-fluid">
+				<div class="span7">
+					
+					
+				
+			    	<h4><span class="red">*</span>Property Owner Information</h4>
+			    	
+			    	<%= f.input :name, :label => false, :input_html => { :class => "span11", :placeholder => "Name (First/Last)"} %>
+			    	
+			    	<%= f.input :email, :label => false, :input_html => { :class => "span11", :placeholder => "* Email" } %>
+			    	
+			    	<%= f.input :phone, :label => false, :input_html => { :class => "span11", :placeholder => "* Phone Number"}  %>
+			    	
+			    	<%= f.input :international_phone, :label => false, :input_html => { :class => "span11", :placeholder => "International +" }  %>
+			    	
+			    				    	
+			    	
+			    	<h4><span class="red">*</span>Your Location Information</h4>
+			    	
+			    	<%= f.input :address, :label => false, :input_html => { :class => "span11", :placeholder => "* Address"}  %>
+			    	<%= f.input :city, :label => false, :input_html => { :class => "span11", :placeholder => "* City"}  %>
+			    	<div class="row-fluid">
+			    	<%= f.input :state, :as => :select, :collection => us_states, :wrapper_html => { :class => "span5 "}, :input_html => { :class => "input-block-level"}, :prompt => "Select a State", :label => false %>
+					<%= f.input :postcode, :label => false, :wrapper_html => { :class => "span6 "}, :input_html => { :class => "input-block-level", :placeholder => "* Zip"}  %>
+			    	</div>
+					<%= f.input :international_address, :as => :text, :label => false, :input_html => { :rows => 4, :class => "span11", :placeholder => "International +" }  %>
+			    	
+
+		    	
+				</div>
+				<div id="application-images" class="span5">
+					<h4><span class="red">*</span>Please Include Images</h4>
+					<div class="well">
+						<p class="text-small">Do not embed watermarks, logos, or other copyrights, website addresses or copyright notice on images.  We protect your images with our own watermark that will be affixed to the images when your images are accepted for use on our websites.</p>
+						
+						<%= render :partial => "image_field", :locals => {:builder => f } %>
+						
+						
+						
+					</div>
+				</div>
+			</div>
+			<div class="row-fluid">
+				<%= f.input :notes, :label => "Additional Notes", :input_html => { :rows => 5, :class => "input-block-level", :placeholder => "Square Footage, Bedrooms, Pool, Views" }  %>
+				
+				<%= f.input :usage, :as => :check_boxes,
+					:required => true,
+					:error => "What",
+					:collection => ['Still photography','Commercials','Television','Motion Pictures','Events','Weddings', 'Wedding Photography'],
+					:label => "I request that my property be considered for location and event use as follows:<br/><span class='red'>(check all that apply)</span>", 
+					:input_html => {  }  %>
+				
+				<%= f.input :exclusive, :as => :check_boxes,
+					:collection => ['Sale','Lease'],
+					:label => "Please contact me to discuss listing my property with Exclusive Listing:<br/><span class='red'>(check all that apply)</span>", 
+					:input_html => {  }  %>
+				
+				<div id="location-application-sites-container" class="clearfix">
+				<%= f.input :listing, :as => :check_boxes,
+					:required => true,
+					:collection => [
+						['Image Locations<i class="icon-imagelocations"></i>'.html_safe, 'Image Locations'],
+						['Wedding Estates<i class="icon-weddingestates"></i>'.html_safe, 'Wedding Estates'], 
+						['Exclusive Listing<i class="icon-exclusivelistings"></i>'.html_safe, 'Exclusive Listing']
+					],
+					:label => "I request that my property be listed with:<br/><span class='red'>(check all that apply)</span>", 
+					:input_html => {  }  %>
+					<div class="location-application-icons">
+					<%= image_tag "imagelocations/location-application-icons.png" %>
+					</div>
+				</div>
+
+				<% #f.association :sites,
+					#:as => :check_boxes, 
+					#:required => true,
+					#:collection => Site.active.not_default, :label => "I request that my property be listed with:<br/><span class='red'>(check all that apply)</span>" %>
+				
+				
+				<div class="well">
+				
+					<h4><span class="red">*</span>Terms and Conditions</h4>
+					<div class="scrollbox">
+						<div class="scrollbox-nav">
+							<a href="Javascript:void(0)" class="up"><i class="icon-caret-up"></i></a>
+							<a href="Javascript:void(0)" class="down"><i class="icon-caret-down"></i></a>
+						</div>
+						<div class="scrollbox-content text-small">
+					<p>Image Locations, Inc., with unparalleled professionalism, represents the most exclusive locations for location shooting of motion pictures, television shows, commercials and still photography and location use for special events. Our affiliate, Wedding Estates, Inc. represents stunning and unique properties for rental for weddings and wedding photography. Our newest affiliated, Exclusive Listing, LLC is a California real estate broker, representing sellers and lessors of exclusive properties.</p>
+			
+					<p>If you are interested in listing utilizing your property for entertainment industry location rental, for special events events, or weddings, we encourage your to submit photographs of your property for our consideration. </p> 
+			
+					<p>If we agree to represent your property, we will contact you and provide a representation agreement.  If we agree to represent your property, we may have one of our staff photographers take additional photographs.</p>
+			
+				By submitting your online application, you represent that:
+					<ol>		
+						<li>You are the owner of the property or that you have the legal authority to act on behalf of the owner.</li>
+						<li>You are the owner or copyright holder of all photographs submitted with your application.</li>
+						<li>All photographs submitted with your application remain the property of the photographer or other copyright holder, and you grant Image Locations, Inc. and/or its affiliates the right to use the images without compensation.</li>
+						<li>You understand that submission of the online submission and photographs, does not create a representative relationship, unless Image Locations, Inc., expressly accepts your application.</li>
+						<li>By submitting photographs of your property, you grant permission to Image Locations, Inc. and its affiliates, to utilize the photographs for the purposes of considering whether to represent your property, and to present the photographs to Producers, event planners, location scouts, and others to ascertain whether the property would be of interest to them.</li>
+						<li>Upon acceptance of your application and entry into a representation agreement, Image Locations, Inc. and its affiliates may use, display, copy, post, publish, exhibit and/or distribute for marketing and promotional purposes, the photographs in any form, including but not limited to, electronic, print, digital, and/or electronic publishing via the Internet.</li>
+						<li>Any photographs submitted with the online application will not be returned to you.</li>
+						<li>You are over the age of 18.</li>
+					</ol>
+						</div>	
+					</div>
+				</div>
+				
+				
+				<%= f.input :terms_of_service, :as => :boolean, :wrapper => :checkbox, :label => "I agree to the foregoing terms" %> 
+				<div class="row-fluid">
+					<%= f.simple_captcha(:object => "location_application", :code_type => "numeric") %>
+					
+					<% if f.object.errors.include?("base".to_sym) %>
+		
+						<div class="control-group error">
+							<% f.object.errors["base".to_sym].each do |msg| %>
+								<span class="help-inline"><%= msg %></span>
+							<% end %>
+						</div>
+					<% end %>
+				</div>
+				<div class="row-fluid">
+					<div class="span7">
+					<%= f.button :button, 'Submit Application'.html_safe, :class => "btn btn-primary btn-block btn-large", :data => { :loading_text => "Submitting..."} %>
+					</div>
+				</div>
+				<p class="text-muted"><span class="red">PLEASE NOTE</span><br/><span class="red">*</span> Indicates required fields<br/>Not all submissions will be accepted</p>
+			</div>
+		</div>
+		
+		<div class="span6">
+			<div id="application-right">
+				<div id="application-image-drop-wrapper">
+					<div id="application-image-drop">
+						<div id="application-image-loader"><i class="icon-spinner icon-spin"></i></div>
+						
+					</div>
+					<div id="application-collage"><%= image_tag "imagelocations/application-image.jpg" %></div>
+				</div>
+			</div>
+		</div>
+	</div>
+<% end %>
+
+
+

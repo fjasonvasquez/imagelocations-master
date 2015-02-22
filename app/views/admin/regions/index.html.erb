@@ -1,0 +1,52 @@
+<% content_for :top_nav do %>
+	<% if can? :create, Region %>
+		<li><%= link_to content_tag(:i,"",:class => "icon-file") + "New Region", new_admin_region_path, :class => "" %></li>
+	<% end %>
+<% end %>
+
+<h1><i class="icon-globe"></i>&nbsp;Regions</h1>
+
+<div class="box">
+<%= alphabet_filter @regions %>
+
+<table class="table table-striped table-bordered table-thumbnails">
+  <tr>
+  	<th class="thumb"></th>
+    <th><%= sort_column("name", "Region") %></th>
+    <th>Current Temperature</th>
+    <th>Locations</th>
+    <th>Actions</th>
+  </tr>
+
+<% @regions.each do |region| %>
+  <tr>
+  	<td class="thumb"><%=
+  		table_thumb(region)
+  		%>
+  	</td>
+    <td class="title">
+    <%=
+    	if can? :read, Region 
+    		link_to region.name, admin_region_path(region)
+    	else
+    		region.name
+    	end
+	    
+    %></td>
+    <td><%= 
+	    format_temperature(region.current_temperature) unless region.current_temperature.nil?
+	    
+    %></td>
+    <td class="td-count"><%= count_tag region.locations.count %></td>
+    <td class="td-actions">
+      <div class="btn-group">
+        <%= link_to raw('<i class="icon-eye-open"></i>'), admin_region_path(region), :class => 'btn btn-mini' if can? :read, Region %>
+        <%= link_to raw('<i class="icon-edit"></i>'), edit_admin_region_path(region), :class => 'btn btn-mini btn-warning' if can? :edit, Region %>
+        <%= link_to raw('<i class="icon-trash icon-white"></i>'), admin_region_path(region), method: :delete, data: { confirm: 'Are you sure?' }, :class => 'btn btn-mini btn-danger' if can? :delete, Region %></td>
+      </div>
+  </tr>
+<% end %>
+</table>
+
+<%= paginate @regions %>
+</div>

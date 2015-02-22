@@ -1,0 +1,5 @@
+$('#new_category_email, #email-modal .modal-footer').addClass('hide');
+$('#new_category_email_confirmation').html("<p>Your email has been sent</p>").removeClass('hide');
+$('#email-modal').one('hidden', function () {
+  $('#new_category_email, #email-modal .modal-footer, #new_category_email_confirmation').toggleClass('hide');
+})

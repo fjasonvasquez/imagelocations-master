@@ -1,0 +1,294 @@
+@import "partials/variables";
+
+
+@import "mixins";
+
+
+.file-status {
+	line-height: 30px;
+	height: 30px;
+	overflow: hidden;
+	&.blank {
+		color: $grayDark;
+	}
+}
+
+
+#location-application-success-modal {
+	.modal-header {
+		height: 50px;
+		border-bottom: none;
+		
+		.close {
+			color: $red;
+			@include opacity(1);
+		}
+	}	
+	
+	.modal-body {
+		padding: 70px 0px 120px 0px;
+		h3 {
+			line-height: 24px;
+			margin: 0px;
+		}
+	}
+}
+
+
+#application-image-loader {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	margin-left: -15px;
+	margin-top: -15px;
+	font-size: 3em;
+	line-height: 30px;
+	color: $white;
+	display: none;
+}
+
+#application-images {
+	abbr {
+		display: none;
+	}
+	.text-small {
+		border-bottom: 1px solid $gray;
+		margin-bottom: 10px;
+		padding-bottom: 10px;
+	}
+}
+#application-image-drop-wrapper {
+	position: relative;
+	margin-bottom: 60px;
+}
+
+#application-collage {
+	img {
+		display: block;
+	}	
+}
+
+#application-image-drop {
+	z-index: 1;
+	
+	//height: 100%;
+	//width: 100%;
+	position: absolute;
+	top: 0px;
+	right: 0px;
+	left: 0px;
+	bottom: 0px;
+	
+	border: 1px solid #959595;
+	
+	//background: transparent image-url("imagelocations/application-image.jpg") no-repeat center center;
+	
+	background-size: 100% 100%;
+	
+	&.loading {
+		#application-image-loader {
+			display: block;
+		}
+		
+		@include opacity(.7);
+	}
+	
+	&.dragging {
+		border: 1px solid $red;
+	}
+	
+	
+	.label {
+		text-shadow: none;
+		font-weight: 100;
+		letter-spacing: 3px;
+		display: block;
+		position: absolute;
+		font-size: 2em;
+		right: 40px;
+		top: 50%;
+		line-height: 40px;
+		margin-top: -20px;
+		background: transparent;
+	}
+}
+
+#application-right {
+	margin-left: 40px;
+	margin-top: 40px;
+}
+
+body.location_applications {
+	
+	
+	#content {
+	
+		abbr[title], abbr[data-original-title] {
+			border-bottom: none;
+			color: $red;
+		}
+	
+		select, textarea, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"], .uneditable-input {
+			
+			margin-bottom: 3px;
+			
+		}
+		#application-top {
+			margin-bottom: 30px;
+			.control-group {
+				margin-bottom: 2px;
+				padding-bottom: 0px;
+			
+			}
+		}
+		
+		.checkbox {
+			i {
+				display: inline-block;
+				vertical-align: super;
+				margin-left: 10px;
+			}
+		}
+		
+		form {
+			border-top: 1px solid $gray;
+			padding-top: 30px;
+			margin-top: 10px;
+		}
+		
+		.btn-primary {
+			text-transform: uppercase;
+			font-weight: bold;
+			font-size: 1.4em;
+			letter-spacing: 1px;
+			margin-bottom: 30px;
+		}
+		
+		.control-group {
+			margin-bottom: 15px;
+			&.check_boxes {
+				padding-bottom: 15px;
+			}
+		}
+		
+		label {
+			&.checkbox {
+				color: $grayDark;
+				font-size: .9em;
+			}
+		}
+		
+		.text-small {
+			font-size: .8em;
+			line-height: 14px;
+			color: $grayDark;
+			
+		}
+		
+		
+		.location_application_usage, .location_application_exclusive {
+			border-bottom: 1px solid $gray;
+		}
+	}
+	
+	
+	.scrollbox {
+		height: 150px;
+		overflow: hidden;
+		position: relative;
+		.scrollbox-nav {
+			position: absolute;
+			width: 20px;
+			top: 0px;
+			right: 0px;
+			bottom: 0px;
+			
+			.up {
+				
+				top: 0px;
+			}	
+			.down {
+				bottom: 0px;	
+			}
+			a {
+				display: block;
+				position: absolute;
+				font-size: 1.3em;
+				&:hover {
+					text-decoration: none;
+					color: $black;
+				}
+			}
+		}
+		.scrollbox-content {
+			position: absolute;
+			top: 0px;
+			left: 0px;
+			margin-right: 30px;
+			
+		}
+	}
+	
+}
+
+#location-application-sites-container {
+	position: relative;
+	
+	.location_application_listing {
+		
+		i {
+			//display: block;
+			//position: absolute;
+			
+			display: none !important;
+		}
+		.controls {
+			position: relative;
+			//background: transparent image-url("imagelocations/location-application-icons.png") no-repeat right center;
+		}
+	}
+	.location-application-icons {
+		position: absolute;
+		top: 40px;
+		right: 0px;
+		height: 75px;
+		width: 60%;
+		text-align: center;
+		
+		line-height: 75px;
+		vertical-align: middle;
+	}
+	img {
+		display: inline-block;
+		height: auto;
+		width: 100%;
+		max-width: 378px;
+		max-height: 72px;
+		//display: none;
+	}
+}
+
+@media (min-width: $minWidth1200) {
+	#location-application-sites-container {
+		.location-application-icons {		
+			width: 80%;
+		}
+	}	
+}
+
+@media (max-width: 767px) {
+	#application-image-drop-wrapper {
+		display: none;
+	}
+	
+	#application-right {
+		margin: 0px;
+	}
+	
+	.location_application_listing {
+		
+		
+		
+		
+	}
+}

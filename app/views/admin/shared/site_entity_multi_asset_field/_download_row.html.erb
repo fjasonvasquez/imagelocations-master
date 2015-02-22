@@ -1,0 +1,64 @@
+<%= content_tag :li,  
+	:class => ["template-download"].tap{ |o| 
+		o << "fade" if f.object.asset.id.nil?
+		o << "hide" if f.object.enable.is_a?(String) && f.object.enable == "0"
+	}, 
+	:data =>  f.object.asset.id.nil? ? { :base_input_name =>  base_input_name} : { :file => f.object.asset.to_jq_upload.merge!({'asset_entity_id' => f.object.id}).to_json } do %>
+
+  <%= f.hidden_field :priority %>
+  <%= f.hidden_field :id %>
+  <%= f.hidden_field :asset_id %>
+  <%= f.hidden_field :key %>
+  <%= f.hidden_field :enable , :value => f.object.enable != "0" ? "1" : "0" %>
+  
+  <%= f.hidden_field :watermark_override, :value => f.object.watermark_override? ? "1" : "0"  %>
+  
+  
+  <%= f.object.id %>
+  <div class="thumbnail <%= f.object.asset.class.model_name.parameterize %>">
+ 	<div class="preview" style="height: <%= height %>px; width: <%= width %>px;">
+ 		<span class="fade <% unless f.object.asset.id.nil? %>in<% end %>">
+ 		<% if(f.object.asset.source?) %><a href="<%= f.object.asset.source_url %>"><img src="<%= f.object.asset.source_url(:thumb) %>"/></a><% end %>
+ 		</span>
+ 	</div>
+ 	<div class="info">
+	 	<div class="meta">
+	  		<div class="name"><span></span></div>
+	  		<div class="size"><span></span></div>
+	  
+	  	</div>
+		<div class="actions">
+			<div class="inner">
+				<%= link_to content_tag(:i, "",:class => "icon-edit icon-white"), f.object.asset.new_record? ? "" : edit_admin_asset_path(f.object.asset),
+							:title => "Edit",
+							:data => {:remote => true, :target => "#ajax-modal", :title => "Edit Asset"}, 
+							:class => "btn btn-mini btn-info btn-tooltip edit"%>
+				
+				
+				
+				<!--<a class="btn btn-mini btn-info btn-tooltip edit" href="#<%= f.object.object_id %>-modal" data-toggle="modal" title="Edit">
+				  <i class="icon-edit icon-white"></i>
+				</a>-->
+				
+				<a class="btn btn-mini btn-secondary btn-tooltip watermark<% if f.object.watermark_override? %> active<% end %>" title="Disable Watermark">
+				  <i class="icon-picture icon-white"></i>
+				</a>
+				<a class="btn btn-mini btn-warning btn-tooltip remove" title="Remove">
+				  <i class="icon-remove-sign icon-white"></i>
+				</a>
+				<span class="delee">
+					<a class="btn btn-mini btn-danger btn-tooltip delete" data-remote="true" data-confirm="sure?" data-method="delete" rel="nofollow" href="<% unless f.object.asset.new_record? %><%= admin_asset_path(f.object.asset.id) %><% end %>"  title="Delete">
+					  <i class="icon-trash icon-white"></i>
+					</a>
+				</span>
+				
+			</div>
+		</div>
+		
+					
+		
+ 	</div>
+ 	
+ </div>
+ <h6 class="priority"></h6>
+<% end %>

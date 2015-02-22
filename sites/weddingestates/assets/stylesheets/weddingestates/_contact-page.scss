@@ -1,0 +1,117 @@
+.contact {
+	#main {
+		position: absolute;
+		left: 50%;
+		top: 50%;
+		margin-left: -190px;
+		margin-top: -(230px + $nav-height);
+		
+		.large-logo {
+			display: block;
+		}
+		width: 380px;
+		height: 460px;
+		.box {
+			margin: 0px 30px 0px 30px;
+			.inner {
+				text-align: center;
+				font-style: italic;
+				font-size: 1.1em;
+				letter-spacing: 1px;
+				a {
+					color: $font-color;
+					&:hover {
+						color: $link-color;
+					}
+				}
+			}
+		}
+	}
+	
+	
+	
+}
+
+$frame-padding: 20px;
+$frame-offset: 5px;
+$frame-bottom: 30px;
+
+.with-frames {
+	#frames {
+		position: absolute;
+		overflow: hidden;
+		z-index: 0;
+		height: 100%;
+		width: 100%;
+		top: 0px;
+		left: 0px;
+		bottom: 0px;
+		right: 0px;
+		min-width: $container-width + ($container-padding);
+		min-height: 100%;
+	}
+	#frame-one, #frame-two {
+		border: 1px solid $grey;
+		position: absolute;
+		top: $frame-padding + $nav-height;
+		left: $frame-padding;
+		right: $frame-padding + $frame-offset;
+		bottom: $frame-padding + $frame-bottom;
+		
+	}
+	
+	#frame-one {
+		
+	}
+	
+	#frame-two {
+		top: $frame-padding + $nav-height + $frame-offset;
+		left: $frame-padding + $frame-offset;
+		right: $frame-padding;
+		bottom: ($frame-padding + $frame-bottom) - $frame-offset;
+	}
+	#frame-logo {
+		position: absolute;
+		height: 160px;
+		width: 380px;
+		top: 50%;
+		left: 50%;
+		margin-top: -80px;
+		margin-left: -190px;
+		display: none;
+		
+	}
+	.main-container {
+		//height: 100%;
+		//top: $nav-height;
+		/*position: absolute;
+		top: 0px;
+		left: 0px;
+		right: 0px;
+		bottom: 0px;
+		padding-top: $nav-height;
+		
+		.scroll-element {
+			height: 100%;
+		}
+		*/
+	}
+	
+	footer {
+		position: absolute;
+		bottom: 0px;
+		left: 0px;
+		right: 0px;
+	}
+	
+	#wrapper {
+		min-height: 480px + $nav-height;
+	}
+	
+	
+	#frames {
+		min-height: 480px + $nav-height;
+	
+	}
+
+}

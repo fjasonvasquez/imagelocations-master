@@ -1,0 +1,18 @@
+<tr class="related-entity-row related-entity-<%= f.object.related_site_entity_id %>" data-related-entity="<%= f.object.related_site_entity_id %>">
+	<td class='reorder'><%= content_tag :i,"",:class => ['icon-reorder','handle']%></td>
+	
+		<%= f.hidden_field :id , :class => 'entity-id' %>
+		<%= f.hidden_field :related_site_entity_id, :class => 'related-entity-id' %>
+		<%= f.hidden_field :priority, :class => 'related-entity-priority'%>
+		<%= f.hidden_field :_destroy, :class => 'related-entity-destroy', :value => "0"%>
+		
+	<td><span class="related-entity-name"><%= f.object.related_entity.name %></span></td>
+	
+	<% if @banner_entity.can_input_banner? %>
+	<td><%= f.input :banner%></td>
+	<% end %>
+	
+	<td><%= button_tag :type => "button", :class => "btn btn-danger btn-mini pull-right related-entity-remove" do %>
+			<%= content_tag :i, "",:class => "icon-remove" %>
+		<% end %></td>
+</tr>

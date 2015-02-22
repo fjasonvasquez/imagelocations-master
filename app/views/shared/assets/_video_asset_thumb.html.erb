@@ -1,0 +1,11 @@
+<%= image_tag asset.source_url(key),options %>
+
+<div id="<%= "asset-#{asset.id}-modal" %>" class="modal hide fade video" tabindex="-1" data-width="<%= asset.asset_video.width %>">
+	<div class="modal-body">
+		<% if asset.video_hosted? %>
+			<%= video_tag asset.video_source, :id => "video-#{asset.id}", :controls => true, :poster => asset.source_url, :autobuffer => false %>
+		<% else %>
+			<%= render(:partial => "shared/assets/video_providers/#{asset.asset_video.provider.to_s}", :locals => {:key => key, :asset => asset, :options => options}) %>
+		<% end %>
+	</div>
+</div>

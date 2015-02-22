@@ -1,0 +1,15 @@
+
+	<%= site_entity.hidden_field :status, :value => SiteEntity.default_status %>
+	
+	<% content_for :site_entity_actions do %>
+		
+		
+		
+		<%= site_entity.input :status, as: :select, 
+				:collection => SiteEntity::SITE_ENTITY_STATUSES.collect {|p| [ I18n.t(p.to_sym), p ] }, 
+				:selected => site_entity.object.status, :input_html => {:class => 'input-block-level'}
+		%>
+		
+		<%= site_entity.input :priority, :as => :integer, :input_html => {:class => "input-mini"} %>
+				
+	<% end %>

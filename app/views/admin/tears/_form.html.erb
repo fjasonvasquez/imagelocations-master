@@ -1,0 +1,46 @@
+<%= render :partial => 'admin/shared/site_entity_navbar', :locals => {:site_entities => @site_entities, :site_entity => @site_entity} %>
+
+<div class="box">
+<%= simple_form_for([:admin, tear]) do |f| %>
+	<%= f.input :name, :input_html => {:class => 'input-block-level input-big'} %>
+	
+	<%= f.input :description, :input_html => {:class => 'input-block-level', :rows => 5} %>
+	
+	<%= f.association :publication, :input_html => { :class => "select2" } %>
+	
+	<%= f.association :location, :collection => Location.order_by_fullname_only("asc"), :input_html => { :class => "select2" } %>
+	
+	<%= f.input :cover, as: :file do %>
+		   			<div class="fileupload fileupload-new" data-provides="fileupload">
+					   	<div class="fileupload-new thumbnail" style="width: 300px; height: 400px;">
+					   		<% if f.object.cover.url.present? %>
+					   			<%= image_tag f.object.cover_url %>
+					   		
+					   		
+					   		<% else %>
+					   		
+					   			<%= holder_tag "300x400", 'Cover Preview' %>
+					   		<% end %>
+					   	</div>
+					   	<div class="fileupload-preview fileupload-exists thumbnail" style="width: 300px; height: 400px;"></div>
+					   	<span class="btn btn-file"><span class="fileupload-new">Select image</span><span class="fileupload-exists">Change</span><%= f.file_field :cover %></span>
+					   	<a href="#" class="btn fileupload-exists" data-dismiss="fileupload">Remove</a>
+					   
+		   			</div>
+		   			<% if f.object.cover.url.present? %>
+		   				<%= f.label :remove_cover do %>
+			   				<%= f.check_box :remove_cover %>
+			   				Delete
+			   			<% end %>
+	      			<% end %>
+		   		<% end %>
+		   		<%= render :layout => 'admin/shared/site_entity_form', :locals => {:f => f} do %>
+	  	<%-# ADD FIELDS -%>
+	  	<%= site_entity_builder.input :priority, :as => :integer, :input_html => {:class => "input-mini"} %>
+	  <% end %>
+	<div class="form-actions">
+	<%= f.submit tear.new_record? ? "Add Tear" : "Update Tear", 
+			   				tear.new_record? ? { :class => 'btn btn-primary' } : { :class => 'btn btn-success' } %>
+	</div>
+<% end %>
+</div>

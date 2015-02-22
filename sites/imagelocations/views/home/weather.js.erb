@@ -1,0 +1,2 @@
+$('body').append('<%= escape_javascript render(:partial => "layouts/weathermodal") %>');
+$('a.weather-forecast').removeAttr( "data-remote" ).removeAttr( "data-type" ).attr("data-toggle","modal").attr("href","#weather-modal").trigger("click")

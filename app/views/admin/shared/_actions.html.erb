@@ -1,0 +1,5 @@
+<div class="btn-group pull-right">
+	<% if can? :create, object %>
+		<%= link_to content_tag(:i,"",:class => "icon-file"), send("new_admin_#{object.name.to_s.underscore}_path"), :class => "btn btn-large tip-bottom" %>
+	<% end %>
+</div>

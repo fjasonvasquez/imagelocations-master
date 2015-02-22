@@ -1,0 +1,27 @@
+<% title @subscription.plan.name %>
+
+<% content_for :top_nav do %>
+	<% if can? :update, @subscription %>
+		<li><%= link_to content_tag(:i,"",:class => "icon-file") + "Edit Subscription", edit_admin_user_subscription_path(@subscription.user,@subscription), :class => "" %></li>
+	<% end %>
+<% end %>
+
+<h1 class="page-title"><i class="icon-archive"></i>&nbsp;View Subscription</h1>
+
+<div class="box">
+	<dl class="dl-horizontal">
+		<dt>Plan</dt>
+		<dd><%= link_to @subscription.plan.name, admin_plan_path(@subscription.plan) %></dd>
+		<dt>Status</dt>
+		<dd><%= status_tag @subscription.current_status %></dd>
+		
+		<dt>Start Date</dt>
+		<dd><%= format_subscription_date(@subscription.start_date) %></dd>
+		
+		<dt>Expiration Date</dt>
+		<dd><%= format_expiration_date(@subscription.expiration_date) %></dd>
+		
+		
+	</dl>
+	
+</div>

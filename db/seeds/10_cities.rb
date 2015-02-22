@@ -1,0 +1,11 @@
+CA = State.create(:name => "California", :country_alpha2 => "US")
+FL = State.create(:name => "Florida", :country_alpha2 => "US")
+NY = State.create(:name => "New York", :country_alpha2 => "US")
+
+City.create(:name => "Malibu", :latitude => 34.005, :longitude => -118.81, :timezone => "America/Los_Angeles", :state => CA)
+City.create(:name => "Los Angeles", :latitude => 34.0522, :longitude => -118.244, :timezone => "America/Los_Angeles", :state => CA)
+City.create(:name => "Pasadena ", :latitude => 34.1478, :longitude => -118.145, :timezone => "America/Los_Angeles", :state => CA)
+City.create(:name => "Miami", :latitude => 25.789, :longitude => -80.2264, :timezone => "America/New_York", :state => FL)
+City.create(:name => "Santa Barbara", :latitude => 34.4208, :longitude => -119.698, :timezone => "America/Los_Angeles", :state => CA)
+City.create(:name => "Palm Springs", :latitude => 33.8303, :longitude => -116.545, :timezone => "America/Los_Angeles", :state => CA)
+City.create(:name => "New York", :latitude => 40.7144, :longitude => -74.006, :timezone => "America/New_York", :state => NY)

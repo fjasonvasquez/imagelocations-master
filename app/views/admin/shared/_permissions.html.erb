@@ -1,0 +1,57 @@
+<% _permissions = f.object.initialized_permissions 
+	
+   _objects = {}
+   
+   _active_objects = []
+   
+   _permissions.each do |op|
+   	
+   	next unless can?(op.permission.action, op.permission.object)
+   	
+   	_objects[op.permission.object_to_sym] = [] unless _objects.has_key?(op.permission.object_to_sym)
+   
+   	_active_objects << op.permission.object_to_sym if op.enable
+   	
+   	_objects[op.permission.object_to_sym] << op
+   end
+   
+	
+%>
+<div class="accordion" id="permissions-accordion">
+<% _objects.each do |key, permissions| %>
+	<div class="accordion-group">
+		 <div class="accordion-heading">
+			 <a class="accordion-toggle" data-toggle="collapse" data-parent="#permissions-accordion" href="#permission-group-<%= key.to_s %>">
+				 <%= key.to_s.humanize %>
+			</a>
+	  	</div>
+	  	 <div id="permission-group-<%= key.to_s %>" class="accordion-body collapse<% if _active_objects.include? key %> in<% end %>">
+		  	 <div class="accordion-inner">
+		<%= f.fields_for :object_permissions, permissions do |permission| %>
+			
+			<% if can?(permission.object.action, permission.object.object) %>
+			
+				<div class="input-prepend input-append">
+					<%= permission.hidden_field :permission_id %>
+					<%= permission.input :enable, :as => :check_boxes, :label => false, :wrapper => :append do %>
+							
+							<%= content_tag :span, :class => "add-on" do
+								permission.check_box :enable, :disabled => cannot?(:manage, permission.object.permission)
+							end %>
+							<%= content_tag :span, :class => "add-on" do
+									permission.label :enable, format_permission_label(permission.object.permission), :class => 'inline' 
+								end %>
+							<%= content_tag :span, :class => "" do
+									permission.select :conditions, [], :class => 'inline' 
+								end %>
+						<% end %>
+					
+				</div>
+			
+			<% end %>
+		<% end %>
+		  	 </div>
+		</div>
+	</div>
+<% end %>
+</div>

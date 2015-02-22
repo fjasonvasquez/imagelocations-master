@@ -1,0 +1,14 @@
+<div class="activity">
+	
+	<% if a.owner %>
+		<%= link_to a.owner.username, admin_user_path(a.owner) %>
+	<% else %>
+		System
+	
+	<% end %>
+	<%= content_for :action%>
+	
+	<br><small><i class="icon-time"></i>&nbsp;<%= timeago_tag a.created_at, :nojs => true, :limit => 10.days.ago %></small>
+	
+</div>
+<% yield %>

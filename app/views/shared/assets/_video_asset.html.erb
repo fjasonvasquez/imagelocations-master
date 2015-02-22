@@ -1,0 +1,7 @@
+<% unless asset.nil? %>
+	<%= image_tag asset.source_url(key),options %>
+<% else %>
+	<%= holder_tag 100 %>
+<% end %>
+
+<%= video_tag asset.video_source, :controls => true, :poster => asset.source_url(:admin_thumb), :autobuffer => false %>

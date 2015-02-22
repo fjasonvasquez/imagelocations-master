@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+       <p>IMAGE LOCATIONS would like to share a location with you.</p>
+       <p><%= @email.body %></p>
+       <h2><a href="<%= location_path(@location, :only_path => false)%>">View Location</a></h2>
+  </body>
+</html>

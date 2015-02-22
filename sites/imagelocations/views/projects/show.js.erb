@@ -1,0 +1,3 @@
+$('#location-rows').scrollPage("appendContent",'<%= escape_javascript render(:partial => "shared/locations/row", :collection => @locations, :as => :location) %>');
+
+$('#location-rows').scrollPage("replacePagination",'<%= escape_javascript(paginate(@project_related_entities, :remote => true, :window => 10).to_s) %>');

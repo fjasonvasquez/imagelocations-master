@@ -1,0 +1,188 @@
+@import "partials/variables";
+
+
+@import "mixins";
+
+$base-item-thumb-height: 225px;
+
+#projects-exclusives {
+	
+	> h4 {
+		font-size: 1em;
+		letter-spacing: 2px;
+		padding: 10px 0px;
+		text-align: center;
+		text-transform: uppercase;
+		border-top: 1px solid $gray;
+		
+		border-bottom: 1px solid $gray;
+		margin-bottom: 15px;
+		color: $grayDark;
+	}
+
+	.carousel-indicators {
+		position: absolute;
+		bottom: 30px;
+		right: 15px;
+	}
+	
+	.item {
+		
+		a {
+			display: block;
+			position: relative;
+			
+			&:hover {
+				text-decoration: none;
+				
+				img {
+					@include opacity-hover(.7,.15s);
+				}
+			}
+			> span {
+				display: block;
+				padding-top: 5px;
+			}
+			
+		}
+		.item-thumb {
+			overflow: hidden;
+			height: $base-item-thumb-height;
+			
+			img {
+				display: block;
+				height: 100%;
+				min-width: 100%;
+			}
+		}
+		
+	}
+	.row-fluid {
+		
+		[class*="span"] {
+		
+			
+			margin-left: 0.23458%;
+			
+			&:first-child {
+				margin-left: 0px;
+			}
+		}
+		
+		.span4 {
+			width: 33.15028%;
+			float: left;
+		}
+	}	
+}
+
+@media (min-width: $minWidth1200) {
+	#projects-exclusives {
+		.item {
+			.item-thumb {
+				height: 280px;
+			}
+		
+		}
+	}
+
+}
+
+@media (min-width: 768px) and (max-width: 979px) {
+	#projects-exclusives {
+		.item {
+			.item-thumb {
+				height: 169px;
+				img {
+					
+					height: auto;
+					width: 100%;
+					min-width: none;
+					min-height: 100%;
+				}
+			}
+		
+		}
+	}
+}
+
+@media (max-width: 767px) {
+		#projects-exclusives {
+		.item {
+			.item-thumb {
+				height: 69px;
+			}
+		
+		}
+	}
+}
+
+.projects {
+	
+	.project-logo {
+		text-align: center;
+		img {
+			display: inline-block;
+		}
+		margin-bottom: 20px;
+	}
+
+	&.index, &.auth {
+		
+		#content {
+			padding: 0 20px 20px 20px;
+			
+			
+			form {
+				border: 1px solid $gray;
+				padding: 20px;
+				text-align: center;
+				
+				.control-label {
+					width: auto;
+					margin-right: 20px;
+					text-align: left;
+				}
+			}
+		}
+		
+	}
+	&.index {
+		#content {
+			
+			
+			h2 {
+				color: $red;
+				margin: 0px;
+				padding: 10px;
+				border: 3px solid $red;
+				font-size: 1.3em;
+				font-weight: bold;
+			}
+			
+			h3 {
+				color: $red;
+				margin: 0px;
+				font-size: 1.2em;
+				line-height: 1.2em;
+				font-weight: bold;
+			}
+			
+			hr {
+				//border-color: $grayDarker;
+			}
+			
+			a {
+				color: $grayDarker;
+				font-size: .9em;
+				line-height: .9em;
+				
+				&:hover {
+					color: $red;
+					text-decoration: none;
+				}
+			}
+		}
+	}
+}
+

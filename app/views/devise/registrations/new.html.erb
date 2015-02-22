@@ -1,0 +1,28 @@
+<div class="row">
+	<div class="span4 well offset4">
+		<h2>Sign up</h2>
+		
+		<%= simple_form_for(resource, 
+					:as => resource_name, 
+					:url => registration_path(resource_name),
+					:html => {:class => 'form' }) do |f| %>
+		  
+		  
+		  <%= f.input :username, :input_html => { :class => "input-block"} %>
+		  
+		  <%= f.input :email %>
+		  
+		  <%= f.input :password %>
+		  <%= f.input :password_confirmation %>
+		  
+		  <div class="control-group">
+			  <div class="controls">
+			  	<%= f.submit "Sign up", :class => "btn btn-primary" %>
+			  </div>
+		  </div>
+		<% end %>
+		
+		<%= render "devise/shared/links" %>
+	
+	</div>
+</div>

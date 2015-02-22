@@ -1,0 +1,6 @@
+<%= simple_form_for asset, :url => admin_asset_path, :remote => true do |f| %>
+
+	<%= render :partial => 'admin/assets/asset_tag_form_fields', :locals => {:f => f} %>
+  	<%= f.button :submit, :class => 'btn-primary' %>
+  	
+ <% end %>

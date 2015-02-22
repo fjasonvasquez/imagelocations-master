@@ -1,0 +1,21 @@
+<h1>Listing taxonomy_terms</h1>
+
+<table class="table table-striped table-bordered">
+  <tr>
+    <th>Term name</th>
+    <th>Taxonomy</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @taxonomy_terms.each do |taxonomy_term| %>
+  <tr>
+    <td><%= taxonomy_term.term_name %></td>
+    <td><%= taxonomy_term.taxonomy_id %></td>
+    <td><%= link_to 'Show', taxonomy_term %></td>
+    <td><%= link_to 'Edit', edit_taxonomy_term_path(taxonomy_term) %></td>
+    <td><%= link_to 'Destroy', taxonomy_term, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>

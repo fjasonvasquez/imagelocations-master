@@ -1,0 +1,28 @@
+@import "compass";
+
+@media (max-width: 768px) {
+  body {
+    padding: 0;
+  }
+
+  .notifications {
+    right: 20px;
+    left: 20px;
+    width: auto;
+  }
+}
+
+
+@media (max-width: 979px) {
+	body {
+	.navbar-fixed-top,
+	.navbar-fixed-bottom {
+    	position: fixed !important;
+    	.navbar-inner {
+			padding: 0px;
+		}
+
+	}
+	}
+	
+}

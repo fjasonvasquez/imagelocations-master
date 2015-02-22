@@ -1,0 +1,32 @@
+<% body_classes "locations-#{view.to_s}-view" %>
+
+<div id="location-rows-container">
+	<div id="location-rows" class="row-fluid">
+		<%= render(:partial => "shared/locations/#{view.to_s}_row",:collection => locations, :as => :location) %>
+	</div>
+	<% _page_scope = unless local_assigns[:pagination_scope].nil? then pagination_scope else locations end %>
+	<% if _page_scope.respond_to?(:current_page) %>
+		<div id="location-rows-loader" class="hide"><i class="icon-spinner icon-spin"></i>&nbsp;<span class="muted">Loading</span></div>
+	  		
+		<div id="paginator-container" class="affix">
+			<div class="container">
+				<div class="row-fluid">
+				<%= link_to categories_path, :class => "back-to-library" do %>
+					<i class="icon-reorder"></i>&nbsp;Back to Library
+				<% end %>
+					<div class="per-page">
+						<%= per_page_select "View %s Locations Per Page" %>
+					</div>
+					<div id="paginator" <% unless has_views.nil? %>class="has-views"<% end %>>
+						<%= paginate _page_scope, :remote => FALSE, :window => 10 %>
+					</div>
+					<% unless has_views.nil? %>
+					<div class="view-change">
+					<%= view_change_select(view) %> 
+					</div>
+					<% end %>
+				</div>
+			</div>
+		</div>
+	<% end %>
+</div>

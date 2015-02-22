@@ -1,0 +1,16 @@
+<%= render :partial => 'admin/shared/site_entity_navbar', :locals => {:site_entities => @site_entities, :site_entity => @site_entity} %>
+
+<div class="box">
+	<%= simple_form_for([:admin, @photographer]) do |f| %>
+	
+		<%= f.input :name, :input_html => {:class => "input-big input-block-level"} %>
+			<%= render :layout => 'admin/shared/site_entity_form', :locals => {:f => f} do %>
+		  		<%-# ADD FIELDS -%>
+		  	<% end %>
+		   		
+	<div class="form-actions">
+		<%= f.submit @photographer.new_record? ? "Add Photographer" : "Update Photographer", 
+			   				@photographer.new_record? ? { :class => 'btn btn-primary' } : { :class => 'btn btn-success' } %>
+	</div>
+	<% end %>
+</div>

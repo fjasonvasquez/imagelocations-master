@@ -1,0 +1,18 @@
+<%= render :partial => 'admin/shared/site_entity_navbar', :locals => {:site_entities => @site_entities, :site_entity => @site_entity} %>
+
+<div class="box">
+<%= simple_form_for([:admin, city]) do |f| %>
+	<%= f.input :name, :input_html => {:class => 'input-block-level input-big'} %>
+	
+	<%= f.association :state, :collection => State.order("country_alpha2 asc, name asc").all %>
+	
+	<%= render :layout => 'admin/shared/site_entity_form', :locals => {:f => f} do %>
+	  	<%-# ADD FIELDS -%>
+	  	
+	  <% end %>
+	<div class="form-actions">
+	<%= f.submit city.new_record? ? "Add City" : "Update City", 
+			   				city.new_record? ? { :class => 'btn btn-primary' } : { :class => 'btn btn-success' } %>
+	</div>
+<% end %>
+</div>

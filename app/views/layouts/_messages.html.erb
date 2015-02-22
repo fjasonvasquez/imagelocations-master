@@ -1,0 +1,7 @@
+<div id="flash-messages">
+	<% if(admin?)%>
+		<% flash.each do |name, msg| %>
+		  <%= render_message(name,msg) %>
+		<% end %>
+	<% end %>
+</div>

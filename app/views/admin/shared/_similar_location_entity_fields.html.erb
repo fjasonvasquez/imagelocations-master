@@ -1,0 +1,13 @@
+<tr class="similar-location-row similar-location-<%= f.object.similar_location_id %>">
+	<td class='reorder' data-location="<%= f.object.similar_location_id %>"><%= content_tag :i,"",:class => ['icon-reorder','handle']%></td>
+	
+		<%= f.hidden_field :id , :class => 'entity-id' %>
+		<%= f.hidden_field :similar_location_id, :class => 'similar-location-id location-id' %>
+		<%= f.hidden_field :priority, :class => 'similar-location-priority'%>
+		<%= f.hidden_field :_destroy, :class => 'similar-location-destroy', :value => "0"%>
+	
+	<td><span class="location-name"><%= f.object.name %></span></td>
+	<td><%= button_tag :type => "button", :class => "btn btn-danger btn-mini pull-right similar-location-remove" do %>
+			<%= content_tag :i, "",:class => "icon-remove" %>
+		<% end %></td>
+</tr>

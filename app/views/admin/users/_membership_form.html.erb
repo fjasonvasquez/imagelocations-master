@@ -1,0 +1,22 @@
+	<h3><%= "Role".pluralize(f.object.memberships.count) %></h3>
+	   	<%= f.fields_for :memberships, f.object.memberships.presence || f.object.memberships.build(:site => current_site) do |membership| %>
+	   		<%= membership.hidden_field :id %>
+	   		<%= membership.hidden_field :enable, :value => "1" %>
+	   		
+	   		<div class="control-group">
+	   			<div class="input-prepend input-append">
+		   			<span class="add-on">
+		   				<%= image_tag(favicon_url(membership.object.site), :style => 'height: 16px;width: 16px') %></span>
+		   				<%= membership.collection_select :role_id, 
+		   												  Role.all, :id, :label, 
+		   												  {:disabled => lambda{|role| cannot? :manage, role },
+		   												  :selected => lambda{|role| role == membership.object.role }},
+		   												  {:class => 'selectpicker'} %>
+		   		<% unless membership.object.new_record? %>
+	   	 		<span class="add-on"><%= membership.check_box :enable, { :checked => membership.object.persisted?, :disabled => cannot?(:destroy, membership.object) } %></span>
+	   	 		<% end %>
+	   	 		
+	   	 		</div>
+	   		</div>
+	   	<% end %>
+	   	

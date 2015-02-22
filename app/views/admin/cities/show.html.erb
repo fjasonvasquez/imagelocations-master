@@ -1,0 +1,19 @@
+<% title @city.full_name %>
+
+<div class="row-fluid">
+
+	<div class="span8">
+    	<h3 class="city-loc-count"><%= @locations.total_count %></h3>
+		<h1 class="city-title"><%= @city.full_name %></h1>
+	</div>
+
+	<div class="span4">
+		<div class="well well-small tab-content">
+			<%= image_tag "http://maps.google.com/maps/api/staticmap?size=340x180&sensor=false&zoom=11&markers=#{@city.latitude}%2C#{@city.longitude}", :class => 'img-rounded' %>
+		</div>
+	</div>
+</div>
+
+<div class="box">
+	<%= render :partial => "admin/locations/table", :locals => {:locations => @locations} %>
+</div>

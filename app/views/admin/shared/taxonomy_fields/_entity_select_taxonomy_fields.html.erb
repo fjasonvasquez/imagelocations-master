@@ -1,0 +1,12 @@
+<%= builder.fields_for :taxonomy_term_entities, taxonomy.initialized_entity_taxonomy_term(builder.object) do |tt| %>
+			<%= tt.hidden_field :id %>
+			<%= tt.input :taxonomy_term_id, as: :collection_select, 
+											:label => taxonomy.name, 
+											:collection => taxonomy.initialized_entity_taxonomy_terms(builder.object), 
+											:value_method => :taxonomy_term_id, 
+											:label_method => :name,
+											:input_html => {:class => 'select select2',:placeholder => "Select #{taxonomy.name}"} %>   
+<% end %>
+
+
+

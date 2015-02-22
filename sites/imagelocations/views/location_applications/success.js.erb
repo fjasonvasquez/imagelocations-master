@@ -1,0 +1,2 @@
+$('body').append('<%= escape_javascript render(:partial => "success_msg", :locals => {:location_application => @location_application}) %>');
+$('#location-application-success-modal').on('hidden', function () { window.location = "/"}).modal();

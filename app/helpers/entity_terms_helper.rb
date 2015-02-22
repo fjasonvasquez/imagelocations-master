@@ -1,0 +1,2 @@
+module EntityTermsHelper
+end

@@ -1,0 +1,26 @@
+
+<% 
+	
+	o = new_object_from_association(builder,:taxonomy_term_entities)
+	
+	o.build_taxonomy_term(:taxonomy_id => taxonomy.id)
+	keyword_tpl = builder.fields_for(:taxonomy_term_entities, o, :child_index => o.object_id) do |tpl_builder|
+			render(:partial => "admin/shared/taxonomy_fields/keyword_taxonomy/entity_keyword_taxonomy_field", 
+			   			  :locals => {:builder => tpl_builder})
+	end
+	
+	existing_taxonomy_terms = taxonomy.initialized_entity_taxonomy_terms(builder.object)
+%>
+<%= content_tag :div,
+	:class => "control-group keyword-taxonomy-field", :data => {:template => keyword_tpl.gsub("/n",""), :id => o.object_id, :taxonomy => taxonomy.id } do %> 
+
+<%= content_tag :label, taxonomy.name.pluralize, :for => taxonomy.object_id %>
+<%= builder.fields_for :taxonomy_term_entities,existing_taxonomy_terms do |tt| %>
+			   <%= render(:partial => "admin/shared/taxonomy_fields/keyword_taxonomy/entity_keyword_taxonomy_field", 
+			   			  :locals => {:builder => tt})
+			   %>
+
+		<% end %>
+	<%= text_field_tag taxonomy.object_id, [].tap{|o| existing_taxonomy_terms.each {|te| o << te.taxonomy_term.name }}.join(", "), 
+					:class =>  "input-block-level keyword-taxonomy-field-values" %>
+<% end %>

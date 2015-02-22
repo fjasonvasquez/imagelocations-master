@@ -1,0 +1,14 @@
+<h1 class="page-title">New <%= @asset.type %></h1>
+
+<div class="box">
+
+<%= render :partial => "#{@asset.type.underscore}_form", 
+			:locals => {
+				:path => admin_assets_path({ :type => @asset.type}), 
+				:preview_width => 200, 
+				:preview_height => 200
+			} %>
+	<%= link_to 'Back', admin_assets_path %>
+</div>
+
+

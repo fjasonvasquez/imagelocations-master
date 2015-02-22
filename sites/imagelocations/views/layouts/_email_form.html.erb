@@ -1,0 +1,48 @@
+
+
+<%- #content_for :modal do -%>
+	<div id="email-modal" class="modal hide fade" tabindex="-1" role="dialog">
+		  <div class="modal-header">
+		    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+		    <h3 class="modal-title"><%= title %></h3>
+		  </div>
+		  <div class="modal-body">
+			  <%= simple_form_for Email.new(:user => current_user), :as => :share_email, :url => path, :method => :post, :remote => true, :validate => true, 
+			  		:html => {
+			  			:id => "new_#{object_type}_email",
+			  			:class => 'form-horizontal',
+			  			:data => {
+			  				:method => "post"
+			  			}
+			  		} do |f| %>
+			  	<%= hidden_field_tag object_type, object.id %>
+			  	<div class="form-inputs">
+			  		<%= f.input :sender %>
+			  	</div>
+			  	<div class="form-inputs">
+			  	<%= f.input :recipient %>
+			  	</div>
+			  	<div class="form-inputs">
+			  	<%= f.input :cc %>
+			  	</div>
+			  	<div class="form-inputs">
+			  	<%= f.input :bcc %>
+			  	</div>
+			  	<div class="form-inputs">
+			  	<%= f.input :subject %>
+			  	</div>
+			  	<div class="form-inputs">
+			  	<%= f.input :body, :as => :text, :input_html => {:rows => 5} %>
+			  	</div>
+
+			  <% end %>
+			  
+			  <div id="<%= "new_#{object_type}_email_confirmation"%>" class="hide">
+			  
+			  </div>
+		  </div>
+		  <div class="modal-footer">
+		    <button type="submit" class="btn btn-primary" aria-hidden="true" data-submit-form="#<%= "new_#{object_type}_email" %>" data-loading-text="Sending...">Send</button>
+		  </div>
+	</div>
+<%- #end -%>

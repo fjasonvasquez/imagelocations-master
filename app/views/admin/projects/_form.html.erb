@@ -1,0 +1,42 @@
+<%= render :partial => 'admin/shared/site_entity_navbar', :locals => {:site_entities => @site_entities, :site_entity => @site_entity} %>
+
+
+<div class="box">
+<%= simple_form_for([:admin, @project], :html => {
+												:multipart => true,
+												:class => "site_content_form", 
+												"data-site" => @current_site.id,
+												"data-entity-id" => @project.id,
+												"data-element-prefix" => site_entity_prefix(@project)}
+												) do |f| %>
+
+
+<%= f.input :name, :input_html => {:class => "input-big input-block-level"} %>
+<%= f.association :company, :input_html => {:class => 'selectpicker'} %>
+
+
+<%= render :layout => 'admin/shared/site_entity_form', :locals => {:f => f} do %>
+  
+	
+	<%= render :partial => 'admin/shared/site_entity_slug_field', :locals => {:builder => site_entity_builder} %> 
+	
+	<%= render :partial => 'admin/shared/site_entity_single_asset_field', :locals => {:builder => site_entity_builder, :asset_entity_key => :cover}%>
+   
+  
+	<%-# SIMILAR LOCATIONS -%>
+	<%= render :partial => 'admin/shared/related_entity_field', 
+					   :locals => {
+					   		:builder => site_entity_builder,
+					   		:association => :related_site_entities,
+					   		:limit => 0,
+					   		:title => "Project Locations", :type => "Location", :id => 0}%>
+
+<% end %>
+  
+<div class="form-actions">
+<%= f.submit @project.new_record? ? "Add Project" : "Update Project", 
+		   				@project.new_record? ? { :class => 'btn btn-primary' } : { :class => 'btn btn-success' } %>
+</div>
+<% end %>
+
+</div>

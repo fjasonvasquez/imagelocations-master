@@ -1,0 +1,18 @@
+<% title "View Project" %>
+
+<% content_for :top_nav do %>
+	<% if can? :update, @project %>
+		<li><%= link_to content_tag(:i,"",:class => "icon-file") + "Edit Project", edit_admin_project_path(@project), :class => "" %></li>
+	<% end %>
+<% end %>
+
+<h1 class="page-title"><i class="icon-tasks"></i>&nbsp;<%= @project.name %></h1>
+
+<div class="box">
+	<% unless @project.company.nil? %>
+		<h4>Company</h4>
+		<%= @project.company.name %>
+	<% end %>
+	<h4>Locations</h4>
+	<%= render :partial => "admin/locations/table", :locals => {:locations => @locations} %>
+</div>

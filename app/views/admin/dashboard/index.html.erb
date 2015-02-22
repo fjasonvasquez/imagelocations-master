@@ -1,0 +1,54 @@
+<% title "Dashboard" %>
+
+<% content_for :top_nav do %>
+	<% if can?(:read, Dashboard) && !current_user.has_authentication_provider?(:google_oauth2) %>
+		<li><%= link_to "Connect with Google", user_omniauth_authorize_path(:google_oauth2), :class => "bt" %></li>
+	<% end %>
+<% end %>
+
+<!-- <h1>Dashboard</h1> -->
+<div class="row-fluid">
+
+	<div class="span6">
+		<div class="row-fluid site-stats-wrap">
+			<div class="span4 stats-box">
+				<div class="stats-toplabel">This Site</div>
+				<h3 id="visits-count"><i class="icon-spinner icon-spin"></i></h3>
+				<div class="stats-bottlabel">Visits (7 days)</div>
+			</div>
+			<div class="span4 stats-box">
+				<div class="stats-toplabel">This Site</div>
+				<h3><%= current_site.locations.count %></h3>
+				<div class="stats-bottlabel">Locations</div>
+			</div>
+			<div class="span4 stats-box">
+				<div class="stats-toplabel">All Sites</div>
+				<h3><%= @loc_count %></h3>
+				<div class="stats-bottlabel">Locations</div>
+			</div>
+		</div>
+	</div>
+	<div class="span6">
+
+	</div>
+
+</div>
+<div class="row-fluid">
+
+	<div class="span6">
+		<div id="chart-wrap" class="widget">
+			<h4>Daily Visits</h4>
+			<div id="visitsChart">
+				<i class="icon-spinner icon-spin muted"></i>
+			</div>
+		</div>
+	</div>
+
+	<div class="span6">
+		<div id="top-chart-wrap" class="widget">
+			<h4>Top Locations</h4>
+			<i class="icon-spinner icon-spin muted"></i>
+		</div>
+	</div>
+
+</div>

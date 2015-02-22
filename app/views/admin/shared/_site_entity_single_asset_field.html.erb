@@ -1,0 +1,29 @@
+<%= builder.fields_for :asset_entities, builder.object.asset_entities.find_by_key(asset_entity_key) || builder.object.asset_entities.build([{:key => asset_entity_key}]) do |f| %>
+	<%= f.hidden_field :key %>
+	<%= f.fields_for :asset_attributes, f.object.asset || f.object.build_image(:type => "Image") do |af| %>
+		<%= af.hidden_field :id %>
+		<%= af.hidden_field :type, :value => "Image" %>
+   			<div class="fileupload fileupload-new" data-provides="fileupload">
+			   	<div class="fileupload-new thumbnail" style="width: 200px; height: 200px;">
+				   	<% if af.object.source_url.nil? %>
+				   			<%= holder_tag "200x200", 'Image Preview' %>
+				   		<% else %> 
+				   			<%= image_tag af.object.source_url(:thumb) %>
+				   		<% end %>
+			   	</div>
+				<div class="fileupload-preview fileupload-exists thumbnail" style="width: 300px; height: 300px;"></div>
+				<span class="btn btn-file">
+					<span class="fileupload-new">Select image</span>
+					<span class="fileupload-exists">Change</span>
+					<%= af.file_field :source %>
+				</span>
+				<a href="#" class="btn fileupload-exists" data-dismiss="fileupload">Remove</a>
+   			</div>
+   			<% if af.object.source.url.present? %>
+	   				<%= f.label :_destroy, :class => "inline" do %>
+		   				<%= f.check_box :_destroy %>
+		   				Remove
+		   			<% end %>
+      		<% end %>
+	<% end %>
+<% end %>

@@ -1,0 +1,43 @@
+<%= simple_form_for([:admin, publication]) do |f| %>
+	<%= f.input :name, :input_html => {:class => 'input-block-level input-big'} %>
+	
+	
+	<%= f.input :publication_category, :wrapper_html => {:class => ""} do %>
+  		<%= f.select :publication_category_id, PublicationCategory.all.map {|p| [ p.name, p.id, {} ] }, {:include_blank => "None", :default => nil},{:class => 'publication-category-select', :multiple => false, :data => {:placeholder => "Select Categories"}} %>
+  	<% end %>
+	
+		
+	<%= f.input :cover, as: :file do %>
+		   			<div class="fileupload fileupload-new" data-provides="fileupload">
+					   	<div class="fileupload-new thumbnail" style="width: 300px; height: 400px;">
+					   		<% if f.object.cover.url.present? %>
+					   			<%= image_tag f.object.cover_url %>
+					   		
+					   		
+					   		<% else %>
+					   		
+					   			<%= holder_tag "300x400", 'Cover Preview' %>
+					   		<% end %>
+					   	</div>
+					   	<div class="fileupload-preview fileupload-exists thumbnail" style="width: 300px; height: 400px;"></div>
+					   	<span class="btn btn-file"><span class="fileupload-new">Select image</span><span class="fileupload-exists">Change</span><%= f.file_field :cover %></span>
+					   	<a href="#" class="btn fileupload-exists" data-dismiss="fileupload">Remove</a>
+					   
+		   			</div>
+		   			<% if f.object.cover.url.present? %>
+		   				<%= f.label :remove_cover do %>
+			   				<%= f.check_box :remove_cover %>
+			   				Delete
+			   			<% end %>
+	      			<% end %>
+		   		<% end %>
+	
+	
+	
+  	
+	
+	<div class="form-actions">
+	<%= f.submit publication.new_record? ? "Add Publication" : "Update Publication", 
+			   				publication.new_record? ? { :class => 'btn btn-primary' } : { :class => 'btn btn-success' } %>
+	</div>
+<% end %>

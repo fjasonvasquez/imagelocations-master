@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+       
+       <p>A new user has subscribed to <%= @subscription.site.name %></p>
+	   
+	   <p>Order details:</p>
+
+	   Plan: <%= @subscription.plan.name %><br>
+	   Expiration: <%= format_subscription_date @subscription.expiration_date %><br>
+	   User: <%= @subscription.user.full_name %><br>
+	   Email: <%= @subscription.user.email %><br>
+	   
+	   <% @subscription.orders.each do |o| %>
+	   	Date: <%= format_order_date o.order_date %><br>
+	   	Total: <%= number_to_currency o.net_total %><br><br>
+		
+		Payments:</br>
+		<% o.credit_card_payments.each do |payment| %>
+			Amount: <%= number_to_currency payment.amount %><br>
+			Name on Card: <%= payment.credit_card.name %><br>
+			Card ending in:<%= payment.credit_card.display_number %><br>
+			Confirmation#: <%= payment.meta[:pnref] unless payment.meta[:pnref].nil? %><br>
+		<% end %>
+			
+			
+		<% end %>
+  </body>
+</html>
