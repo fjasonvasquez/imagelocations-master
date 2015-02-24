@@ -53,6 +53,9 @@ Imagelocations::Application.configure do
   #Uncomment the following line to turn asset logging back on
   #config.quiet_assets = false
   config.reload_plugins = true
+
+  # uncomment this line if you want to see images in development
+  #config.action_controller.asset_host = "//cdn.imagelocations.com"
   
   config.action_mailer.default_url_options = { :host => '192.168.1.5:3000' }
   
